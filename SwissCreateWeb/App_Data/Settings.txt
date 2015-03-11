@@ -1,0 +1,2 @@
+DataProvider: sqlserver
+DataConnectionString: Data Source=sedev;Initial Catalog=SwissCreateDB;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=l0wrid3r!

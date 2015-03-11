@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissCreateWeb", "SwissCreateWeb\SwissCreateWeb.csproj", "{025BB7AE-A231-48A7-B833-FE0167257A97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissCreateWeb.Tests", "SwissCreateWeb.Tests\SwissCreateWeb.Tests.csproj", "{9ECCE8AC-E542-4489-863B-81DB73042DDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{BBE86BB0-8C59-4273-A50B-4E6B8B4BE335}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissCreate.Core", "SwissCreate.Core\SwissCreate.Core.csproj", "{250F3D3F-E4A3-463B-A372-AEC01B3AE76B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissCreate.Data", "SwissCreate.Data\SwissCreate.Data.csproj", "{FA14DB0B-A898-4960-B6B3-EC22B609D47A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissCreate.Services", "SwissCreate.Services\SwissCreate.Services.csproj", "{FF5A39E8-B897-42A0-912E-2B72D957A8C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissCreateWeb.Framework", "SwissCreateWeb.Framework\SwissCreateWeb.Framework.csproj", "{64C0241C-05DB-4E8F-A378-B255660939B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{025BB7AE-A231-48A7-B833-FE0167257A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{025BB7AE-A231-48A7-B833-FE0167257A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{025BB7AE-A231-48A7-B833-FE0167257A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{025BB7AE-A231-48A7-B833-FE0167257A97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ECCE8AC-E542-4489-863B-81DB73042DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ECCE8AC-E542-4489-863B-81DB73042DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ECCE8AC-E542-4489-863B-81DB73042DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ECCE8AC-E542-4489-863B-81DB73042DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{250F3D3F-E4A3-463B-A372-AEC01B3AE76B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{250F3D3F-E4A3-463B-A372-AEC01B3AE76B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{250F3D3F-E4A3-463B-A372-AEC01B3AE76B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{250F3D3F-E4A3-463B-A372-AEC01B3AE76B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA14DB0B-A898-4960-B6B3-EC22B609D47A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA14DB0B-A898-4960-B6B3-EC22B609D47A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA14DB0B-A898-4960-B6B3-EC22B609D47A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA14DB0B-A898-4960-B6B3-EC22B609D47A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF5A39E8-B897-42A0-912E-2B72D957A8C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5A39E8-B897-42A0-912E-2B72D957A8C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5A39E8-B897-42A0-912E-2B72D957A8C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF5A39E8-B897-42A0-912E-2B72D957A8C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64C0241C-05DB-4E8F-A378-B255660939B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64C0241C-05DB-4E8F-A378-B255660939B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64C0241C-05DB-4E8F-A378-B255660939B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64C0241C-05DB-4E8F-A378-B255660939B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{250F3D3F-E4A3-463B-A372-AEC01B3AE76B} = {BBE86BB0-8C59-4273-A50B-4E6B8B4BE335}
+		{FA14DB0B-A898-4960-B6B3-EC22B609D47A} = {BBE86BB0-8C59-4273-A50B-4E6B8B4BE335}
+		{FF5A39E8-B897-42A0-912E-2B72D957A8C6} = {BBE86BB0-8C59-4273-A50B-4E6B8B4BE335}
+	EndGlobalSection
+EndGlobal
