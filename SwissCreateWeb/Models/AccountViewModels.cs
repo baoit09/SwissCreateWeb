@@ -1,5 +1,8 @@
 ﻿using SwissCreateWeb.Framework.Mvc;
 using System.ComponentModel.DataAnnotations;
+using FluentValidation.Attributes;
+using SwissCreateWeb.Validators.User;
+using SwissCreateWeb.Framework;
 
 namespace SwissCreateWeb.Models
 {
@@ -29,22 +32,23 @@ namespace SwissCreateWeb.Models
         public string ConfirmPassword { get; set; }
     }
 
+    [Validator(typeof(LoginViewModelValidator))]
     public class LoginViewModel : BaseSwissCreateModel
     {
         [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
-
-        [Required]
-        [Display(Name = "Email")]
+        [SwissCreateResourceDisplayName("Account.Login.Fields.Email")]
         public string Email { get; set; }
 
         [Required]
+        [SwissCreateResourceDisplayName("Account.Login.Fields.UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [SwissCreateResourceDisplayName("Account.Login.Fields.Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [SwissCreateResourceDisplayName("Account.Login.Fields.RememberMe")]
         public bool RememberMe { get; set; }
     }
 

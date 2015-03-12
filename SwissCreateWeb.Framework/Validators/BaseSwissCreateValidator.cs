@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Nop.Web.Framework.Validators
+namespace SwissCreate.Web.Framework.Validators
 {
-    public abstract class BaseNopValidator<T> : AbstractValidator<T> where T : class
+    public abstract class BaseSwissCreateValidator<T> : AbstractValidator<T> where T : class
     {
-        protected BaseNopValidator()
+        protected BaseSwissCreateValidator()
         {
             PostInitialize();
         }
@@ -15,7 +15,6 @@ namespace Nop.Web.Framework.Validators
         /// </summary>
         protected virtual void PostInitialize()
         {
-            
         }
     }
 }

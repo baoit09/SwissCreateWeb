@@ -1,23 +1,29 @@
 ﻿using Autofac;
+using Autofac.Builder;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
 using SwissCreate.Core;
 using SwissCreate.Core.Caching;
+using SwissCreate.Core.Configuration;
 using SwissCreate.Core.Data;
 using SwissCreate.Core.Fakes;
 using SwissCreate.Core.Infrastructure;
 using SwissCreate.Core.Infrastructure.DependencyManagement;
 using SwissCreate.Data;
 using SwissCreate.Services.Authentication;
+using SwissCreate.Services.Companies;
+using SwissCreate.Services.Configuration;
 using SwissCreate.Services.Directory;
 using SwissCreate.Services.Events;
 using SwissCreate.Services.Localization;
+using SwissCreate.Services.Logging;
 using SwissCreate.Services.Security;
 using SwissCreate.Services.Users;
 using SwissCreate.Web.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -66,6 +72,17 @@ namespace SwissCreateWeb.Framework
 
             // Register dependencies in custom views
             builder.RegisterSource(new ViewRegistrationSource());
+
+            // Logger
+            builder.RegisterType<DefaultLogger>().As<ILogger>().InstancePerLifetimeScope();
+
+            #region ISettings
+            // pass MemoryCacheManager as cacheManager (cache settings between requests)
+            builder.RegisterType<SettingService>().As<ISettingService>()
+                .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
+                .InstancePerLifetimeScope();
+            builder.RegisterSource(new SettingsSource());
+            #endregion
 
             //data layer
             var dataSettingsManager = new DataSettingsManager();
@@ -128,6 +145,12 @@ namespace SwissCreateWeb.Framework
                 .InstancePerLifetimeScope();
             builder.RegisterType<LanguageService>().As<ILanguageService>().InstancePerLifetimeScope();
 
+            builder.RegisterType<CompanyService>().As<ICompanyService>().InstancePerLifetimeScope();
+            //pass MemoryCacheManager as cacheManager (cache settings between requests)
+            builder.RegisterType<CompanyMappingService>().As<ICompanyMappingService>()
+                .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
+                .InstancePerLifetimeScope();
+
             // Register event consumer
             var consumers = typeFinder.FindClassesOfType(typeof(IConsumer<>)).ToList();
             foreach (var consumer in consumers)
@@ -148,5 +171,44 @@ namespace SwissCreateWeb.Framework
         {
             get { return 0; }
         }
+    }
+
+    public class SettingsSource : IRegistrationSource
+    {
+        static readonly MethodInfo BuildMethod = typeof(SettingsSource).GetMethod(
+            "BuildRegistration",
+            BindingFlags.Static | BindingFlags.NonPublic);
+
+        public IEnumerable<IComponentRegistration> RegistrationsFor(
+                Service service,
+                Func<Service, IEnumerable<IComponentRegistration>> registrations)
+        {
+            var ts = service as TypedService;
+            if (ts != null && typeof(ISettings).IsAssignableFrom(ts.ServiceType))
+            {
+                var buildMethod = BuildMethod.MakeGenericMethod(ts.ServiceType);
+                yield return (IComponentRegistration)buildMethod.Invoke(null, null);
+            }
+        }
+
+        static IComponentRegistration BuildRegistration<TSettings>() where TSettings : ISettings, new()
+        {
+            return RegistrationBuilder
+                .ForDelegate((c, p) =>
+                {
+                    //var currentStoreId = c.Resolve<ICompanyContext>().CurrentCompany.Id;
+                    //uncomment the code below if you want load settings per store only when you have two stores installed.
+                    //var currentStoreId = c.Resolve<IStoreService>().GetAllStores().Count > 1
+                    //    c.Resolve<IStoreContext>().CurrentStore.Id : 0;
+
+                    //although it's better to connect to your database and execute the following SQL:
+                    //DELETE FROM [Setting] WHERE [StoreId] > 0
+                    return c.Resolve<ISettingService>().LoadSetting<TSettings>();
+                })
+                .InstancePerLifetimeScope()
+                .CreateRegistration();
+        }
+
+        public bool IsAdapterForIndividualComponents { get { return false; } }
     }
 }
