@@ -35,21 +35,52 @@ namespace SwissCreateWeb.Models
     [Validator(typeof(LoginViewModelValidator))]
     public class LoginViewModel : BaseSwissCreateModel
     {
-        [Required]
         [SwissCreateResourceDisplayName("Account.Login.Fields.Email")]
         public string Email { get; set; }
 
-        [Required]
+        public bool UsernamesEnabled { get; set; }
         [SwissCreateResourceDisplayName("Account.Login.Fields.UserName")]
         public string UserName { get; set; }
 
-        [Required]
         [DataType(DataType.Password)]
         [SwissCreateResourceDisplayName("Account.Login.Fields.Password")]
         public string Password { get; set; }
 
         [SwissCreateResourceDisplayName("Account.Login.Fields.RememberMe")]
         public bool RememberMe { get; set; }
+
+        public bool DisplayCaptcha { get; set; }
+    }
+
+    [Validator(typeof(UserProfileViewModelValidator))]
+    public class UserProfileViewModel : BaseSwissCreateModel
+    {
+        [SwissCreateResourceDisplayName("Account.UserProfile.Fields.FirstName")]
+        public string FirstName { get; set; }
+
+        [SwissCreateResourceDisplayName("Account.UserProfile.Fields.MiddleName")]
+        public string MiddleName { get; set; }
+
+        [SwissCreateResourceDisplayName("Account.UserProfile.Fields.Surname")]
+        public string Surname { get; set; }
+
+        [SwissCreateResourceDisplayName("Account.UserProfile.Fields.Email")]
+        public string Email { get; set; }
+
+        [SwissCreateResourceDisplayName("Account.UserProfile.Fields.Mobile")]
+        public string Mobile { get; set; }
+
+        [SwissCreateResourceDisplayName("Account.UserProfile.Fields.Username")]
+        public string Username { get; set; }
+
+        [SwissCreateResourceDisplayName("Account.UserProfile.Fields.OldPassword")]
+        public string OldPassword { get; set; }
+
+        [SwissCreateResourceDisplayName("Account.UserProfile.Fields.NewPassword")]
+        public string NewPassword { get; set; }
+
+        [SwissCreateResourceDisplayName("Account.UserProfile.Fields.NewPassword2")]
+        public string NewPassword2 { get; set; }
     }
 
     public class RegisterViewModel

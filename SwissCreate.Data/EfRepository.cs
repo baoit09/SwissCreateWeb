@@ -229,6 +229,7 @@ namespace SwissCreate.Data
             {
                 if (_entities == null)
                     _entities = _context.Set<T>();
+
                 return _entities;
             }
         }

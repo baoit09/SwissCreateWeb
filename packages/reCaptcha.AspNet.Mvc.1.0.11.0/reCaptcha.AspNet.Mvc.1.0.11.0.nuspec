@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>reCaptcha.AspNet.Mvc</id>
+    <version>1.0.11.0</version>
+    <title>reCaptcha</title>
+    <authors>Kobi Kadosh</authors>
+    <owners>Kobi Kadosh</owners>
+    <projectUrl>https://www.google.com/recaptcha</projectUrl>
+    <iconUrl>https://www.gstatic.com/recaptcha/api2/logo_48.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Google reCaptcha ASP.NET MVC</description>
+    <releaseNotes>add support for .net40</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>captcha google recaptcha asp.net mvc</tags>
+    <dependencies>
+      <dependency id="JetBrains.Annotations" version="8.0.5.0" />
+      <dependency id="Newtonsoft.Json" version="6.0.7" />
+      <dependency id="RazorGenerator.MsBuild" version="2.2.6" />
+      <dependency id="RazorGenerator.Mvc" version="2.2.3" />
+    </dependencies>
+  </metadata>
+</package>

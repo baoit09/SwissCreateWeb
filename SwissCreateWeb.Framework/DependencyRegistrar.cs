@@ -15,6 +15,7 @@ using SwissCreate.Services.Companies;
 using SwissCreate.Services.Configuration;
 using SwissCreate.Services.Directory;
 using SwissCreate.Services.Events;
+using SwissCreate.Services.Helpers;
 using SwissCreate.Services.Localization;
 using SwissCreate.Services.Logging;
 using SwissCreate.Services.Security;
@@ -148,6 +149,13 @@ namespace SwissCreateWeb.Framework
             builder.RegisterType<CompanyService>().As<ICompanyService>().InstancePerLifetimeScope();
             //pass MemoryCacheManager as cacheManager (cache settings between requests)
             builder.RegisterType<CompanyMappingService>().As<ICompanyMappingService>()
+                .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<DateTimeHelper>().As<IDateTimeHelper>().InstancePerLifetimeScope();
+
+            //pass MemoryCacheManager as cacheManager (cache settings between requests)
+            builder.RegisterType<UserActivityService>().As<IUserActivityService>()
                 .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
                 .InstancePerLifetimeScope();
 

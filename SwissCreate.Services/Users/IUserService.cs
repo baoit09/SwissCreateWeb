@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SwissCreate.Core;
 using SwissCreate.Core.Domain.Users;
+using System.Threading.Tasks;
 
 namespace SwissCreate.Services.Users
 {

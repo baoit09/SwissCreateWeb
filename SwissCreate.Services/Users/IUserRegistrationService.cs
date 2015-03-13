@@ -1,4 +1,5 @@
 ﻿using SwissCreate.Core.Domain.Users;
+using System.Threading.Tasks;
 
 namespace SwissCreate.Services.Users
 {
@@ -13,7 +14,7 @@ namespace SwissCreate.Services.Users
         /// <param name="usernameOrEmail">Username or email</param>
         /// <param name="password">Password</param>
         /// <returns>Result</returns>
-        UserLoginResults ValidateUser(string usernameOrEmail, string password);
+        Task<UserLoginResults> ValidateUser(string usernameOrEmail, string password);
 
         /// <summary>
         /// Register User

@@ -3,6 +3,7 @@ using System.Linq;
 using SwissCreate.Core;
 using SwissCreate.Core.Domain.Users;
 using SwissCreate.Services.Security;
+using System.Threading.Tasks;
 
 namespace SwissCreate.Services.Users
 {
@@ -50,7 +51,7 @@ namespace SwissCreate.Services.Users
         /// <param name="usernameOrEmail">Username or email</param>
         /// <param name="password">Password</param>
         /// <returns>Result</returns>
-        public virtual UserLoginResults ValidateUser(string usernameOrEmail, string password)
+        public virtual async Task<UserLoginResults> ValidateUser(string usernameOrEmail, string password)
         {
             User User;
             if (_userSettings.UsernamesEnabled)

@@ -12,7 +12,7 @@ using System.Web.WebPages;
 
 #endregion
 
-namespace SwissCreate.Web.Framework.ViewEngines.Razor
+namespace SwissCreateWeb.Framework.ViewEngines.Razor
 {
     public abstract class WebViewPage<TModel> : System.Web.Mvc.WebViewPage<TModel>
     {

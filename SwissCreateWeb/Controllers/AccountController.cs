@@ -11,6 +11,14 @@ using Microsoft.Owin.Security;
 using SwissCreateWeb.Models;
 using SwissCreate.Services.Users;
 using SwissCreate.Core.Domain.Users;
+using SwissCreate.Web.Framework.UI.Captcha;
+using SwissCreate.Services.Authentication;
+using SwissCreate.Services.Localization;
+using SwissCreate.Core;
+using SwissCreate.Services.Logging;
+using SwissCreate.Core.Domain.Localization;
+using SwissCreate.Services.Helpers;
+using SwissCreate.Services.Companies;
 
 namespace SwissCreateWeb.Controllers
 {
@@ -20,22 +28,72 @@ namespace SwissCreateWeb.Controllers
         #region Fields
 
         private readonly IUserRegistrationService _userRegistrationService;
-        private readonly UserSettings _userSettings;
+        private readonly IAuthenticationService _authenticationService;
+        private readonly ILocalizationService _localizationService;
+        private readonly IWorkContext _workContext;
+        private readonly ICompanyContext _companyContext;
+        private readonly ICompanyMappingService _companyMappingService;
+        private readonly IUserService _userService;
+        private readonly IUserActivityService _userActivityService;
+        private readonly IWebHelper _webHelper;
+        private readonly IDateTimeHelper _dateTimeHelper;
 
+        private readonly DateTimeSettings _dateTimeSettings;
+        private readonly UserSettings _userSettings;
+        private readonly CaptchaSettings _captchaSettings;
+        private readonly LocalizationSettings _localizationSettings;
         #endregion
 
         #region Ctor
 
-        public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
-        {
-        }
+        //public AccountController()
+        //    : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+        //{
+        //}
 
-        public AccountController(UserManager<ApplicationUser> userManager)
-        {
-            UserManager = userManager;
-        }
+        //public AccountController(UserManager<ApplicationUser> userManager)
+        //{
+        //    UserManager = userManager;
+        //}
 
+        public AccountController(
+            IWorkContext workContext,
+            ICompanyContext companyContext,
+            IWebHelper webHelper,
+
+            IUserRegistrationService userRegistrationService,
+            IAuthenticationService authenticationService,
+            ILocalizationService localizationService,
+            IDateTimeHelper dateTimeHelper,
+            
+            
+            ICompanyMappingService companyMappingService,
+            IUserService userService,
+            IUserActivityService userActivityService,
+
+            UserSettings userSettings,
+            LocalizationSettings localizationSettings,
+            CaptchaSettings captchaSettings,
+            DateTimeSettings dateTimeSettings)
+        {
+            this._workContext = workContext;
+            this._companyContext = companyContext;
+            this._webHelper = webHelper;
+
+            this._userRegistrationService = userRegistrationService;
+            this._authenticationService = authenticationService;
+            this._localizationService = localizationService;
+            this._dateTimeHelper = dateTimeHelper;
+            
+            this._companyMappingService = companyMappingService;
+            this._userService = userService;
+            this._userActivityService = userActivityService;
+
+            this._userSettings = userSettings;
+            this._dateTimeSettings = dateTimeSettings;
+            this._localizationSettings = localizationSettings;
+            this._captchaSettings = captchaSettings;            
+        }
         #endregion
 
         #region Login / Logout
@@ -46,7 +104,12 @@ namespace SwissCreateWeb.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+
+            var model = new LoginViewModel();
+            model.UsernamesEnabled = _userSettings.UsernamesEnabled;
+            model.DisplayCaptcha = _captchaSettings.Enabled && _captchaSettings.ShowOnLoginPage;
+
+            return View(model);
         }
 
         //
@@ -54,23 +117,57 @@ namespace SwissCreateWeb.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        [CaptchaValidator]
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl, bool captchaValid)
         {
+            //validate CAPTCHA
+            if (_captchaSettings.Enabled && _captchaSettings.ShowOnLoginPage && !captchaValid)
+            {
+                ModelState.AddModelError("", _localizationService.GetResource("Common.WrongCaptcha"));
+            }
+
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                if (_userSettings.UsernamesEnabled && model.UserName != null)
                 {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+                    model.UserName = model.UserName.Trim();
                 }
-                else
+
+                var loginResult = await _userRegistrationService.ValidateUser(_userSettings.UsernamesEnabled ? model.UserName : model.Email, model.Password);
+                switch (loginResult)
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    case UserLoginResults.Successful:
+                        {
+                            var User = _userSettings.UsernamesEnabled ? _userService.GetUserByUsername(model.UserName) : _userService.GetUserByEmail(model.Email);
+
+                            //sign in new User
+                            _authenticationService.SignIn(User, model.RememberMe);
+
+                            //activity log
+                            _userActivityService.InsertActivity("PublicSite.Login", _localizationService.GetResource("ActivityLog.PublicSite.Login"), User);
+
+                            return RedirectToLocal(returnUrl); // Login successfully
+                        }
+                    case UserLoginResults.UserNotExist:
+                        ModelState.AddModelError("", _localizationService.GetResource("Account.Login.WrongCredentials.UserNotExist"));
+                        break;
+                    case UserLoginResults.Deleted:
+                        ModelState.AddModelError("", _localizationService.GetResource("Account.Login.WrongCredentials.Deleted"));
+                        break;
+                    case UserLoginResults.NotActive:
+                        ModelState.AddModelError("", _localizationService.GetResource("Account.Login.WrongCredentials.NotActive"));
+                        break;
+                    case UserLoginResults.WrongPassword:
+                    default:
+                        ModelState.AddModelError("", _localizationService.GetResource("Account.Login.WrongCredentials"));
+                        break;
                 }
             }
 
             // If we got this far, something failed, redisplay form
+            //If we got this far, something failed, redisplay form
+            model.UsernamesEnabled = _userSettings.UsernamesEnabled;
+            model.DisplayCaptcha = _captchaSettings.Enabled && _captchaSettings.ShowOnLoginPage;
             return View(model);
         }
 
@@ -80,8 +177,23 @@ namespace SwissCreateWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
+            //activity log
+            _userActivityService.InsertActivity("PublicSite.Logout", _localizationService.GetResource("ActivityLog.PublicSite.Logout"));
+
+            _authenticationService.SignOut();
+
+            //AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        #endregion
+
+        #region User Profile
+
+        [Authorize]
+        public ActionResult UserProfile()
+        {
+            return View();
         }
 
         #endregion
