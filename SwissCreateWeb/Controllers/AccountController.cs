@@ -19,6 +19,8 @@ using SwissCreate.Services.Logging;
 using SwissCreate.Core.Domain.Localization;
 using SwissCreate.Services.Helpers;
 using SwissCreate.Services.Companies;
+using SwissCreateWeb.Extensions;
+using SwissCreateWeb.Models.User;
 
 namespace SwissCreateWeb.Controllers
 {
@@ -65,8 +67,8 @@ namespace SwissCreateWeb.Controllers
             IAuthenticationService authenticationService,
             ILocalizationService localizationService,
             IDateTimeHelper dateTimeHelper,
-            
-            
+
+
             ICompanyMappingService companyMappingService,
             IUserService userService,
             IUserActivityService userActivityService,
@@ -84,7 +86,7 @@ namespace SwissCreateWeb.Controllers
             this._authenticationService = authenticationService;
             this._localizationService = localizationService;
             this._dateTimeHelper = dateTimeHelper;
-            
+
             this._companyMappingService = companyMappingService;
             this._userService = userService;
             this._userActivityService = userActivityService;
@@ -92,7 +94,7 @@ namespace SwissCreateWeb.Controllers
             this._userSettings = userSettings;
             this._dateTimeSettings = dateTimeSettings;
             this._localizationSettings = localizationSettings;
-            this._captchaSettings = captchaSettings;            
+            this._captchaSettings = captchaSettings;
         }
         #endregion
 
@@ -106,6 +108,8 @@ namespace SwissCreateWeb.Controllers
             ViewBag.ReturnUrl = returnUrl;
 
             var model = new LoginViewModel();
+            model.Email = "quocbao_it09@yahoo.com";
+            model.Password = "z";
             model.UsernamesEnabled = _userSettings.UsernamesEnabled;
             model.DisplayCaptcha = _captchaSettings.Enabled && _captchaSettings.ShowOnLoginPage;
 
@@ -193,7 +197,96 @@ namespace SwissCreateWeb.Controllers
         [Authorize]
         public ActionResult UserProfile()
         {
-            return View();
+            UserProfileModel viewModel = _workContext.CurrentUser.ToModel();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserProfile(UserProfileModel model)
+        {
+            var user = _workContext.CurrentUser;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //username 
+                    if (_userSettings.UsernamesEnabled && this._userSettings.AllowUsersToChangeUsernames)
+                    {
+                        if (!user.Username.Equals(model.Username.Trim(), StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            //change username
+                            _userRegistrationService.SetUsername(user, model.Username.Trim());
+                            //re-authenticate
+                            _authenticationService.SignIn(user, true);
+                        }
+                    }
+                    //email
+                    if (!user.Email.Equals(model.Email.Trim(), StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        //change email
+                        _userRegistrationService.SetEmail(user, model.Email.Trim());
+                        //re-authenticate (if usernames are disabled)
+                        if (!_userSettings.UsernamesEnabled)
+                        {
+                            _authenticationService.SignIn(user, true);
+                        }
+                    }
+
+                    model.MapTo(user);
+
+                    _userService.UpdateUser(user);
+
+                    model.Result = _localizationService.GetResource("Account.UserProfile.Success");
+
+                    return View(model);
+                }
+            }
+            catch (Exception exc)
+            {
+                ModelState.AddModelError("", exc.Message);
+            }
+
+            //If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        #endregion
+
+        #region Change Password
+
+        public ActionResult ChangePassword()
+        {
+            var model = new ChangePasswordModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            var customer = _workContext.CurrentUser;
+
+            if (ModelState.IsValid)
+            {
+                var changePasswordRequest = new ChangePasswordRequest(customer.Email,
+                    true, _userSettings.DefaultPasswordFormat, model.NewPassword, model.OldPassword);
+
+                var changePasswordResult = _userRegistrationService.ChangePassword(changePasswordRequest);
+                if (changePasswordResult.Success)
+                {
+                    model.Result = _localizationService.GetResource("Account.ChangePassword.Success");
+                    return View(model);
+                }
+
+                //errors
+                foreach (var error in changePasswordResult.Errors)
+                    ModelState.AddModelError("", error);
+            }
+
+
+            //If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         #endregion
@@ -507,7 +600,8 @@ namespace SwissCreateWeb.Controllers
 
         private class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
+            public ChallengeResult(string provider, string redirectUri)
+                : this(provider, redirectUri, null)
             {
             }
 

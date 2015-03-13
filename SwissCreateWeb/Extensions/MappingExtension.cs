@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
+﻿using AutoMapper;
 using SwissCreate.Core.Domain.Users;
-using SwissCreateWeb.Models;
+using SwissCreateWeb.Models.User;
 
 namespace SwissCreateWeb.Extensions
 {
@@ -22,14 +18,14 @@ namespace SwissCreateWeb.Extensions
 
         #region User
 
-        public static UserProfileViewModel ToViewModel(this User entity)
+        public static UserProfileModel ToModel(this User entity)
         {
-            return entity.MapTo<User, UserProfileViewModel>();
+            return entity.MapTo<User, UserProfileModel>();
         }
 
-        public static User ToEntity(this UserProfileViewModel entity)
+        public static User ToEntity(this UserProfileModel entity)
         {
-            return entity.MapTo<UserProfileViewModel, User>();
+            return entity.MapTo<UserProfileModel, User>();
         }
 
         #endregion

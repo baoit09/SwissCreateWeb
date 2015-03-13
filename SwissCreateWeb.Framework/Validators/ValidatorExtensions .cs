@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Nop.Web.Framework.Validators
+namespace SwissCreateWeb.Framework.Validators
 {
     public static class MyValidatorExtensions
     {

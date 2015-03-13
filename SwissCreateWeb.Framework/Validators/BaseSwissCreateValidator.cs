@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace SwissCreate.Web.Framework.Validators
+namespace SwissCreateWeb.Framework.Validators
 {
     public abstract class BaseSwissCreateValidator<T> : AbstractValidator<T> where T : class
     {

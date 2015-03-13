@@ -32,6 +32,8 @@ namespace SwissCreate.Data.Mapping.Users
             this.Property(u => u.LastLoginDateUtc);
             this.Property(u => u.LastActivityDateUtc);
 
+            this.Ignore(u => u.PasswordFormat);
+
             // Foreign Keys
             this.HasMany(u => u.UserRoles)
                 .WithMany()

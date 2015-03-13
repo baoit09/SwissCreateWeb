@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using SwissCreate.Core.Domain.Users;
 using SwissCreate.Services.Localization;
-using SwissCreate.Web.Framework.Validators;
+using SwissCreateWeb.Framework.Validators;
 using SwissCreateWeb.Models;
 
 namespace SwissCreateWeb.Validators.User

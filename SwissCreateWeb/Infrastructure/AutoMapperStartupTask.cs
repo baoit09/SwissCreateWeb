@@ -2,6 +2,7 @@
 using SwissCreate.Core.Domain.Users;
 using SwissCreate.Core.Infrastructure;
 using SwissCreateWeb.Models;
+using SwissCreateWeb.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,8 @@ namespace SwissCreateWeb.Infrastructure
         public void Execute()
         {
             #region User Mapping
-            Mapper.CreateMap<User, UserProfileViewModel>()
-            .ForMember(dest => dest.OldPassword, mo => mo.Ignore())
-            .ForMember(dest => dest.NewPassword, mo => mo.Ignore())
-            .ForMember(dest => dest.NewPassword2, mo => mo.Ignore());
-            Mapper.CreateMap<UserProfileViewModel, User>()
-            .ForMember(dest => dest.Password, mo => mo.MapFrom(src => src.NewPassword));
+            Mapper.CreateMap<User, UserProfileModel>();            
+            Mapper.CreateMap<UserProfileModel, User>();
             #endregion
         }
         public int Order

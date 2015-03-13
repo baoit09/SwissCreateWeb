@@ -35,6 +35,8 @@ namespace SwissCreate.Core.Domain.Users
         /// </summary>
         public string Mobile { get; set; }
 
+        public DateTime? DateOfBirth { get; set; }
+
         /// <summary>
         /// Gets or sets the username
         /// </summary>

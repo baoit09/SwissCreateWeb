@@ -4,6 +4,7 @@ using SwissCreate.Core;
 using SwissCreate.Core.Domain.Users;
 using SwissCreate.Services.Security;
 using System.Threading.Tasks;
+using SwissCreate.Services.Localization;
 
 namespace SwissCreate.Services.Users
 {
@@ -15,6 +16,7 @@ namespace SwissCreate.Services.Users
         #region Fields
 
         private readonly IUserService _userService;
+        private readonly ILocalizationService _localizationService;
         private readonly IEncryptionService _encryptionService;
         private readonly UserSettings _userSettings;
 
@@ -34,10 +36,12 @@ namespace SwissCreate.Services.Users
         /// <param name="userSettings">User settings</param>
         public UserRegistrationService(IUserService userService, 
             IEncryptionService encryptionService, 
+            ILocalizationService localizationService,
             UserSettings userSettings)
         {
             this._userService = userService;
             this._encryptionService = encryptionService;
+            this._localizationService = localizationService;
             this._userSettings = userSettings;
         }
 
@@ -218,82 +222,84 @@ namespace SwissCreate.Services.Users
                 throw new ArgumentNullException("request");
 
             var result = new PasswordChangeResult();
-            //if (String.IsNullOrWhiteSpace(request.Email))
-            //{
-            //    result.AddError(_localizationService.GetResource("Account.ChangePassword.Errors.EmailIsNotProvided"));
-            //    return result;
-            //}
-            //if (String.IsNullOrWhiteSpace(request.NewPassword))
-            //{
-            //    result.AddError(_localizationService.GetResource("Account.ChangePassword.Errors.PasswordIsNotProvided"));
-            //    return result;
-            //}
 
-            //var User = _UserService.GetUserByEmail(request.Email);
-            //if (User == null)
-            //{
-            //    result.AddError(_localizationService.GetResource("Account.ChangePassword.Errors.EmailNotFound"));
-            //    return result;
-            //}
+            if (String.IsNullOrWhiteSpace(request.Email))
+            {
+                result.AddError(_localizationService.GetResource("Account.ChangePassword.Errors.EmailIsNotProvided"));
+                return result;
+            }
+            if (String.IsNullOrWhiteSpace(request.NewPassword))
+            {
+                result.AddError(_localizationService.GetResource("Account.ChangePassword.Errors.PasswordIsNotProvided"));
+                return result;
+            }
 
-
-            //var requestIsValid = false;
-            //if (request.ValidateRequest)
-            //{
-            //    //password
-            //    string oldPwd = "";
-            //    switch (User.PasswordFormat)
-            //    {
-            //        case PasswordFormat.Encrypted:
-            //            oldPwd = _encryptionService.EncryptText(request.OldPassword);
-            //            break;
-            //        case PasswordFormat.Hashed:
-            //            oldPwd = _encryptionService.CreatePasswordHash(request.OldPassword, User.PasswordSalt, _userSettings.HashedPasswordFormat);
-            //            break;
-            //        default:
-            //            oldPwd = request.OldPassword;
-            //            break;
-            //    }
-
-            //    bool oldPasswordIsValid = oldPwd == User.Password;
-            //    if (!oldPasswordIsValid)
-            //        result.AddError(_localizationService.GetResource("Account.ChangePassword.Errors.OldPasswordDoesntMatch"));
-
-            //    if (oldPasswordIsValid)
-            //        requestIsValid = true;
-            //}
-            //else
-            //    requestIsValid = true;
+            var user = _userService.GetUserByEmail(request.Email);
+            if (user == null)
+            {
+                result.AddError(_localizationService.GetResource("Account.ChangePassword.Errors.EmailNotFound"));
+                return result;
+            }
 
 
-            ////at this point request is valid
-            //if (requestIsValid)
-            //{
-            //    switch (request.NewPasswordFormat)
-            //    {
-            //        case PasswordFormat.Clear:
-            //            {
-            //                User.Password = request.NewPassword;
-            //            }
-            //            break;
-            //        case PasswordFormat.Encrypted:
-            //            {
-            //                User.Password = _encryptionService.EncryptText(request.NewPassword);
-            //            }
-            //            break;
-            //        case PasswordFormat.Hashed:
-            //            {
-            //                string saltKey = _encryptionService.CreateSaltKey(5);
-            //                User.PasswordSalt = saltKey;
-            //                User.Password = _encryptionService.CreatePasswordHash(request.NewPassword, saltKey, _userSettings.HashedPasswordFormat);
-            //            }
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //    User.PasswordFormat = request.NewPasswordFormat;
-            //    _UserService.UpdateUser(User);
-            //}
+            var requestIsValid = false;
+            if (request.ValidateRequest)
+            {
+                //password
+                string oldPwd = "";
+                switch (user.PasswordFormat)
+                {
+                    case PasswordFormat.Encrypted:
+                        oldPwd = _encryptionService.EncryptText(request.OldPassword);
+                        break;
+                    case PasswordFormat.Hashed:
+                        oldPwd = _encryptionService.CreatePasswordHash(request.OldPassword, user.PasswordSalt, _userSettings.HashedPasswordFormat);
+                        break;
+                    default:
+                        oldPwd = request.OldPassword;
+                        break;
+                }
+
+                bool oldPasswordIsValid = oldPwd == user.Password;
+                if (!oldPasswordIsValid)
+                    result.AddError(_localizationService.GetResource("Account.ChangePassword.Errors.OldPasswordDoesntMatch"));
+
+                if (oldPasswordIsValid)
+                    requestIsValid = true;
+            }
+            else
+                requestIsValid = true;
+
+
+            //at this point request is valid
+            if (requestIsValid)
+            {
+                switch (request.NewPasswordFormat)
+                {
+                    case PasswordFormat.Clear:
+                        {
+                            user.Password = request.NewPassword;
+                        }
+                        break;
+                    case PasswordFormat.Encrypted:
+                        {
+                            user.Password = _encryptionService.EncryptText(request.NewPassword);
+                        }
+                        break;
+                    case PasswordFormat.Hashed:
+                        {
+                            string saltKey = _encryptionService.CreateSaltKey(5);
+                            user.PasswordSalt = saltKey;
+                            user.Password = _encryptionService.CreatePasswordHash(request.NewPassword, saltKey, _userSettings.HashedPasswordFormat);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                user.PasswordFormat = request.NewPasswordFormat;
+                _userService.UpdateUser(user);
+            }
 
             return result;
         }
@@ -349,20 +355,20 @@ namespace SwissCreate.Services.Users
             if (User == null)
                 throw new ArgumentNullException("User");
 
-            //if (!_userSettings.UsernamesEnabled)
-            //    throw new NopException("Usernames are disabled");
+            if (!_userSettings.UsernamesEnabled)
+                throw new SwissCreateException("Usernames are disabled");
 
-            //if (!_userSettings.AllowUsersToChangeUsernames)
-            //    throw new NopException("Changing usernames is not allowed");
+            if (!_userSettings.AllowUsersToChangeUsernames)
+                throw new SwissCreateException("Changing usernames is not allowed");
 
-            //newUsername = newUsername.Trim();
+            newUsername = newUsername.Trim();
 
-            //if (newUsername.Length > 100)
-            //    throw new NopException(_localizationService.GetResource("Account.EmailUsernameErrors.UsernameTooLong"));
+            if (newUsername.Length > 100)
+                throw new SwissCreateException(_localizationService.GetResource("Account.EmailUsernameErrors.UsernameTooLong"));
 
-            //var user2 = _UserService.GetUserByUsername(newUsername);
-            //if (user2 != null && User.Id != user2.Id)
-            //    throw new NopException(_localizationService.GetResource("Account.EmailUsernameErrors.UsernameAlreadyExists"));
+            var user2 = _userService.GetUserByUsername(newUsername);
+            if (user2 != null && User.Id != user2.Id)
+                throw new SwissCreateException(_localizationService.GetResource("Account.EmailUsernameErrors.UsernameAlreadyExists"));
 
             User.Username = newUsername;
             _userService.UpdateUser(User);
