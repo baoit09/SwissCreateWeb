@@ -69,6 +69,7 @@
     <Compile Include="Initializers\DropCreateCeDatabaseAlways.cs" />
     <Compile Include="Initializers\DropCreateCeDatabaseIfModelChanges.cs" />
     <Compile Include="Initializers\SqlCeInitializer.cs" />
+    <Compile Include="Mapping\Common\GenericAttributeMap.cs" />
     <Compile Include="Mapping\Companies\CompanyMap.cs" />
     <Compile Include="Mapping\Companies\CompanyMappingMap.cs" />
     <Compile Include="Mapping\Configuration\SettingMap.cs" />

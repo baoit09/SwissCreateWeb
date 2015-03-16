@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SwissCreate.Core.Infrastructure;
+using SwissCreateWeb.Framework.Mvc.Routes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +14,10 @@ namespace SwissCreateWeb
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            //register custom routes (plugins, etc)
+            var routePublisher = EngineContext.Current.Resolve<IRoutePublisher>();
+            routePublisher.RegisterRoutes(routes);
 
             routes.MapRoute(
                 name: "Default",

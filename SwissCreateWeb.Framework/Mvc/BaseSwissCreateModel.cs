@@ -33,4 +33,9 @@ namespace SwissCreateWeb.Framework.Mvc
         /// </summary>
         public Dictionary<string, object> CustomProperties { get; set; }
     }
+
+    public partial class BaseSwissCreateEntityModel : BaseSwissCreateModel
+    {
+        public virtual int Id { get; set; }
+    }
 }

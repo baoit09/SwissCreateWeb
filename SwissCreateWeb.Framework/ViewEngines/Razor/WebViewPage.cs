@@ -5,7 +5,7 @@ using System.IO;
 using System.Web.Mvc;
 using SwissCreate.Services.Localization;
 using SwissCreate.Core;
-using SwissCreate.Web.Framework.Localization;
+using SwissCreateWeb.Framework.Localization;
 using SwissCreate.Core.Infrastructure;
 using SwissCreate.Core.Data;
 using System.Web.WebPages;

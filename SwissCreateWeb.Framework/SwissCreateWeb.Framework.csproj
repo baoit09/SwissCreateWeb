@@ -89,10 +89,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyRegistrar.cs" />
+    <Compile Include="Localization\LocalizedRoute.cs" />
+    <Compile Include="Localization\LocalizedRouteExtensions.cs" />
     <Compile Include="Localization\LocalizedString.cs" />
+    <Compile Include="Localization\LocalizedUrlExtenstions.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Mvc\BaseSwissCreateModel.cs" />
     <Compile Include="Mvc\IModelAttribute.cs" />
+    <Compile Include="Mvc\Routes\GuidConstraint.cs" />
+    <Compile Include="Mvc\Routes\IRouteProvider.cs" />
+    <Compile Include="Mvc\Routes\IRoutePublisher.cs" />
+    <Compile Include="Mvc\Routes\RoutePublisher.cs" />
     <Compile Include="Mvc\SwissCreateModelBinder.cs" />
     <Compile Include="NopResourceDisplayName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

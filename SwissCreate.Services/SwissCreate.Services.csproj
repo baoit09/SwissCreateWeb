@@ -47,6 +47,9 @@
   <ItemGroup>
     <Compile Include="Authentication\FormsAuthenticationService.cs" />
     <Compile Include="Authentication\IAuthenticationService.cs" />
+    <Compile Include="Common\GenericAttributeExtensions.cs" />
+    <Compile Include="Common\GenericAttributeService.cs" />
+    <Compile Include="Common\IGenericAttributeService.cs" />
     <Compile Include="Companies\ICompanyMappingService.cs" />
     <Compile Include="Companies\ICompanyService.cs" />
     <Compile Include="Companies\CompanyMappingService.cs" />

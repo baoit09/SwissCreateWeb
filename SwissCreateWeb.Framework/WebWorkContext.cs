@@ -4,6 +4,7 @@ using SwissCreate.Core.Domain.Localization;
 using SwissCreate.Core.Domain.Users;
 using SwissCreate.Core.Fakes;
 using SwissCreate.Services.Authentication;
+using SwissCreate.Services.Common;
 using SwissCreate.Services.Directory;
 using SwissCreate.Services.Localization;
 using SwissCreate.Services.Users;
@@ -30,6 +31,7 @@ namespace SwissCreateWeb.Framework
         private readonly ILanguageService _languageService;
         private readonly ICurrencyService _currencyService;
         private readonly ICompanyContext _companyContext;
+        private readonly IGenericAttributeService _genericAttributeService;
 
         private User _cachedUser;
         private Language _cachedLanguage;
@@ -44,7 +46,8 @@ namespace SwissCreateWeb.Framework
             ILanguageService languageService,
             ICurrencyService currencyService,
             ICompanyContext companyContext,
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService,
+            IGenericAttributeService genericAttributeService)
         {
             this._httpContext = httpContext;
             this._userService = userService;
@@ -52,6 +55,7 @@ namespace SwissCreateWeb.Framework
             this._currencyService = currencyService;
             this._companyContext = companyContext;
             this._authenticationService = authenticationService;
+            this._genericAttributeService = genericAttributeService;
         }
 
         #endregion
@@ -99,9 +103,27 @@ namespace SwissCreateWeb.Framework
                 if (_cachedLanguage != null)
                     return _cachedLanguage;
 
+                Language language = null;
                 var allLanguages = _languageService.GetAllLanguages();
-                
-                var language = allLanguages.FirstOrDefault();
+
+                if (this.CurrentUser != null)
+                {
+                    //find current user's language
+                    var languageId = this.CurrentUser.GetAttribute<int>(SystemCustomerAttributeNames.LanguageId,
+                        _genericAttributeService);
+                    language = allLanguages.FirstOrDefault(x => x.Id == languageId);
+                    if (language == null)
+                    {
+                        //it not specified, then return the first (filtered by current store) found one
+                        language = allLanguages.FirstOrDefault();
+                    }
+                }
+
+                if (language == null)
+                {
+                    //it not specified, then return the first found one
+                    language = _languageService.GetAllLanguages().FirstOrDefault();
+                }
                 
                 //cache
                 _cachedLanguage = language;
@@ -109,6 +131,14 @@ namespace SwissCreateWeb.Framework
             }
             set
             {
+                if (this.CurrentUser != null)
+                {
+                    var languageId = value != null ? value.Id : 0;
+                    _genericAttributeService.SaveAttribute(this.CurrentUser,
+                        SystemCustomerAttributeNames.LanguageId,
+                        languageId);
+
+                }
                 //reset cache
                 _cachedLanguage = null;
             }

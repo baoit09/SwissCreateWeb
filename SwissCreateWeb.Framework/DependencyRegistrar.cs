@@ -11,6 +11,7 @@ using SwissCreate.Core.Infrastructure;
 using SwissCreate.Core.Infrastructure.DependencyManagement;
 using SwissCreate.Data;
 using SwissCreate.Services.Authentication;
+using SwissCreate.Services.Common;
 using SwissCreate.Services.Companies;
 using SwissCreate.Services.Configuration;
 using SwissCreate.Services.Directory;
@@ -21,6 +22,7 @@ using SwissCreate.Services.Logging;
 using SwissCreate.Services.Security;
 using SwissCreate.Services.Users;
 using SwissCreate.Web.Framework;
+using SwissCreateWeb.Framework.Mvc.Routes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -158,6 +160,10 @@ namespace SwissCreateWeb.Framework
             builder.RegisterType<UserActivityService>().As<IUserActivityService>()
                 .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
+
+            builder.RegisterType<GenericAttributeService>().As<IGenericAttributeService>().InstancePerLifetimeScope();
 
             // Register event consumer
             var consumers = typeFinder.FindClassesOfType(typeof(IConsumer<>)).ToList();

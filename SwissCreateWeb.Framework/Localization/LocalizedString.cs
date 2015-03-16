@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace SwissCreate.Web.Framework.Localization
+namespace SwissCreateWeb.Framework.Localization
 {
     public class LocalizedString : MarshalByRefObject, IHtmlString
     {

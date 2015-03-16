@@ -1,4 +1,4 @@
-﻿namespace SwissCreate.Web.Framework.Localization
+﻿namespace SwissCreateWeb.Framework.Localization
 {
     public delegate LocalizedString Localizer(string text, params object[] args);
 }
