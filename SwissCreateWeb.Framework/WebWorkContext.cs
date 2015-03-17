@@ -14,12 +14,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using SwissCreate.Core.Domain.Localization;
+using SwissCreateWeb.Framework.Localization;
 
 namespace SwissCreateWeb.Framework
 {
     public partial class WebWorkContext : IWorkContext
     {
         #region Const
+
+        private const string UserCookieName = "SwissCreate.User";
 
         #endregion
 
@@ -32,6 +36,8 @@ namespace SwissCreateWeb.Framework
         private readonly ICurrencyService _currencyService;
         private readonly ICompanyContext _companyContext;
         private readonly IGenericAttributeService _genericAttributeService;
+
+        private readonly LocalizationSettings _localizationSettings;
 
         private User _cachedUser;
         private Language _cachedLanguage;
@@ -47,7 +53,8 @@ namespace SwissCreateWeb.Framework
             ICurrencyService currencyService,
             ICompanyContext companyContext,
             IAuthenticationService authenticationService,
-            IGenericAttributeService genericAttributeService)
+            IGenericAttributeService genericAttributeService,
+            LocalizationSettings localizationSettings)
         {
             this._httpContext = httpContext;
             this._userService = userService;
@@ -56,9 +63,95 @@ namespace SwissCreateWeb.Framework
             this._companyContext = companyContext;
             this._authenticationService = authenticationService;
             this._genericAttributeService = genericAttributeService;
+
+            this._localizationSettings = localizationSettings;
         }
 
         #endregion
+
+        #region Utilities
+
+        protected virtual HttpCookie GetUserCookie()
+        {
+            if (_httpContext == null || _httpContext.Request == null)
+                return null;
+
+            return _httpContext.Request.Cookies[UserCookieName];
+        }
+
+        protected virtual void SetUserCookie(Guid customerGuid)
+        {
+            if (_httpContext != null && _httpContext.Response != null)
+            {
+                var cookie = new HttpCookie(UserCookieName);
+                cookie.HttpOnly = true;
+                cookie.Value = customerGuid.ToString();
+                if (customerGuid == Guid.Empty)
+                {
+                    cookie.Expires = DateTime.Now.AddMonths(-1);
+                }
+                else
+                {
+                    int cookieExpires = 24 * 365; //TODO make configurable
+                    cookie.Expires = DateTime.Now.AddHours(cookieExpires);
+                }
+
+                _httpContext.Response.Cookies.Remove(UserCookieName);
+                _httpContext.Response.Cookies.Add(cookie);
+            }
+        }
+
+
+        protected virtual Language GetLanguageFromUrl()
+        {
+            if (_httpContext == null || _httpContext.Request == null)
+                return null;
+
+            string virtualPath = _httpContext.Request.AppRelativeCurrentExecutionFilePath;
+            string applicationPath = _httpContext.Request.ApplicationPath;
+            if (!virtualPath.IsLocalizedUrl(applicationPath, false))
+                return null;
+
+            var seoCode = virtualPath.GetLanguageSeoCodeFromUrl(applicationPath, false);
+            if (String.IsNullOrEmpty(seoCode))
+                return null;
+
+            var language = _languageService
+                .GetAllLanguages()
+                .FirstOrDefault(l => seoCode.Equals(l.UniqueSeoCode, StringComparison.InvariantCultureIgnoreCase));
+            if (language != null && language.Published)
+            {
+                return language;
+            }
+
+            return null;
+        }
+
+        protected virtual Language GetLanguageFromBrowserSettings()
+        {
+            if (_httpContext == null ||
+                _httpContext.Request == null ||
+                _httpContext.Request.UserLanguages == null)
+                return null;
+
+            var userLanguage = _httpContext.Request.UserLanguages.FirstOrDefault();
+            if (String.IsNullOrEmpty(userLanguage))
+                return null;
+
+            var language = _languageService
+                .GetAllLanguages()
+                .FirstOrDefault(l => userLanguage.Equals(l.LanguageCulture, StringComparison.InvariantCultureIgnoreCase));
+            if (language != null && language.Published)
+            {
+                return language;
+            }
+
+            return null;
+        }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the current customer
@@ -103,9 +196,40 @@ namespace SwissCreateWeb.Framework
                 if (_cachedLanguage != null)
                     return _cachedLanguage;
 
+                Language detectedLanguage = null;
+                if (_localizationSettings.SeoFriendlyUrlsForLanguagesEnabled)
+                {
+                    //get language from URL
+                    detectedLanguage = GetLanguageFromUrl();
+                }
+                if (detectedLanguage == null && _localizationSettings.AutomaticallyDetectLanguage)
+                {
+                    //get language from browser settings
+                    //but we do it only once
+                    if (this.CurrentUser != null && !this.CurrentUser.GetAttribute<bool>(SystemCustomerAttributeNames.LanguageAutomaticallyDetected,
+                        _genericAttributeService))
+                    {
+                        detectedLanguage = GetLanguageFromBrowserSettings();
+                        if (detectedLanguage != null)
+                        {
+                            _genericAttributeService.SaveAttribute(this.CurrentUser, SystemCustomerAttributeNames.LanguageAutomaticallyDetected,
+                                 true);
+                        }
+                    }
+                }
+                if (detectedLanguage != null)
+                {
+                    //the language is detected. now we need to save it
+                    if (this.CurrentUser != null && this.CurrentUser.GetAttribute<int>(SystemCustomerAttributeNames.LanguageId,
+                        _genericAttributeService) != detectedLanguage.Id)
+                    {
+                        _genericAttributeService.SaveAttribute(this.CurrentUser, SystemCustomerAttributeNames.LanguageId,
+                            detectedLanguage.Id);
+                    }
+                }
+
                 Language language = null;
                 var allLanguages = _languageService.GetAllLanguages();
-
                 if (this.CurrentUser != null)
                 {
                     //find current user's language
@@ -167,5 +291,7 @@ namespace SwissCreateWeb.Framework
                 _cachedCurrency = null;
             }
         }
+
+        #endregion
     }
 }
