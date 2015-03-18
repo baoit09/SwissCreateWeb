@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwissCreate.Core.Domain.Projects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -112,6 +113,15 @@ namespace SwissCreate.Core.Domain.Users
         {
             get { return _userRoles ?? (_userRoles = new List<UserRole>()); }
             protected set { _userRoles = value; }
+        }
+
+        public virtual ICollection<Project> Projects { get; set; }
+
+        public virtual ICollection<ProjectCategory> ProjectCategories { get; set; }
+
+        public override string ToString()
+        {
+            return FirstName;
         }
     }
 }

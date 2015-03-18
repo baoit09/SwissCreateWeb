@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link href="~/Content/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery.ui")
+
     <script src="~/Scripts/public.common.js"></script>
 </head>
 <body>
@@ -23,7 +29,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("File Manager", "Index", "Home")</li>
+                    <li>@Html.ActionLink("File Manager", "FileManager", "Project")</li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Swiss Create<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">

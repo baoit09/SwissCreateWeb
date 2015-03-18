@@ -36,8 +36,8 @@ namespace SwissCreate.Data.Mapping.Users
 
             // Foreign Keys
             this.HasMany(u => u.UserRoles)
-                .WithMany()
-                .Map(m => m.ToTable("Customer_CustomerRole_Mapping"));
+                .WithMany(ur => ur.Users)
+                .Map(m => m.ToTable("User_UserRole_Mapping"));
         }
     }
 }

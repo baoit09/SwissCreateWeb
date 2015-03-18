@@ -98,7 +98,7 @@ namespace Nop.Data
             //pass some table names to ensure that we have nopCommerce 2.X installed
             //var tablesToValidate = new[] { "Customer", "Discount", "Order", "Product", "ShoppingCartItem" };
 
-            var tablesToValidate = new[] { "User"};
+            var tablesToValidate = new[] { "User" };
 
             //custom commands (stored proedures, indexes)
 

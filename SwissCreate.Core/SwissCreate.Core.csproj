@@ -119,6 +119,8 @@
     <Compile Include="Domain\Logging\ActivityLogType.cs" />
     <Compile Include="Domain\Logging\Log.cs" />
     <Compile Include="Domain\Logging\LogLevel.cs" />
+    <Compile Include="Domain\Projects\ProjectCategory.cs" />
+    <Compile Include="Domain\Projects\Project.cs" />
     <Compile Include="Domain\Security\AclRecord.cs">
       <SubType>Code</SubType>
     </Compile>

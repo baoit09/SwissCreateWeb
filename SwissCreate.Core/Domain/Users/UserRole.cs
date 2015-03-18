@@ -35,5 +35,7 @@ namespace SwissCreate.Core.Domain.Users
             get { return _permissionRecords ?? (_permissionRecords = new List<PermissionRecord>()); }
             protected set { _permissionRecords = value; }
         }
+
+        public virtual ICollection<User> Users { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace SwissCreateWeb.Controllers
             
             LocalizationSettings localizationSettings)
         {
-            _cacheManager = cacheManager;
+            this._cacheManager = cacheManager;
             this._languageService = languageService;
             this._localizationService = localizationService;
             this._workContext = workContext;

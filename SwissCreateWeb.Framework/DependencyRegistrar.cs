@@ -19,6 +19,7 @@ using SwissCreate.Services.Events;
 using SwissCreate.Services.Helpers;
 using SwissCreate.Services.Localization;
 using SwissCreate.Services.Logging;
+using SwissCreate.Services.Projects;
 using SwissCreate.Services.Security;
 using SwissCreate.Services.Users;
 using SwissCreate.Web.Framework;
@@ -87,7 +88,8 @@ namespace SwissCreateWeb.Framework
             builder.RegisterSource(new SettingsSource());
             #endregion
 
-            //data layer
+            #region data layer
+
             var dataSettingsManager = new DataSettingsManager();
             var dataProviderSettings = dataSettingsManager.LoadSettings();
             builder.Register(c => dataSettingsManager.LoadSettings()).As<DataSettings>();
@@ -110,6 +112,8 @@ namespace SwissCreateWeb.Framework
 
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
+            #endregion
+
             //cache manager
             builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().Named<ICacheManager>("nop_cache_static").SingleInstance();
             builder.RegisterType<PerRequestCacheManager>().As<ICacheManager>().Named<ICacheManager>("nop_cache_per_request").InstancePerLifetimeScope();
@@ -117,7 +121,9 @@ namespace SwissCreateWeb.Framework
             //work context
             builder.RegisterType<WebWorkContext>().As<IWorkContext>().InstancePerLifetimeScope();
 
-            //services
+
+            #region Business Services
+
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
             //company context
             builder.RegisterType<WebCompanyContext>().As<ICompanyContext>().InstancePerLifetimeScope();
@@ -154,16 +160,20 @@ namespace SwissCreateWeb.Framework
                 .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<DateTimeHelper>().As<IDateTimeHelper>().InstancePerLifetimeScope();
-
             //pass MemoryCacheManager as cacheManager (cache settings between requests)
             builder.RegisterType<UserActivityService>().As<IUserActivityService>()
                 .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
-
             builder.RegisterType<GenericAttributeService>().As<IGenericAttributeService>().InstancePerLifetimeScope();
+
+            builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
+
+            #endregion
+
+            builder.RegisterType<DateTimeHelper>().As<IDateTimeHelper>().InstancePerLifetimeScope();
+
+            builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
 
             // Register event consumer
             var consumers = typeFinder.FindClassesOfType(typeof(IConsumer<>)).ToList();
