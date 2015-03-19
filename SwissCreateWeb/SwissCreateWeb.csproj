@@ -229,6 +229,7 @@
     <Content Include="App_Data\Settings.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\BootStrapContextMenu\bootstrap.contextmenu.js" />
     <Content Include="Content\BootStrapTree\bootstrap.tree.js" />
     <Content Include="Content\Images\10_Gebote.png" />
     <Content Include="Content\Images\favicon.ico" />
@@ -243,6 +244,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\BootStrapTree\bootstrap.tree.css" />
+    <Content Include="Content\BootStrapContextMenu\bootstrap.contextmenu2.js" />
     <None Include="Properties\PublishProfiles\SwissCreate.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -289,6 +291,7 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Common\LanguageSelector.cshtml" />
+    <Content Include="Views\Project\FileManager1.cshtml" />
     <Content Include="Views\Project\FileManager.cshtml" />
   </ItemGroup>
   <ItemGroup>

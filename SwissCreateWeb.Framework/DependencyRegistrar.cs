@@ -166,8 +166,8 @@ namespace SwissCreateWeb.Framework
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<GenericAttributeService>().As<IGenericAttributeService>().InstancePerLifetimeScope();
-
             builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
+            builder.RegisterType<ProjectCategoryService>().As<IProjectCategoryService>().InstancePerLifetimeScope();
 
             #endregion
 

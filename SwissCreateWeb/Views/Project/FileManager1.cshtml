@@ -1,0 +1,68 @@
+﻿@model FileManagerModel
+@using SwissCreateWeb.Models.Project;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "FileManager";
+}
+
+@helper RenderACategory(ProjectCategoryModel cat)
+{
+    if (cat != null)
+    {
+        <li>
+            <span data-toggle="context" data-target="#context-menu-folder"><i class="glyphicon glyphicon-folder-open">&nbsp;</i>@cat.Name</span> @*<a href="">Goes somewhere</a>*@
+            <ul>
+                @if (cat.Projects != null && cat.Projects.Count() > 0)
+                {
+                    foreach (var project in cat.Projects)
+                    {
+                        <li>
+                            <span data-toggle="context" data-target="#context-menu-file" style="background-color:antiquewhite"><i class="glyphicon glyphicon-file">&nbsp;</i>@project.Name</span>
+                        </li>
+                    }
+                }
+
+                @if (cat.ChildProjectCategories != null && cat.ChildProjectCategories.Count() > 0)
+                {
+                    foreach (var childCat in cat.ChildProjectCategories)
+                    {
+                        @RenderACategory(childCat)
+                    }
+                }
+            </ul>
+        </li>
+    }
+}
+
+<h3>Files Management</h3>
+
+<ul id="contextMenu_folder" class="dropdown-menu" role="menu" style="display:none">
+    <li><a tabindex="-1">Add child folder</a></li>
+    <li><a tabindex="-1">Add child file</a></li>
+    <li class="divider"></li>
+    <li><a tabindex="-1">Delete this folder</a></li>
+    <li class="divider"></li>
+    <li><a tabindex="-1">Change this folder name</a></li>
+</ul>
+
+<ul id="contextMenu_file" class="dropdown-menu" role="menu" style="display:none">
+    <li><a tabindex="-1">Change file name</a></li>
+    <li class="divider"></li>
+    <li><a tabindex="-1">Delete this file</a></li>
+</ul>
+
+<div class="tree">
+    <ul>
+        @RenderACategory(Model.ProjectCategoryRoot)
+    </ul>
+</div>
+
+<!-- The javascript ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<link href="~/Content/BootStrapTree/bootstrap.tree.css" rel="stylesheet" />
+<script src="~/Content/BootStrapTree/bootstrap.tree.js"></script>
+<script src="~/Content/BootStrapContextMenu/bootstrap.contextmenu2.js"></script>
+<script>
+    $(function () {
+    })
+</script>

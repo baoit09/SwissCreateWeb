@@ -10,20 +10,20 @@
     if (cat != null)
     {
         <li>
-            <span><i class="glyphicon glyphicon-folder-open"></i>_@cat.Name</span> @*<a href="">Goes somewhere</a>*@
+            <span data-toggle="context" class="context" data-type="category" data-id="@cat.Id"><i class="glyphicon glyphicon-folder-open">&nbsp;</i>@cat.Name</span> @*<a href="">Goes somewhere</a>*@
             <ul>
                 @if (cat.Projects != null && cat.Projects.Count() > 0)
                 {
                     foreach (var project in cat.Projects)
                     {
                         <li>
-                            <span><i class="glyphicon glyphicon-minus-sign"></i> @project.Name</span>
+                            <span data-toggle="context" class="context" data-type="project" style="background-color:antiquewhite"><i class="glyphicon glyphicon-file">&nbsp;</i>@project.Name</span>
                         </li>
                     }
                 }
-                
+
                 @if (cat.ChildProjectCategories != null && cat.ChildProjectCategories.Count() > 0)
-                { 
+                {
                     foreach (var childCat in cat.ChildProjectCategories)
                     {
                         @RenderACategory(childCat)
@@ -34,10 +34,27 @@
     }
 }
 
-<link href="~/Content/BootStrapTree/bootstrap.tree.css" rel="stylesheet" />
-<script src="~/Content/BootStrapTree/bootstrap.tree.js"></script>
-
 <h3>Files Management</h3>
+
+<div id="context-menu">
+    <ul id="ul_folder" class="dropdown-menu" role="menu">
+        <li><a tabindex="-1">Add child folder</a></li>
+        <li><a tabindex="-1">Add child file</a></li>
+        <li class="divider"></li>
+        <li><a tabindex="-1">Delete this folder</a></li>
+        <li class="divider"></li>
+        <li><a tabindex="-1">Change this folder name</a></li>
+        <li class="divider"></li>
+        <li><a tabindex="-1">Close</a></li>
+    </ul>
+    <ul id="ul_file" class="dropdown-menu" role="menu">
+        <li><a tabindex="-1">Change file name</a></li>
+        <li class="divider"></li>
+        <li><a tabindex="-1">Delete this file</a></li>
+        <li class="divider"></li>
+        <li><a tabindex="-1">Close</a></li>
+    </ul>
+</div>
 
 <div class="tree">
     <ul>
@@ -45,62 +62,49 @@
     </ul>
 </div>
 
-@*<div class="tree well">
-        <ul>
-            <li>
-                <span><i class="glyphicon glyphicon-folder-open"></i> Parent</span> <a href="">Goes somewhere</a>
-                <ul>
-                    <li>
-                        <span><i class="glyphicon glyphicon-minus-sign"></i> Child</span> <a href="">Goes somewhere</a>
-                        <ul>
-                            <li>
-                                <span><i class="glyphicon glyphicon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <span><i class="glyphicon glyphicon-minus-sign"></i> Child</span> <a href="">Goes somewhere</a>
-                        <ul>
-                            <li>
-                                <span><i class="glyphicon glyphicon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
-                            </li>
-                            <li>
-                                <span><i class="glyphicon glyphicon-minus-sign"></i> Grand Child</span> <a href="">Goes somewhere</a>
-                                <ul>
-                                    <li>
-                                        <span><i class="glyphicon glyphicon-minus-sign"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
-                                        <ul>
-                                            <li>
-                                                <span><i class="glyphicon glyphicon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
-                                            </li>
-                                            <li>
-                                                <span><i class="glyphicon glyphicon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <span><i class="glyphicon glyphicon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
-                                    </li>
-                                    <li>
-                                        <span><i class="glyphicon glyphicon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <span><i class="glyphicon glyphicon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <span><i class="glyphicon glyphicon-folder-open"></i> Parent2</span> <a href="">Goes somewhere</a>
-                <ul>
-                    <li>
-                        <span><i class="glyphicon glyphicon-leaf"></i> Child</span> <a href="">Goes somewhere</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>*@
+<!-- The javascript ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<link href="~/Content/BootStrapTree/bootstrap.tree.css" rel="stylesheet" />
+<script src="~/Content/BootStrapTree/bootstrap.tree.js"></script>
+<script src="~/Content/BootStrapContextMenu/bootstrap.contextmenu.js"></script>
+<script>
+    $('.context').contextmenu({
+        target: '#context-menu',
+        before: function (e, context) {
+            // execute code before context menu if shown
+            var selectedType = e.target.attributes['data-type'].value;
+
+            if (selectedType == "category") {
+                $("#ul_folder").show();
+                $("#ul_file").hide();
+            }
+            else {
+                $("#ul_folder").hide()
+                $("#ul_file").show();
+            }
+            return true;
+        },
+        onItem: function (context, e) {
+            // execute on menu item selection
+        }
+    })
+    //$('#context-menu').on('show.bs.context', function () {
+    //    // do something...
+    //    alert("before context show");
+    //});
+    //$('#context-menu').on('shown.bs.context', function () {
+    //    // do something...
+    //    alert("context shown");
+    //});
+    //$('#context-menu').on('hide.bs.context', function () {
+    //    // do something...
+    //    alert("before context hide");
+    //});
+    //$('#context-menu').on('hide.bs.context', function () {
+    //    // do something...
+    //    alert("before context hide");
+    //});
+</script>
+
+
 

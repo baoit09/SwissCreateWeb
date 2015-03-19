@@ -1,7 +1,6 @@
 ﻿using SwissCreate.Core;
 using SwissCreate.Services.Projects;
 using System.Web.Mvc;
-using SwissCreate.Core.Domain;
 using System.Linq;
 using SwissCreate.Core.Domain.Projects;
 using System.Collections.Generic;
@@ -16,15 +15,17 @@ namespace SwissCreateWeb.Controllers
 
         private readonly IWorkContext _workContext;
         private readonly IProjectService _projectService;
+        private readonly IProjectCategoryService _projectCategoryService;
 
         #endregion
 
         #region Ctor
 
-        public ProjectController(IWorkContext workContext, IProjectService projectService)
+        public ProjectController(IWorkContext workContext, IProjectService projectService, IProjectCategoryService projectCategoryService)
         {
             this._workContext = workContext;
             this._projectService = projectService;
+            this._projectCategoryService = projectCategoryService;
         }
 
         #endregion
@@ -33,15 +34,12 @@ namespace SwissCreateWeb.Controllers
         public ActionResult FileManager()
         {
             var currentUser = _workContext.CurrentUser;
-            var projects = _projectService.GetProjectsByUser(currentUser.Id);
-
-            var dic = FindCategoriesHasProject(projects);
-            FillAllParentCategories(dic);
+            var projectCategories = _projectCategoryService.GetProjectCategoriesByUser(currentUser.Id);
 
             ProjectCategory rootCategory = new ProjectCategory() { Id = 0, Name = currentUser.FirstName };
-            FindTopCategories(dic).ForEach(c => c.ParentProjectCategoryId = 0);
+            rootCategory.ChildProjectCategories = FindTopCategories(projectCategories);
 
-            ProjectCategoryModel rootCategoryModel = ConvertToModel(rootCategory, projects, dic);
+            ProjectCategoryModel rootCategoryModel = ConvertToModel(rootCategory);
 
             return View(new FileManagerModel()
             {
@@ -96,9 +94,9 @@ namespace SwissCreateWeb.Controllers
             return dic;
         }
 
-        private List<ProjectCategory> FindTopCategories(Dictionary<int, ProjectCategory> dic)
+        private List<ProjectCategory> FindTopCategories(IList<ProjectCategory> projectCategories)
         {
-            var topCategories = dic.Where(kpv => kpv.Value.ParentProjectCategoryId == null).Select(kpv => kpv.Value).ToList();
+            var topCategories = projectCategories.Where(pc => pc.ParentProjectCategoryId == null).ToList();
             return topCategories;
         }
 
@@ -136,6 +134,44 @@ namespace SwissCreateWeb.Controllers
             }
 
             return currentTopProjectCategory;
+        }
+
+        private ProjectCategoryModel ConvertToModel(ProjectCategory category)
+        {
+            if (category == null)
+                return null;
+
+            ProjectCategoryModel catModel = category.ToModel();
+
+            // Get project models :
+            catModel.Projects = new List<ProjectModel>();
+            if (category.Projects != null && category.Projects.Any())
+            {
+                foreach (var project in category.Projects)
+                {
+                    if (project == null)
+                        continue;
+
+                    var projectModel = project.ToModel();
+                    catModel.Projects.Add(projectModel);
+                }
+            }
+
+            // Get child project categories :
+            catModel.ChildProjectCategories = new List<ProjectCategoryModel>();
+            if (category.ChildProjectCategories != null && category.ChildProjectCategories.Any())
+            {
+                foreach (var projectCategory in category.ChildProjectCategories)
+                {
+                    if (projectCategory == null)
+                        continue;
+
+                    var projectCategoryModel = ConvertToModel(projectCategory);
+                    catModel.ChildProjectCategories.Add(projectCategoryModel);
+                }
+            }
+
+            return catModel;
         }
 
         private ProjectCategoryModel ConvertToModel(ProjectCategory category, IList<Project> projects, Dictionary<int, ProjectCategory> dic)
