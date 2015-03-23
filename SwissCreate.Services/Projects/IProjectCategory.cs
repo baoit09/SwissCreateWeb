@@ -40,5 +40,11 @@ namespace SwissCreate.Services.Projects
         /// <param name="userId">user id</param>
         /// <returns></returns>
         IList<ProjectCategory> GetProjectCategoriesByUser(int userId);
+
+        bool AddChildProjectCategory(int parentCategoryId, ProjectCategory childProjectCategory);
+
+        bool DeleteProjectCategory(int projectCategoryId);
+
+        bool ChangeProjectCategoryName(int projectCategoryId, string newName);
     }
 }

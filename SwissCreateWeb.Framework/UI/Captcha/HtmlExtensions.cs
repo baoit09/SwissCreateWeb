@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using SwissCreate.Core.Infrastructure;
 
-namespace SwissCreate.Web.Framework.UI.Captcha
+namespace SwissCreateWeb.Framework.UI.Captcha
 {
     public static class HtmlExtensions
     {

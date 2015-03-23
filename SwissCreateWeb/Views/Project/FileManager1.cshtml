@@ -10,14 +10,14 @@
     if (cat != null)
     {
         <li>
-            <span data-toggle="context" data-target="#context-menu-folder"><i class="glyphicon glyphicon-folder-open">&nbsp;</i>@cat.Name</span> @*<a href="">Goes somewhere</a>*@
+            <span data-toggle="context" class="FolderContextMenu" data-type="category" data-id="@cat.Id"><i class="glyphicon glyphicon-folder-open">&nbsp;</i>@cat.Name</span> @*<a href="">Goes somewhere</a>*@
             <ul>
                 @if (cat.Projects != null && cat.Projects.Count() > 0)
                 {
                     foreach (var project in cat.Projects)
                     {
                         <li>
-                            <span data-toggle="context" data-target="#context-menu-file" style="background-color:antiquewhite"><i class="glyphicon glyphicon-file">&nbsp;</i>@project.Name</span>
+                            <span data-toggle="context" class="FileContextMenu" data-type="project" style="background-color:antiquewhite"><i class="glyphicon glyphicon-file">&nbsp;</i>@project.Name</span>
                         </li>
                     }
                 }
@@ -35,34 +35,97 @@
 }
 
 <h3>Files Management</h3>
+<div ng-app="SwissCreateApp" ng-controller="FileManagerCtrl">
 
-<ul id="contextMenu_folder" class="dropdown-menu" role="menu" style="display:none">
-    <li><a tabindex="-1">Add child folder</a></li>
-    <li><a tabindex="-1">Add child file</a></li>
-    <li class="divider"></li>
-    <li><a tabindex="-1">Delete this folder</a></li>
-    <li class="divider"></li>
-    <li><a tabindex="-1">Change this folder name</a></li>
-</ul>
+    <div id="context-menu-folder">
+        <ul id="ul_folder" class="dropdown-menu" role="menu">
+            <li><a tabindex="-1">Add child folder</a></li>
+            <li><a tabindex="-1">Add child file</a></li>
+            <li class="divider NotForRoot"></li>
+            <li class="NotForRoot"><a tabindex="-1">Delete this folder</a></li>
+            <li class="divider NotForRoot"></li>
+            <li class="NotForRoot"><a tabindex="-1">Change this folder name</a></li>
+            <li class="divider"></li>
+            <li><a tabindex="-1">Close</a></li>
+        </ul>
+    </div>
 
-<ul id="contextMenu_file" class="dropdown-menu" role="menu" style="display:none">
-    <li><a tabindex="-1">Change file name</a></li>
-    <li class="divider"></li>
-    <li><a tabindex="-1">Delete this file</a></li>
-</ul>
+    <div id="context-menu-file">
+        <ul id="ul_file" class="dropdown-menu" role="menu">
+            <li><a tabindex="-1">Change file name</a></li>
+            <li class="divider"></li>
+            <li><a tabindex="-1">Delete this file</a></li>
+            <li class="divider"></li>
+            <li><a tabindex="-1">Close</a></li>
+        </ul>
+    </div>
 
-<div class="tree">
-    <ul>
-        @RenderACategory(Model.ProjectCategoryRoot)
-    </ul>
+    <div class="tree">
+        <ul id="ul_tree">
+            @*@RenderACategory(Model.ProjectCategoryRoot)*@
+        </ul>
+    </div>
+
 </div>
+
+@Html.Hidden("GetProjectCategoryRoot", Url.Action("GetProjectCategoryRoot", "Project"))
+
+@*Angular JS*@
+<script src="~/AJSApp/Js/angular.min.js"></script>
+<script src="~/AJSApp/Controllers/FileManagerController.js"></script>
 
 <!-- The javascript ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <link href="~/Content/BootStrapTree/bootstrap.tree.css" rel="stylesheet" />
 <script src="~/Content/BootStrapTree/bootstrap.tree.js"></script>
-<script src="~/Content/BootStrapContextMenu/bootstrap.contextmenu2.js"></script>
+<script src="~/Content/BootStrapContextMenu/bootstrap.contextmenu.js"></script>
+
 <script>
     $(function () {
-    })
+
+        alert("hehe");
+
+        $('.FolderContextMenu').contextmenu({
+            target: '#context-menu-folder',
+            before: function (e, context) {
+                // execute code before context menu if shown
+                var sender = $(e.target);
+                if (lis = $("#ul_folder .NotForRoot")) {
+                    var catId = sender.data("id");
+                    catId == 0 ? lis.hide() : lis.show();
+                }
+                return true;
+            },
+            onItem: function (context, e) {
+                // execute on menu item selection
+            }
+        })
+
+        $('.FileContextMenu').contextmenu({
+            target: '#context-menu-file',
+            before: function (e, context) {
+                return true;
+            },
+            onItem: function (context, e) {
+                // execute on menu item selection
+            }
+        })
+
+    });
+    //$('#context-menu').on('show.bs.context', function () {
+    //    // do something...
+    //    alert("before context show");
+    //});
+    //$('#context-menu').on('shown.bs.context', function () {
+    //    // do something...
+    //    alert("context shown");
+    //});
+    //$('#context-menu').on('hide.bs.context', function () {
+    //    // do something...
+    //    alert("before context hide");
+    //});
+    //$('#context-menu').on('hide.bs.context', function () {
+    //    // do something...
+    //    alert("before context hide");
+    //});
 </script>

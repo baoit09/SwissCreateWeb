@@ -10,14 +10,14 @@
     if (cat != null)
     {
         <li>
-            <span data-toggle="context" class="context" data-type="category" data-id="@cat.Id"><i class="glyphicon glyphicon-folder-open">&nbsp;</i>@cat.Name</span> @*<a href="">Goes somewhere</a>*@
+            <span data-toggle="context" class="FolderContextMenu" data-type="category" data-id="@cat.Id"><i class="glyphicon glyphicon-folder-open">&nbsp;</i>@cat.Name</span> @*<a href="">Goes somewhere</a>*@
             <ul>
                 @if (cat.Projects != null && cat.Projects.Count() > 0)
                 {
                     foreach (var project in cat.Projects)
                     {
                         <li>
-                            <span data-toggle="context" class="context" data-type="project" style="background-color:antiquewhite"><i class="glyphicon glyphicon-file">&nbsp;</i>@project.Name</span>
+                            <span data-toggle="context" class="FileContextMenu" data-type="project" data-id="@project.Id" style="background-color:antiquewhite"><i class="glyphicon glyphicon-file">&nbsp;</i>@project.Name</span>
                         </li>
                     }
                 }
@@ -33,78 +33,54 @@
         </li>
     }
 }
+<h4>Files Management</h4>
+<div>
+    <div id="context-menu-folder">
+        <ul id="ul_folder" class="dropdown-menu" role="menu">
+            <li ><a id="a_folder_addChildFolder" href="#" tabindex="-1" >Add child folder</a></li>
+            <li ><a id="a_folder_addChildFile" href="#" tabindex="-1">Add child file</a></li>
+            <li class="divider NotForRoot"></li>
+            <li class="NotForRoot"><a id="a_folder_deleteFolder" href="#" tabindex="-1">Delete this folder</a></li>
+            <li class="divider NotForRoot"></li>
+            <li class="NotForRoot"><a id="a_folder_changeFolderName" href="#" tabindex="-1">Change this folder name</a></li>
+            <li class="divider"></li>
+            <li id="li_folder_close"><a href="#" tabindex="-1">Close</a></li>
+        </ul>
+    </div>
 
-<h3>Files Management</h3>
+    <div id="context-menu-file">
+        <ul id="ul_file" class="dropdown-menu" role="menu">
+            <li><a id="a_file_changeFileName" href="#" tabindex="-1">Change file name</a></li>
+            <li class="divider"></li>
+            <li><a id="a_file_deleteFile" href="#" tabindex="-1">Delete this file</a></li>
+            <li class="divider"></li>
+            <li><a href="#" tabindex="-1">Close</a></li>
+        </ul>
+    </div>
 
-<div id="context-menu">
-    <ul id="ul_folder" class="dropdown-menu" role="menu">
-        <li><a tabindex="-1">Add child folder</a></li>
-        <li><a tabindex="-1">Add child file</a></li>
-        <li class="divider"></li>
-        <li><a tabindex="-1">Delete this folder</a></li>
-        <li class="divider"></li>
-        <li><a tabindex="-1">Change this folder name</a></li>
-        <li class="divider"></li>
-        <li><a tabindex="-1">Close</a></li>
-    </ul>
-    <ul id="ul_file" class="dropdown-menu" role="menu">
-        <li><a tabindex="-1">Change file name</a></li>
-        <li class="divider"></li>
-        <li><a tabindex="-1">Delete this file</a></li>
-        <li class="divider"></li>
-        <li><a tabindex="-1">Close</a></li>
-    </ul>
+    <div class="tree">
+        <ul id="ul_tree">
+            @RenderACategory(Model.ProjectCategoryRoot)
+        </ul>
+    </div>
+
 </div>
 
-<div class="tree">
-    <ul>
-        @RenderACategory(Model.ProjectCategoryRoot)
-    </ul>
-</div>
+@Html.Hidden("GetProjectCategoryRoot", Url.Action("GetProjectCategoryRoot", "Project"))
+@Html.Hidden("AddChildProjectCategory", Url.Action("AddChildProjectCategory", "Project"))
+@Html.Hidden("AddProject", Url.Action("AddProject", "Project"))
+
+@Html.Hidden("DeleteProjectCategory", Url.Action("DeleteProjectCategory", "Project"))
+@Html.Hidden("DeleteProject", Url.Action("DeleteProject", "Project"))
+
+@Html.Hidden("ChangeProjectCategoryName", Url.Action("ChangeProjectCategoryName", "Project"))
+@Html.Hidden("ChangeProjectName", Url.Action("ChangeProjectName", "Project"))
+
 
 <!-- The javascript ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <link href="~/Content/BootStrapTree/bootstrap.tree.css" rel="stylesheet" />
 <script src="~/Content/BootStrapTree/bootstrap.tree.js"></script>
 <script src="~/Content/BootStrapContextMenu/bootstrap.contextmenu.js"></script>
-<script>
-    $('.context').contextmenu({
-        target: '#context-menu',
-        before: function (e, context) {
-            // execute code before context menu if shown
-            var selectedType = e.target.attributes['data-type'].value;
-
-            if (selectedType == "category") {
-                $("#ul_folder").show();
-                $("#ul_file").hide();
-            }
-            else {
-                $("#ul_folder").hide()
-                $("#ul_file").show();
-            }
-            return true;
-        },
-        onItem: function (context, e) {
-            // execute on menu item selection
-        }
-    })
-    //$('#context-menu').on('show.bs.context', function () {
-    //    // do something...
-    //    alert("before context show");
-    //});
-    //$('#context-menu').on('shown.bs.context', function () {
-    //    // do something...
-    //    alert("context shown");
-    //});
-    //$('#context-menu').on('hide.bs.context', function () {
-    //    // do something...
-    //    alert("before context hide");
-    //});
-    //$('#context-menu').on('hide.bs.context', function () {
-    //    // do something...
-    //    alert("before context hide");
-    //});
-</script>
-
-
+<script src="~/AJSApp/Controllers/Project/FileManager/FileManager.js"></script>
 

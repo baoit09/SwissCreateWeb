@@ -11,9 +11,9 @@ namespace SwissCreate.Core.Domain.Projects
     {
         public string Name { get; set; }
         public string Description { get; set; }
-
         public bool Published { get; set; }
         public bool Deleted { get; set; }
+        public int? DisplayOrder { get; set; }
 
         public int? ParentProjectCategoryId { get; set; }
         public virtual ProjectCategory ParentProjectCategory { get; set; }

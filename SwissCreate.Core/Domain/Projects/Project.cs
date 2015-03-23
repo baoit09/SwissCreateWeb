@@ -15,7 +15,7 @@ namespace SwissCreate.Core.Domain.Projects
         public string Comment { get; set; }
         public string Note { get; set; }
         public DateTime? StartedDate { get; set; }
-
+        public int? DisplayOrder { get; set; }
         public int? UserId { get; set; }
         public virtual User User { get; set; }
 

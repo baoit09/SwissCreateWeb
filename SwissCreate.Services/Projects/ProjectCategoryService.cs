@@ -37,14 +37,18 @@ namespace SwissCreate.Services.Projects
 
         private readonly IDbContext _dbContext;
         private readonly IRepository<ProjectCategory> _projectCategoryRepository;
+        private readonly IRepository<Project> _projectRepository;
 
         #endregion
 
         #region Ctor
-        public ProjectCategoryService(IDbContext dbContext, IRepository<ProjectCategory> projectCategoryRepository)
+        public ProjectCategoryService(IDbContext dbContext, 
+            IRepository<ProjectCategory> projectCategoryRepository, 
+            IRepository<Project> projectRepository)
         {
             _dbContext = dbContext;
             _projectCategoryRepository = projectCategoryRepository;
+            _projectRepository = projectRepository;
         }
         #endregion
 
@@ -99,6 +103,79 @@ namespace SwissCreate.Services.Projects
                         select p;
             var projectCategories = query.ToList();
             return projectCategories;
+        }
+
+        public bool AddChildProjectCategory(int parentCategoryId, ProjectCategory childProjectCategory)
+        {
+            try
+            {
+                if (parentCategoryId < 0)
+                    return false;
+
+                // Update display order
+                var maxDisplayOrder = _projectCategoryRepository.Table.Max(pc => pc.DisplayOrder);
+                childProjectCategory.DisplayOrder = maxDisplayOrder + 1;
+
+                _projectCategoryRepository.Insert(childProjectCategory);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteProjectCategory(int projectCategoryId)
+        {
+            try
+            {
+                if (projectCategoryId < 0)
+                    return false;
+
+                bool hasChildCats = _projectCategoryRepository.Table.Any(pc => pc.ParentProjectCategoryId == projectCategoryId);
+                if (hasChildCats)
+                    return false;
+
+                bool hasProject = _projectRepository.Table.Any(p => p.ProjectCategoryId == projectCategoryId);
+                if (hasProject)
+                    return false;
+
+                var projectCategory = _projectCategoryRepository.GetById(projectCategoryId);
+                if (projectCategory != null)
+                    _projectCategoryRepository.Delete(projectCategory);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ChangeProjectCategoryName(int projectCategoryId, string newName)
+        {
+            try
+            {
+                if (projectCategoryId < 0)
+                    return false;
+
+                var projectCategory = _projectCategoryRepository.GetById(projectCategoryId);
+                if (projectCategory != null)
+                {
+                    if (projectCategory.Name == newName)
+                        return false;
+
+                    projectCategory.Name = newName;
+
+                    _projectCategoryRepository.Update(projectCategory);
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         #endregion
     }

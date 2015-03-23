@@ -3,7 +3,7 @@ using System;
 
 namespace SwissCreateWeb.Models.Project
 {
-    public class ProjectModel : BaseSwissCreateModel
+    public class ProjectModel : BaseSwissCreateEntityModel
     {
         public string CompanyName { get; set; }
         public string Name { get; set; }

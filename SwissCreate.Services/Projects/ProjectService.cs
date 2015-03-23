@@ -120,6 +120,47 @@ namespace SwissCreate.Services.Projects
             return projects;
         }
 
+        public bool AddProject(Project project)
+        {
+            if (project == null)
+                return false;
+
+            _projectRepository.Insert(project);
+
+            return true;
+        }
+
+        public bool DeleteProject(int projectId)
+        {
+            if (projectId < 1)
+                return false;
+
+            var project = _projectRepository.GetById(projectId);
+            if (project != null)
+                _projectRepository.Delete(project);
+
+            return true;
+        }
+
+        public bool ChangeProjectName(int projectId, string newName)
+        {
+            if (projectId < 1)
+                return false;
+
+            var project = _projectRepository.GetById(projectId);
+            if (project != null)
+            {
+                if (project.Name == newName)
+                    return false;
+
+                project.Name = newName;
+                _projectRepository.Update(project);
+            }
+                
+
+            return true;
+        }
+
         #endregion
     }
 }

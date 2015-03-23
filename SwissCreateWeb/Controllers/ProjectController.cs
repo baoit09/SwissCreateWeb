@@ -9,6 +9,7 @@ using SwissCreateWeb.Extensions;
 
 namespace SwissCreateWeb.Controllers
 {
+    [Authorize]
     public class ProjectController : Controller
     {
         #region Fields
@@ -45,6 +46,78 @@ namespace SwissCreateWeb.Controllers
             {
                 ProjectCategoryRoot = rootCategoryModel
             });
+        }
+
+        public ActionResult GetProjectCategoryRoot()
+        {
+            var currentUser = _workContext.CurrentUser;
+            var projectCategories = _projectCategoryService.GetProjectCategoriesByUser(currentUser.Id);
+
+            ProjectCategory rootCategory = new ProjectCategory() { Id = 0, Name = currentUser.FirstName };
+            rootCategory.ChildProjectCategories = FindTopCategories(projectCategories);
+
+            ProjectCategoryModel rootCategoryModel = ConvertToModel(rootCategory);
+
+            return Json(new FileManagerModel()
+            {
+                ProjectCategoryRoot = rootCategoryModel
+            });
+        }
+
+        public ActionResult AddChildProjectCategory(int parentCategoryId, string childFolderName)
+        {
+            var currentUser = _workContext.CurrentUser;
+
+            var childProjectCategory = new ProjectCategory()
+            {
+                ParentProjectCategoryId = parentCategoryId > 0 ? parentCategoryId : (int?)null,
+                Name = childFolderName,
+                Published = true,
+                Deleted = false,
+                UserId = currentUser.Id
+            };
+
+            bool bAdded = _projectCategoryService.AddChildProjectCategory(parentCategoryId, childProjectCategory);
+            return Json(new { success = bAdded });
+        }
+
+        public ActionResult AddProject(int parentCategoryId, string childFileName)
+        {
+            var currentUser = _workContext.CurrentUser;
+
+            var project = new Project()
+            {
+                ProjectCategoryId = parentCategoryId > 0 ? parentCategoryId : (int?)null,
+                Name = childFileName,
+                UserId = currentUser.Id
+            };
+
+            bool bAdded = _projectService.AddProject(project);
+            return Json(new { success = bAdded });
+        }
+
+        public ActionResult DeleteProjectCategory(int projectCategoryId)
+        {
+            bool bSuccess = _projectCategoryService.DeleteProjectCategory(projectCategoryId);
+            return Json(new { success = bSuccess });
+        }
+
+        public ActionResult DeleteProject(int projectId)
+        {
+            bool bSuccess = _projectService.DeleteProject(projectId);
+            return Json(new { success = bSuccess });
+        }
+
+        public ActionResult ChangeProjectCategoryName(int projectCategoryId, string newName)
+        {
+            bool bSuccess = _projectCategoryService.ChangeProjectCategoryName(projectCategoryId, newName);
+            return Json(new { success = bSuccess });
+        }
+
+        public ActionResult ChangeProjectName(int projectId, string newName)
+        {
+            bool bSuccess = _projectService.ChangeProjectName(projectId, newName);
+            return Json(new { success = bSuccess });
         }
 
         private void FillAllParentCategories(Dictionary<int, ProjectCategory> dic)

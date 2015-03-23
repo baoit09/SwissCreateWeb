@@ -11,7 +11,7 @@ using Microsoft.Owin.Security;
 using SwissCreateWeb.Models;
 using SwissCreate.Services.Users;
 using SwissCreate.Core.Domain.Users;
-using SwissCreate.Web.Framework.UI.Captcha;
+using SwissCreateWeb.Framework.UI.Captcha;
 using SwissCreate.Services.Authentication;
 using SwissCreate.Services.Localization;
 using SwissCreate.Core;

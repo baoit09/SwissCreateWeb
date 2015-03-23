@@ -112,10 +112,6 @@
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing" />
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
@@ -226,7 +222,13 @@
     <Compile Include="Validators\User\UserProfileViewModelValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AJSApp\app.js" />
+    <Content Include="AJSApp\Controllers\controllers.js" />
+    <Content Include="AJSApp\Controllers\Project\FileManager\FileManagerController.js" />
+    <Content Include="AJSApp\Filters\filters.js" />
     <Content Include="App_Data\Settings.txt" />
+    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Content\BootBox\bootstrap.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\BootStrapContextMenu\bootstrap.contextmenu.js" />
@@ -241,10 +243,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="AJSApp\Js\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\BootStrapTree\bootstrap.tree.css" />
     <Content Include="Content\BootStrapContextMenu\bootstrap.contextmenu2.js" />
+    <Content Include="AJSApp\Controllers\Project\FileManager\FileManager.js" />
     <None Include="Properties\PublishProfiles\SwissCreate.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -259,6 +263,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Project\FileManager.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -291,8 +298,8 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Common\LanguageSelector.cshtml" />
-    <Content Include="Views\Project\FileManager1.cshtml" />
-    <Content Include="Views\Project\FileManager.cshtml" />
+    <Content Include="Views\Project\FileManager2.cshtml" />
+    <Content Include="Views\Project\FileManager3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SwissCreate.Core\SwissCreate.Core.csproj">
@@ -319,7 +326,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AJSApp\Directives\" />
+    <Folder Include="AJSApp\Models\" />
+    <Folder Include="AJSApp\Services\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

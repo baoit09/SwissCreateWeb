@@ -1,5 +1,5 @@
 ﻿using SwissCreate.Core.Configuration;
-namespace SwissCreate.Web.Framework.UI.Captcha
+namespace SwissCreateWeb.Framework.UI.Captcha
 {
     public class CaptchaSettings : ISettings
     {

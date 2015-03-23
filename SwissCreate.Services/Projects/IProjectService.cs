@@ -48,5 +48,12 @@ namespace SwissCreate.Services.Projects
         /// <param name="categoryId">category id</param>
         /// <returns></returns>
         IList<Project> GetProjectsByCategory(int categoryId);
+
+
+        bool AddProject(Project project);
+
+        bool DeleteProject(int projectId);
+
+        bool ChangeProjectName(int projectId, string newName);
     }
 }

@@ -27,7 +27,7 @@ else
         @Html.AntiForgeryToken()
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="manage user info">Hello  @WorkContext.CurrentUser.FirstName <span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" role="menu" title="manage user info">Hello  @WorkContext.CurrentUser.FirstName <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li>@Html.ActionLink("User profile", "UserProfile", "Account", routeValues: null, htmlAttributes: new { title = "user profile" })</li>
                     <li>@Html.ActionLink("Change password", "ChangePassword", "Account", routeValues: null, htmlAttributes: new { title = "change password" })</li>                    
