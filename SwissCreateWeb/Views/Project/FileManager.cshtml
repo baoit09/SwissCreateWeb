@@ -9,8 +9,9 @@
 {
     if (cat != null)
     {
+        var total = cat.Projects.Count + cat.ChildProjectCategories.Count;
         <li>
-            <span data-toggle="context" class="FolderContextMenu" data-type="category" data-id="@cat.Id"><i class="glyphicon glyphicon-folder-open">&nbsp;</i>@cat.Name</span> @*<a href="">Goes somewhere</a>*@
+            <span data-toggle="context" class="FolderContextMenu" data-type="category" data-id="@cat.Id"><i class="glyphicon glyphicon-folder-open">&nbsp;</i>@cat.Name &#40;@total&#41;</span> @*<a href="">Goes somewhere</a>*@
             <ul>
                 @if (cat.Projects != null && cat.Projects.Count() > 0)
                 {
@@ -35,10 +36,11 @@
 }
 <h4>Files Management</h4>
 <div>
+
     <div id="context-menu-folder">
         <ul id="ul_folder" class="dropdown-menu" role="menu">
             <li ><a id="a_folder_addChildFolder" href="#" tabindex="-1" >Add child folder</a></li>
-            <li ><a id="a_folder_addChildFile" href="#" tabindex="-1">Add child file</a></li>
+            <li class="NotForRoot"><a id="a_folder_addChildFile" href="#" tabindex="-1">Add child file</a></li>
             <li class="divider NotForRoot"></li>
             <li class="NotForRoot"><a id="a_folder_deleteFolder" href="#" tabindex="-1">Delete this folder</a></li>
             <li class="divider NotForRoot"></li>

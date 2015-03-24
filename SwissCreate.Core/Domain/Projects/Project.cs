@@ -14,6 +14,9 @@ namespace SwissCreate.Core.Domain.Projects
         public string Author { get; set; }
         public string Comment { get; set; }
         public string Note { get; set; }
+
+        public string ProjectData { get; set; }
+
         public DateTime? StartedDate { get; set; }
         public int? DisplayOrder { get; set; }
         public int? UserId { get; set; }
@@ -26,5 +29,7 @@ namespace SwissCreate.Core.Domain.Projects
         {
             return Name;
         }
+
+
     }
 }
