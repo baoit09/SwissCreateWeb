@@ -118,7 +118,7 @@ function folder_AddChildFile(context, e) {
 						//	}
 						//});
 
-						window.location.href = '/Project/FileManager';
+					    window.location.href = $("#GetFileManager").val();
 					}
 					else {
 						bootbox.dialog({
@@ -163,7 +163,7 @@ function folder_DeleteFolder(context, e) {
 						//	}
 						//});
 
-						window.location.href = '/Project/FileManager';
+					    window.location.href = $("#GetFileManager").val();
 					}
 					else {
 						bootbox.dialog({
@@ -212,7 +212,7 @@ function folder_ChangeFolderName(context, e) {
 							//	}
 							//});
 
-							window.location.href = '/Project/FileManager';
+						    window.location.href = $("#GetFileManager").val();
 						}
 						else {
 							bootbox.dialog({
@@ -290,7 +290,7 @@ function file_DeleteFile(context, e) {
 						//	}
 						//});
 
-						window.location.href = '/Project/FileManager';
+					    window.location.href = $("#GetFileManager").val();
 					}
 					else {
 						bootbox.dialog({
@@ -339,7 +339,7 @@ function file_ChangeFileName(context, e) {
 							//	}
 							//});
 
-							window.location.href = '/Project/FileManager';
+						    window.location.href = $("#GetFileManager").val();
 						}
 						else {
 							bootbox.dialog({

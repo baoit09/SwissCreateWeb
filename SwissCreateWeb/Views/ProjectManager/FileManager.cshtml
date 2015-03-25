@@ -52,6 +52,11 @@
 
     <div id="context-menu-file">
         <ul id="ul_file" class="dropdown-menu" role="menu">
+            <li><a id="a_file_openProject" href="#" tabindex="-1">Open</a></li>
+            <li class="divider"></li>
+            <li><a id="a_file_uploadProjectData" href="#" tabindex="-1">Upload .scg</a></li>
+            <li><a id="a_file_downloadProjectData" href="#" tabindex="-1">Download .scg</a></li>
+            <li class="divider"></li>
             <li><a id="a_file_changeFileName" href="#" tabindex="-1">Change file name</a></li>
             <li class="divider"></li>
             <li><a id="a_file_deleteFile" href="#" tabindex="-1">Delete this file</a></li>
@@ -68,15 +73,20 @@
 
 </div>
 
-@Html.Hidden("GetProjectCategoryRoot", Url.Action("GetProjectCategoryRoot", "Project"))
-@Html.Hidden("AddChildProjectCategory", Url.Action("AddChildProjectCategory", "Project"))
-@Html.Hidden("AddProject", Url.Action("AddProject", "Project"))
+@Html.Hidden("GetFileManager", Url.Action("FileManager", "ProjectManager"))
 
-@Html.Hidden("DeleteProjectCategory", Url.Action("DeleteProjectCategory", "Project"))
-@Html.Hidden("DeleteProject", Url.Action("DeleteProject", "Project"))
+@Html.Hidden("GetProjectCategoryRoot", Url.Action("GetProjectCategoryRoot", "ProjectManager"))
+@Html.Hidden("AddChildProjectCategory", Url.Action("AddChildProjectCategory", "ProjectManager"))
+@Html.Hidden("AddProject", Url.Action("AddProject", "ProjectManager"))
 
-@Html.Hidden("ChangeProjectCategoryName", Url.Action("ChangeProjectCategoryName", "Project"))
-@Html.Hidden("ChangeProjectName", Url.Action("ChangeProjectName", "Project"))
+@Html.Hidden("DeleteProjectCategory", Url.Action("DeleteProjectCategory", "ProjectManager"))
+@Html.Hidden("DeleteProject", Url.Action("DeleteProject", "ProjectManager"))
+
+@Html.Hidden("ChangeProjectCategoryName", Url.Action("ChangeProjectCategoryName", "ProjectManager"))
+@Html.Hidden("ChangeProjectName", Url.Action("ChangeProjectName", "ProjectManager"))
+
+@*Project*@
+@Html.Hidden("OpenProject", Url.Action("Project", "Project"))
 
 
 <!-- The javascript ================================================== -->
