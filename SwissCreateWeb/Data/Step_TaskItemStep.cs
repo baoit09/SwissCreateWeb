@@ -9,6 +9,10 @@ namespace SwissCreateWeb.Data
 {
     public class Step_TaskItemStep : INotifyPropertyChanged
     {
+        public Step_TaskItemStep()
+        {
+        }
+
         public Step_TaskItemStep(Step_TaskItemGroup[] tasks)
         {
             TaskItemGroups_Source = new ObservableCollection<Step_TaskItemGroup>(tasks);
@@ -35,7 +39,7 @@ namespace SwissCreateWeb.Data
         public ObservableCollection<Step_TaskItemGroup> TaskItemGroups_Source
         {
             get;
-            private set;
+            set;
         }
 
         #region Tasks_Summary

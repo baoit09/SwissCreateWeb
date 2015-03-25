@@ -458,7 +458,7 @@ namespace SwissCreateWeb.Data
         }
         #endregion
 
-        public Action FocusForEditing { get; set; }
+        //public Action FocusForEditing { get; set; }
 
         public void ExpandAll()
         {

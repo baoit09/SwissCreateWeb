@@ -19,6 +19,10 @@ namespace SwissCreateWeb.Data
 
         #endregion
 
+        public Step_Measurement()
+        {
+        }
+
         public Step_Measurement(Step_Measurement_Item[] aMeasurements)
         {
             Measurements = aMeasurements;
@@ -51,7 +55,7 @@ namespace SwissCreateWeb.Data
             {
                 return _Measurements_Source;
             }
-            private set
+            set
             {
                 if (_Measurements_Source != null)
                     _Measurements_Source.CollectionChanged -= _Measurements_Source_CollectionChanged;

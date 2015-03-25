@@ -23,6 +23,7 @@ using SwissCreate.Services.Projects;
 using SwissCreate.Services.Security;
 using SwissCreate.Services.Users;
 using SwissCreate.Web.Framework;
+using SwissCreateWeb.Framework.Helpers;
 using SwissCreateWeb.Framework.Mvc.Routes;
 using System;
 using System.Collections.Generic;
@@ -189,6 +190,10 @@ namespace SwissCreateWeb.Framework
             }
             builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
+
+            #region Utility Helpers
+            builder.RegisterType<XmlSerializeHelper>().As<IXmlSerializeHelper>();
+            #endregion
         }
 
         public int Order

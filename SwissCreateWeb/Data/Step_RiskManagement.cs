@@ -130,7 +130,7 @@ namespace SwissCreateWeb.Data
 
     public class Step_RiskManagementItem : INotifyPropertyChanged
     {
-        public Action<Step_RiskManagementItem> Action_WantToSelect;
+        //public Action<Step_RiskManagementItem> Action_WantToSelect;
         public string GetTooltip()
         {
             StringBuilder sb = new StringBuilder();

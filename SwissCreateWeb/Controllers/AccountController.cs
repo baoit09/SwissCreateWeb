@@ -291,7 +291,7 @@ namespace SwissCreateWeb.Controllers
 
         #endregion
 
-        public UserManager<ApplicationUser> UserManager { get; private set; }
+        public UserManager<ApplicationUser> UserManager { get; set; }
 
         //
         // GET: /Account/Register

@@ -19,7 +19,12 @@ namespace SwissCreateWeb.Data
         #endregion
         #region Question
         string _Question = string.Empty;
-        
+
+        public Step_QuestionAnwser()
+        {
+
+        }
+
         public string Question
         {
             get { return _Question; }

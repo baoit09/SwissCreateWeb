@@ -118,37 +118,37 @@ namespace SwissCreate.Services.Tasks
         /// <summary>
         /// A value indicating whether a task is running
         /// </summary>
-        public bool IsRunning { get; private set; }
+        public bool IsRunning { get; set; }
 
         /// <summary>
         /// Datetime of the last start
         /// </summary>
-        public DateTime? LastStartUtc { get; private set; }
+        public DateTime? LastStartUtc { get; set; }
 
         /// <summary>
         /// Datetime of the last end
         /// </summary>
-        public DateTime? LastEndUtc { get; private set; }
+        public DateTime? LastEndUtc { get; set; }
 
         /// <summary>
         /// Datetime of the last success
         /// </summary>
-        public DateTime? LastSuccessUtc { get; private set; }
+        public DateTime? LastSuccessUtc { get; set; }
 
         /// <summary>
         /// A value indicating type of the task
         /// </summary>
-        public string Type { get; private set; }
+        public string Type { get; set; }
 
         /// <summary>
         /// A value indicating whether to stop task on error
         /// </summary>
-        public bool StopOnError { get; private set; }
+        public bool StopOnError { get; set; }
 
         /// <summary>
         /// Get the task name
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// A value indicating whether the task is enabled

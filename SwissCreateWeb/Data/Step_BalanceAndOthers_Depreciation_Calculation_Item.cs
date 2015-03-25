@@ -16,6 +16,11 @@ namespace SwissCreateWeb.Data
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public Step_BalanceAndOthers_Depreciation_Calculation_Item()
+        {
+
+        }
+
         public void SendPropertyChanged_All_Computed()
         {
             SendPropertyChanged("Initial_Year_Depreciation");

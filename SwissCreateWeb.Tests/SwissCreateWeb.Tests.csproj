@@ -102,7 +102,9 @@
   <ItemGroup>
     <Content Include="App.config" />
     <Content Include="XMLFile1.xml" />
-    <Content Include="XMLFile2.xml" />
+    <Content Include="XMLFile2.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

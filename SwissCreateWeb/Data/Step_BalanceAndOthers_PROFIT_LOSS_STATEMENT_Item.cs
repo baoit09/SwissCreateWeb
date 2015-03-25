@@ -27,6 +27,12 @@ namespace Data
             }
         }
         public bool DontCatchPropertyChange = false;
+
+        public Step_BalanceAndOthers_PROFIT_LOSS_STATEMENT_Item()
+        {
+
+        }
+
         public Step_BalanceAndOthers_PROFIT_LOSS_STATEMENT_Item(Step_BalanceAndOthers_PROFIT_LOSS_STATEMENT parent)
         {
             Parent = parent;

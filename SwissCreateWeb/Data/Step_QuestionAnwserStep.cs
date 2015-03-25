@@ -9,6 +9,11 @@ namespace SwissCreateWeb.Data
 {
     public class Step_QuestionAnwserStep : INotifyPropertyChanged
     {
+        public Step_QuestionAnwserStep()
+        {
+            //QuestionAnwserGroups_Source = new ObservableCollection<Step_QuestionAnwserGroup>(qas);
+        }
+
         public Step_QuestionAnwserStep(Step_QuestionAnwserGroup[] qas)
         {
             QuestionAnwserGroups_Source = new ObservableCollection<Step_QuestionAnwserGroup>(qas);
@@ -32,7 +37,7 @@ namespace SwissCreateWeb.Data
         public ObservableCollection<Step_QuestionAnwserGroup> QuestionAnwserGroups_Source
         {
             get;
-            private set;
+            set;
         }
 
         #region INotifyPropertyChanged Members

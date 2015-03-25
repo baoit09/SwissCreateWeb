@@ -22,6 +22,9 @@ namespace SwissCreateWeb.Data
                 }
             }
         }
+        public Step_BalanceAndOthers_InvestmentPlan_Item()
+        {
+        }
         public Step_BalanceAndOthers_InvestmentPlan_Item(Step_BalanceAndOthers_InvestmentPlan parent)
         {
             Parent = parent;

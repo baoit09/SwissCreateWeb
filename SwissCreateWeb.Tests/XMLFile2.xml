@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ProjectData xmlns="http://schemas.datacontract.org/2004/07/SwissCreateWeb.Data" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+<ProjectData xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
   <Author>Mr. Creator</Author>
   <Comment>Mr. Comment</Comment>
   <CompanyName>SCG Default Company</CompanyName>
@@ -3592,4 +3592,133 @@
   <_UIText_Name>Project Name:</_UIText_Name>
   <_UIText_Note>Note</_UIText_Note>
   <_UIText_StartedDate>Start Date:</_UIText_StartedDate>
+  <QuestionAnwserStep>
+    <QuestionAnwserGroups>
+      <Step_QuestionAnwserGroup>
+        <Name>Answer the following questions:</Name>
+        <QuestionAnswers>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\highlight1\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              What are the basic data?&#xD;
+              (Name, Address, Phone, Email, Website, Key Persons)&#xD;
+            </Question>
+          </Step_QuestionAnwser>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              What is your leading idea/vision?&#xD;
+              (What do you want?)&#xD;
+            </Question>
+          </Step_QuestionAnwser>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\highlight1\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              What products / services do you sell, and what is their value?&#xD;
+              What are the greatest benefits of your products or services?&#xD;
+            </Question>
+          </Step_QuestionAnwser>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\highlight1\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              What are your most important customer groups, and on which distribution channels do you reach them?&#xD;
+            </Question>
+          </Step_QuestionAnwser>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\highlight1\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              Why do the clients buy your products or services?&#xD;
+              &#xD;
+            </Question>
+          </Step_QuestionAnwser>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\highlight1\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              How will your company develop?&#xD;
+              (turnover, profit, employees,...)&#xD;
+            </Question>
+          </Step_QuestionAnwser>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\highlight1\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              What are the reasons for the actual situation of your business?&#xD;
+              &#xD;
+            </Question>
+          </Step_QuestionAnwser>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\highlight1\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              Who are your competitors and why are you better?&#xD;
+              (Description of the most important competitors)&#xD;
+            </Question>
+          </Step_QuestionAnwser>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\highlight1\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              What are your key business processes?&#xD;
+              &#xD;
+            </Question>
+          </Step_QuestionAnwser>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\highlight1\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              What are your most important human factors?&#xD;
+              &#xD;
+            </Question>
+          </Step_QuestionAnwser>
+          <Step_QuestionAnwser>
+            <Answer>
+              {\rtf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Arial;}}{\colortbl\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\plain\ltrpar\itap0{\lang1033\fs18\f2\cf0 \cf0\ql{\f2 {\highlight1\ltrch -}\li0\ri0\sa0\sb0\fi0\ql\par}&#xD;
+              }&#xD;
+              }
+            </Answer>
+            <Question>
+              When and how do you monitor and report the most important factors of your company?&#xD;
+              (cockpit)
+            </Question>
+          </Step_QuestionAnwser>
+        </QuestionAnswers>
+      </Step_QuestionAnwserGroup>
+    </QuestionAnwserGroups>
+  </QuestionAnwserStep>
 </ProjectData>

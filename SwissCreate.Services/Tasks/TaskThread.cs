@@ -96,12 +96,12 @@ namespace SwissCreate.Services.Tasks
         /// <summary>
         /// Get or sets a datetime when thread has been started
         /// </summary>
-        public DateTime StartedUtc { get; private set; }
+        public DateTime StartedUtc { get; set; }
 
         /// <summary>
         /// Get or sets a value indicating whether thread is running
         /// </summary>
-        public bool IsRunning { get; private set; }
+        public bool IsRunning { get; set; }
 
         /// <summary>
         /// Get a list of tasks

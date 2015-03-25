@@ -10,7 +10,7 @@ namespace SwissCreate.Core.Data
                 throw new ArgumentNullException("settings");
             this.Settings = settings;
         }
-        protected DataSettings Settings { get; private set; }
+        protected DataSettings Settings { get; set; }
         public abstract IDataProvider LoadDataProvider();
     }
 }

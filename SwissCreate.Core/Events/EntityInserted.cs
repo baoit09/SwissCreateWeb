@@ -12,6 +12,6 @@ namespace SwissCreate.Core.Events
             this.Entity = entity;
         }
 
-        public T Entity { get; private set; }
+        public T Entity { get; set; }
     }
 }

@@ -166,8 +166,6 @@ namespace SwissCreateWeb.Models.Project
 
         public RootData[] Periods;
 
-        public Step_QuestionAnwserStep QuestionAnwserStep { get; set; }
-
         private static ProjectData _Intance = new ProjectData();
         public static ProjectData Intance
         {

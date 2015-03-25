@@ -51,36 +51,41 @@ namespace SwissCreateWeb.Data
         {
             get
             {
-                int index = Report_Finance_Index;
-                var step = this.Steps[index];
-                if (step == null || step.BalanceAndOthers == null
-                    || step.BalanceAndOthers.LIQUIDITYPLAN == null)
-                    return null;
-                return step.BalanceAndOthers.LIQUIDITYPLAN;
+                //int index = Report_Finance_Index;
+                //var step = this.Steps[index];
+                //if (step == null || step.BalanceAndOthers == null
+                //    || step.BalanceAndOthers.LIQUIDITYPLAN == null)
+                //    return null;
+                //return step.BalanceAndOthers.LIQUIDITYPLAN;
+                return null;
             }
         }
         public Step_BalanceAndOthers_PROFIT_LOSS_STATEMENT Tab_Finance_PROFIT_LOSS_STATEMENT
         {
             get
             {
-                int index = Report_Finance_Index;
-                var step = this.Steps[index];
-                if (step == null || step.BalanceAndOthers == null
-                    || step.BalanceAndOthers.PROFIT == null)
-                    return null;
-                return step.BalanceAndOthers.PROFIT;
+                //int index = Report_Finance_Index;
+                //var step = this.Steps[index];
+                //if (step == null || step.BalanceAndOthers == null
+                //    || step.BalanceAndOthers.PROFIT == null)
+                //    return null;
+                //return step.BalanceAndOthers.PROFIT;
+
+                return null;
             }
         }
         public Step_BalanceAndOthers_Depreciation_Calculation Tab_Finance_DEPRECIATION_CALCULATION
         {
             get
             {
-                int index = Report_Finance_Index;
-                var step = this.Steps[index];
-                if (step == null || step.BalanceAndOthers == null
-                    || step.BalanceAndOthers.DEPRECIATION_CALCULATION == null)
-                    return null;
-                return step.BalanceAndOthers.DEPRECIATION_CALCULATION;
+                //int index = Report_Finance_Index;
+                //var step = this.Steps[index];
+                //if (step == null || step.BalanceAndOthers == null
+                //    || step.BalanceAndOthers.DEPRECIATION_CALCULATION == null)
+                //    return null;
+                //return step.BalanceAndOthers.DEPRECIATION_CALCULATION;
+
+                return null;
             }
         }
 

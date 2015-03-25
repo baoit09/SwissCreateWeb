@@ -11,7 +11,7 @@ namespace SwissCreate.Core.Data
         }
         public string DataProvider { get; set; }
         public string DataConnectionString { get; set; }
-        public IDictionary<string, string> RawDataSettings { get; private set; }
+        public IDictionary<string, string> RawDataSettings { get; set; }
 
         public bool IsValid()
         {

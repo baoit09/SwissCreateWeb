@@ -61,24 +61,24 @@ namespace SwissCreateWeb.Data
         public Step_QuestionAnwserStep QuestionAnwserStep { get; set; }
 
        
-        public Step_TaskItemStep TaskItemStep { get; set; }
+        //public Step_TaskItemStep TaskItemStep { get; set; }
 
        
-        public Step_Analysis Analysis { get; set; }
+        //public Step_Analysis Analysis { get; set; }
 
        
-        public Step_Measurement Measurement { get; set; }
+        //public Step_Measurement Measurement { get; set; }
 
        
-        public Step_BalanceAndOthers BalanceAndOthers { get; set; }
+        //public Step_BalanceAndOthers BalanceAndOthers { get; set; }
 
        
-        public Step_RiskManagement RiskManagement { get; set; }
+        //public Step_RiskManagement RiskManagement { get; set; }
 
        
-        public Step_Budget Budget { get; set; }
+        //public Step_Budget Budget { get; set; }
        
-        public StepInfo_HumanResource HumanResource { get; set; }
+        //public StepInfo_HumanResource HumanResource { get; set; }
         public RootData Root
         {
             get

@@ -66,26 +66,26 @@ namespace SwissCreate.Core.Configuration
         /// <summary>
         /// In addition to configured assemblies examine and load assemblies in the bin directory.
         /// </summary>
-        public bool DynamicDiscovery { get; private set; }
+        public bool DynamicDiscovery { get; set; }
 
         /// <summary>
         /// A custom <see cref="IEngine"/> to manage the application instead of the default.
         /// </summary>
-        public string EngineType { get; private set; }
+        public string EngineType { get; set; }
 
         /// <summary>
         /// Specifices where the themes will be stored (~/Themes/)
         /// </summary>
-        public string ThemeBasePath { get; private set; }
+        public string ThemeBasePath { get; set; }
 
         /// <summary>
         /// Indicates whether we should ignore startup tasks
         /// </summary>
-        public bool IgnoreStartupTasks { get; private set; }
+        public bool IgnoreStartupTasks { get; set; }
 
         /// <summary>
         /// Path to database with user agent strings
         /// </summary>
-        public string UserAgentStringsPath { get; private set; }
+        public string UserAgentStringsPath { get; set; }
     }
 }
