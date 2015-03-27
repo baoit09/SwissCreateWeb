@@ -34,13 +34,27 @@ namespace SwissCreateWeb.Controllers
 
         public ActionResult Index()
         {
+            //var projectData = new ProjectData();
+            //projectData.Author = "Mr. Creator";
+
+            //projectData.Periods = new Data.RootData[1];
+            //projectData.Periods[0] = new Data.RootData();
+            //projectData.Periods[0].Steps = new Data.StepInfo[0];
+            //projectData.Periods[0].Steps[0] = new Data.StepInfo();
+            //projectData.Periods[0].Steps[0].FullName = "BUSINESS MODEL DETAILS";
+            //projectData.Periods[0].Steps[0].QuestionAnwserStep = new Data.Step_QuestionAnwserStep();
+            //projectData.Periods[0].Steps[0].QuestionAnwserStep.QuestionAnwserGroups = new Data.Step_QuestionAnwserGroup[1];
+            //projectData.Periods[0].Steps[0].QuestionAnwserStep.QuestionAnwserGroups[0] = new Data.Step_QuestionAnwserGroup();
+            //projectData.Periods[0].Steps[0].QuestionAnwserStep.QuestionAnwserGroups[0].
+
+
             string sFile = @"E:\Working\SwissCreateWeb\SwissCreateWeb.Tests\XMLFile2.xml";
             string sXML = System.IO.File.ReadAllText(sFile);
             var a = _xmlSerializeHelper.XmlDeserializeObject<ProjectData>(sXML);
 
-            //var project = _projectService.GetProjectById(22);
-            //var a = _xmlSerializeHelper.XmlDeserializeObject<ProjectData>(project.ProjectData);
-            
+            var b = XMLData<ProjectData>.GetEntity(sFile);
+
+
             return View();
         }
 

@@ -35,8 +35,8 @@ namespace SwissCreateWeb.Data
         #endregion
 
         #region QuestionAnswers
-        
-        private Step_QuestionAnwser[] QuestionAnswers
+
+        public Step_QuestionAnwser[] QuestionAnswers
         {
             get
             {

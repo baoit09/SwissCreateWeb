@@ -19,7 +19,7 @@ namespace SwissCreateWeb.Data
             QuestionAnwserGroups_Source = new ObservableCollection<Step_QuestionAnwserGroup>(qas);
         }
        
-        private Step_QuestionAnwserGroup[] QuestionAnwserGroups
+        public Step_QuestionAnwserGroup[] QuestionAnwserGroups
         {
             get
             {
