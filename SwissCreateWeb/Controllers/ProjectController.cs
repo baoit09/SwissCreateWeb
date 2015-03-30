@@ -35,19 +35,7 @@ namespace SwissCreateWeb.Controllers
 
         public ActionResult ProjectEdit(int ProjectId)
         {
-            ProjectData projectData = null;
-
-            var project = _projectService.GetProjectById(ProjectId);
-            //if (project != null && !string.IsNullOrWhiteSpace(project.ProjectData))
-            //{
-            //    var bytes = System.Text.Encoding.UTF8.GetBytes(project.ProjectData);
-            //    projectData = XMLData<ProjectData>.GetEntity(bytes);
-            //}
-
-            ProjectEditModel model = new ProjectEditModel();
-            model.Project = project.ToModel();
-            //model.ProjectData = projectData;
-
+            ProjectEditModel model  = LocalGetProjectEditModel(ProjectId);
             return View(model);
         }
 
@@ -85,26 +73,16 @@ namespace SwissCreateWeb.Controllers
         }
 
         #region Tabs
-        public ActionResult Tab_BusinessModel(int projectId)
+        public ActionResult BusinessModel(int projectId)
         {
-            ProjectEditModel model = new ProjectEditModel()
-            {
-                Project = _projectService.GetProjectById(projectId).ToModel(),
-                ProjectData = null
-            };
-
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
             return View(model);
         }
 
-        public ActionResult Tab_SwotAnalysis(int projectId)
+        public ActionResult SwotAnalysis(int projectId)
         {
-            ProjectEditModel model = new ProjectEditModel()
-            {
-                Project = _projectService.GetProjectById(projectId).ToModel(),
-                ProjectData = null
-            };
-
-            return View(model);
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            return PartialView(model);
         }
         #endregion
     }

@@ -35,39 +35,39 @@
         </div>
     </div>
 
-    <div style="margin-top:5px">
+    <div style="margin-top:5px" class="row">
 
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
             @*Tab: Business Model*@
-            <li>
+            <li id="li_businessmodel" class="active">
                 <a id="a_businessmodel" href="#businessmodel" data-toggle="tab" style="background-color:wheat">
                     {{ProjectData.Periods[0].Steps[0].ShortName}}
                 </a>
             </li>
 
             @*Tab: Swot-Analysis*@
-            <li class="active">
+            <li id="li_swotanalysis">
                 <a id="a_swotanalysis" href="#swotanalysis" data-toggle="tab" style="background-color:wheat">
                     {{ProjectData.Periods[0].Steps[1].ShortName}}
                 </a>
             </li>
         </ul>
 
-        <div id="my-tab-content" class="tab-content" style="border:solid 1px wheat">
+        <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
             @*Tab: Business Model*@
-            <div class="tab-pane" id="businessmodel">
-                <div style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[0].FullName_UPPER}}:</div>
-                <div>
-                    @Html.Action("Tab_BusinessModel", "Project", new { projectId = Model.Project.Id })
+            <div class="tab-pane  active col-md-12" id="businessmodel">
+                
+                <div class="row" id="divContent_businessmodel">
+                    @Html.Partial("BusinessModel", Model)
                 </div>
             </div>
 
 
             @*Tab: Swot-Analysis*@
-            <div class="tab-pane active" id="swotanalysis">
-                <div style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[1].FullName_UPPER}}:</div>
-                <div>
-                    @Html.Action("Tab_SwotAnalysis", "Project", new { projectId = Model.Project.Id })
+            <div class="tab-pane col-md-12" id="swotanalysis">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[1].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_swotanalysis">
+                    @Html.Partial("SwotAnalysis", Model)
                 </div>
             </div>
 
