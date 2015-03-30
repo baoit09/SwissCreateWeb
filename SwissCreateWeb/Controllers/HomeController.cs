@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ViCode_LeVi.Data;
 
 namespace SwissCreateWeb.Controllers
 {
@@ -50,9 +51,10 @@ namespace SwissCreateWeb.Controllers
 
             string sFile = @"E:\Working\SwissCreateWeb\SwissCreateWeb.Tests\XMLFile2.xml";
             string sXML = System.IO.File.ReadAllText(sFile);
-            var a = _xmlSerializeHelper.XmlDeserializeObject<ProjectData>(sXML);
+           
+            var bytes = System.Text.Encoding.UTF8.GetBytes(sXML);
 
-            var b = XMLData<ProjectData>.GetEntity(sFile);
+            var b = XMLData<ProjectData>.GetEntity(bytes);
 
 
             return View();

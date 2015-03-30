@@ -1,0 +1,79 @@
+﻿@model SwissCreateWeb.Models.Project.ProjectEditModel
+@{
+    ViewBag.Title = "Project";
+}
+
+<script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEdit.js"></script>
+<script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEditController.js"></script>
+
+<div ng-app="SwissCreateApp" ng-controller="ProjectCtrl">
+
+    <div class="row" style="margin-top:5px">
+        <div class="col-md-2">
+            <div>{{ProjectData.UIText_CompanyName}}</div>
+            <input class="form-control" value="{{ProjectData.CompanyName}}" />
+        </div>
+
+        <div class="col-md-2">
+            <div>{{ProjectData.UIText_Name}}</div>
+            <input class="form-control" value="{{ProjectData.Name}}" />
+        </div>
+
+        <div class="col-md-2">
+            <div>{{ProjectData.UIText_Author}}</div>
+            <input class="form-control" value="{{ProjectData.Author}}" />
+        </div>
+
+        <div class="col-md-2">
+            <div>{{ProjectData.UIText_Comment}}</div>
+            <input class="form-control" value="{{ProjectData.Comment}}" />
+        </div>
+
+        <div class="col-md-2">
+            <div>{{ProjectData.UIText_StartedDate}}</div>
+            <input class="form-control" value="{{ProjectData.StartedDate_Date | jsonDate: 'dd/MM/yyyy' }}" />
+        </div>
+    </div>
+
+    <div style="margin-top:5px">
+
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            @*Tab: Business Model*@
+            <li>
+                <a id="a_businessmodel" href="#businessmodel" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[0].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: Swot-Analysis*@
+            <li class="active">
+                <a id="a_swotanalysis" href="#swotanalysis" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[1].ShortName}}
+                </a>
+            </li>
+        </ul>
+
+        <div id="my-tab-content" class="tab-content" style="border:solid 1px wheat">
+            @*Tab: Business Model*@
+            <div class="tab-pane" id="businessmodel">
+                <div style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[0].FullName_UPPER}}:</div>
+                <div>
+                    @Html.Action("Tab_BusinessModel", "Project", new { projectId = Model.Project.Id })
+                </div>
+            </div>
+
+
+            @*Tab: Swot-Analysis*@
+            <div class="tab-pane active" id="swotanalysis">
+                <div style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[1].FullName_UPPER}}:</div>
+                <div>
+                    @Html.Action("Tab_SwotAnalysis", "Project", new { projectId = Model.Project.Id })
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @Html.Hidden("ProjectEdittingId", Model.Project.Id)
+    @Html.Hidden("GetProjectEditModel", Url.Action("GetProjectEditModel", "Project"))
+</div>

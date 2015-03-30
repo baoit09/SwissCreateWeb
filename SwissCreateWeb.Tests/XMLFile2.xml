@@ -1,4 +1,4 @@
-﻿<ProjectData xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+﻿<ProjectData xmlns="http://schemas.datacontract.org/2004/07/ViCode_LeVi.Data" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
   <Author>Mr. Thiết lập</Author>
   <Comment>Mr. Bình luận</Comment>
   <CompanyName>Tên doanh nghiệp</CompanyName>

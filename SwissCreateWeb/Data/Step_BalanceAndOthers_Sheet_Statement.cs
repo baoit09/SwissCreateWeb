@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
-//using ViCode_LeVi.Data;
+using ViCode_LeVi.Data;
 
-namespace SwissCreateWeb.Data
+namespace ViCode_LeVi.Data
 {
     public static class Report_Config_Finance
     {

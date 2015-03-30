@@ -206,6 +206,7 @@
     <Compile Include="Controllers\ProjectManagerController.cs" />
     <Compile Include="Data\ConfigData.cs" />
     <Compile Include="Data\ControlTextInfo.cs" />
+    <Compile Include="Data\ProjectData.cs" />
     <Compile Include="Data\RootData.cs" />
     <Compile Include="Data\StepInfo.cs" />
     <Compile Include="Data\StepInfo_HumanResource.cs" />
@@ -251,8 +252,9 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Project\FileManagerModel.cs" />
     <Compile Include="Models\Project\ProjectCategoryModel.cs" />
-    <Compile Include="Models\Project\ProjectDataModel.cs" />
+    <Compile Include="Models\Project\ProjectEditModel.cs" />
     <Compile Include="Models\Project\ProjectModel.cs" />
+    <Compile Include="Models\Project\Tab_BusinessModelModel.cs" />
     <Compile Include="Models\User\ChangePasswordModel.cs" />
     <Compile Include="Models\User\UserProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -265,8 +267,11 @@
     <Content Include="AJSApp\app.js" />
     <Content Include="AJSApp\Controllers\controllers.js" />
     <Content Include="AJSApp\Controllers\Project\FileManager\FileManagerController.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\ProjectEdit.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\ProjectEditController.js" />
     <Content Include="AJSApp\Filters\filters.js" />
     <Content Include="App_Data\Settings.txt" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Content\BootBox\bootstrap.min.js" />
     <Content Include="Content\bootstrap.css" />
@@ -338,7 +343,11 @@
     <Content Include="Views\ProjectManager\FileManager.cshtml" />
     <Content Include="Views\ProjectManager\FileManager1.cshtml" />
     <Content Include="Views\ProjectManager\FileManager2.cshtml" />
-    <Content Include="Views\Project\Project.cshtml" />
+    <Content Include="Views\Project\ProjectEdit.cshtml" />
+    <Content Include="Views\Shared\_QuestionAnwserStep.cshtml" />
+    <Content Include="Views\Project\Tab_BusinessModel.cshtml" />
+    <Content Include="Views\Project\QuestionAnswerStep.cshtml" />
+    <Content Include="Views\Project\Tab_SwotAnalysis.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SwissCreate.Core\SwissCreate.Core.csproj">

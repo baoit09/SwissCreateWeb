@@ -251,6 +251,11 @@ $('.FileContextMenu').contextmenu({
 
 		var id = menuItemSelected.attr('id');
 		switch (id) {
+		    case "a_file_openProject":
+		        {
+		            file_OpenProject(context, e);
+		            break;
+		        }
 			case "a_file_changeFileName":
 				{
 					file_ChangeFileName(context, e);
@@ -357,6 +362,14 @@ function file_ChangeFileName(context, e) {
 			}
 		}
 	});
+}
+
+function file_OpenProject(context, e) {
+
+    var nodeSelected = $(context);
+    var projectId = nodeSelected.data('id');
+
+    window.location.href = $("#OpenProject").val() + "?ProjectId=" + projectId;        
 }
 
 //#endregion

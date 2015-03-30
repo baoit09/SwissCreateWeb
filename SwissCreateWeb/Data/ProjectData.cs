@@ -1,11 +1,11 @@
-﻿using SwissCreateWeb.Data;
+﻿using ViCode_LeVi.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
-namespace SwissCreateWeb.Models.Project
+namespace ViCode_LeVi.Data
 {
     public class ProjectData : INotifyPropertyChanged
     {
@@ -161,12 +161,25 @@ namespace SwissCreateWeb.Models.Project
 
         public string Comment { get; set; }
 
-
         public string Note { get; set; }
 
-        public RootData[] Periods;
+        #region StartedDate_Date
+        public DateTime _StartedDate_Date = DateTime.Now;
+        public DateTime StartedDate_Date
+        {
+            get { return _StartedDate_Date; }
+            set
+            {
+                if (_StartedDate_Date != value)
+                {
+                    _StartedDate_Date = value;
+                    SendPropertyChanged("StartedDate_Date");
+                }
+            }
+        }
+        #endregion
 
-        public Step_QuestionAnwserStep QuestionAnwserStep { get; set; }
+        public RootData[] Periods;
 
         private static ProjectData _Intance = new ProjectData();
         public static ProjectData Intance
@@ -242,7 +255,7 @@ namespace SwissCreateWeb.Models.Project
         #endregion
 
         #region ControlTextInfoInData
-        
+
         ControlTextInfoInData _ControlTextInfoInData;
         public ControlTextInfoInData ControlTextInfoInData
         {

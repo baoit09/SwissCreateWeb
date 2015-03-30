@@ -8,10 +8,14 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jquery.ui")    
+    @Scripts.Render("~/bundles/jquery.ui")   
+    
+    @Scripts.Render("~/bundles/angularjs")     
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/bootbox")
+        
+
     <script src="~/Scripts/public.common.js"></script>    
 </head>
 <body>
@@ -36,6 +40,7 @@
                             <li><a href="#">New</a></li>
                             <li><a href="#">Open</a></li>
                             <li><a href="#">Import</a></li>
+                            <li><a href="#">Modify Info</a></li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
@@ -52,11 +57,7 @@
             <p>&copy; @DateTime.Now.Year - Swiss Create Business Development</p>
             @Html.Action("LanguageSelector", "Common")
         </footer>
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/bootbox")
+    </div>       
     @RenderSection("scripts", required: false)
 </body>
 </html>

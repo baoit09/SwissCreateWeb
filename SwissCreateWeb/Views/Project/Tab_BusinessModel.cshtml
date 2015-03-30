@@ -1,0 +1,6 @@
+﻿@model SwissCreateWeb.Models.Project.ProjectEditModel
+@{
+    Layout = null;
+}
+@Html.Hidden("ProjectEdittingId", Model.Project.Id)
+@Html.Action("QuestionAnswerStep", "Project", new { projectId = Model.Project.Id, stepIndex =  0})

@@ -5,9 +5,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-//using ViCode_LeVi.Data;
+using ViCode_LeVi.Data;
 
-namespace SwissCreateWeb.Data
+namespace ViCode_LeVi.Data
 {
     public class ControlTextInfo : INotifyPropertyChanged
     {

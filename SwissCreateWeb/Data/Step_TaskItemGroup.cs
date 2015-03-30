@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Windows;
 
-namespace SwissCreateWeb.Data
+namespace ViCode_LeVi.Data
 {
     public class Step_TaskItemGroup : INotifyPropertyChanged
     {

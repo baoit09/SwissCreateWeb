@@ -47,6 +47,21 @@ namespace SwissCreateWeb.Framework.Helpers
             }
             return null;            
         }
+        public static TEntity GetEntity(byte[] data)
+        {
+            try
+            {
+                if (data != null)
+                {
+                    return SerializerHelper.Deserialize<TEntity>(data);
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            return null;
+        }
         /// <summary>
         /// Cần cắt khúc endBytes ở khúc cuối
         /// </summary>

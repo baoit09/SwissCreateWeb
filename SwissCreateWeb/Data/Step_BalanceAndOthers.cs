@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
-namespace SwissCreateWeb.Data
+namespace ViCode_LeVi.Data
 {
     public class Step_BalanceAndOthers : INotifyPropertyChanged
     {
