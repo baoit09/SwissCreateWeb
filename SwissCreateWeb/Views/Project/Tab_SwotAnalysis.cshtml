@@ -4,5 +4,5 @@
 }
 @Html.Hidden("ProjectEdittingId", Model.Project.Id)
 @*@Html.Action("QuestionAnswerStep", "Project", new { projectId = Model.Project.Id, stepIndex =  1})*@
-
+<div class="row" style="margin: 5px; color:red">@Model.ProjectData.Periods[0].Steps[1].FullName_UPPER:</div>
 @Html.Partial("QuestionAnswerStep", Model.ProjectData.Periods[0].Steps[1].QuestionAnwserStep)

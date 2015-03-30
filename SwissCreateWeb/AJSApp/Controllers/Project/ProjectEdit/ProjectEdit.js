@@ -10,7 +10,8 @@
         $(".tab-pane").each(function () {
             $(this).empty();
         });
-        var url = '/Project/' + tabID + "?projectId=" + 23;
+
+        var url = $("#GetTab").val() + "/" + tabID + "?projectId=" + $("#ProjectEdittingId").val();
         var request = $.ajax({
             //url: '/@ViewContext.RouteData.Values["controller"]/' + tabID +"?projectId=" + 23,
             url: url,

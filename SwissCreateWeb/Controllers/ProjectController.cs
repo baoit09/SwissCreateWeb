@@ -73,13 +73,13 @@ namespace SwissCreateWeb.Controllers
         }
 
         #region Tabs
-        public ActionResult BusinessModel(int projectId)
+        public ActionResult Tab_BusinessModel(int projectId)
         {
             ProjectEditModel model = LocalGetProjectEditModel(projectId);
             return View(model);
         }
 
-        public ActionResult SwotAnalysis(int projectId)
+        public ActionResult Tab_SwotAnalysis(int projectId)
         {
             ProjectEditModel model = LocalGetProjectEditModel(projectId);
             return PartialView(model);

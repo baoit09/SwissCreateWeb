@@ -345,9 +345,9 @@
     <Content Include="Views\ProjectManager\FileManager2.cshtml" />
     <Content Include="Views\Project\ProjectEdit.cshtml" />
     <Content Include="Views\Shared\_QuestionAnwserStep.cshtml" />
-    <Content Include="Views\Project\BusinessModel.cshtml" />
+    <Content Include="Views\Project\Tab_BusinessModel.cshtml" />
     <Content Include="Views\Project\QuestionAnswerStep.cshtml" />
-    <Content Include="Views\Project\SwotAnalysis.cshtml" />
+    <Content Include="Views\Project\Tab_SwotAnalysis.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SwissCreate.Core\SwissCreate.Core.csproj">
