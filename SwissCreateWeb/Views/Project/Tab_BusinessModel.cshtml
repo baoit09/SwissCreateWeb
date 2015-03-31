@@ -6,4 +6,5 @@
 <div class="row" style="margin: 5px; color:red">@Model.ProjectData.Periods[0].Steps[0].FullName_UPPER:</div>
 @Html.Partial("QuestionAnswerStep", Model.ProjectData.Periods[0].Steps[0].QuestionAnwserStep)
 
-@Html.Hidden("ProjectEdittingId", Model.Project.Id)
+@Html.Hidden("Hidden_ProjectId", Model.Project.Id)
+@Html.Hidden("Hidden_StepIndex", 0)

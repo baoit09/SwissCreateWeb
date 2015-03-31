@@ -55,5 +55,7 @@ namespace SwissCreate.Services.Projects
         bool DeleteProject(int projectId);
 
         bool ChangeProjectName(int projectId, string newName);
+
+        bool UpdateProject(Project project);
     }
 }

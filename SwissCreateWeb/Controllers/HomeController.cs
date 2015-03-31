@@ -49,12 +49,12 @@ namespace SwissCreateWeb.Controllers
             //projectData.Periods[0].Steps[0].QuestionAnwserStep.QuestionAnwserGroups[0].
 
 
-            string sFile = @"E:\Working\SwissCreateWeb\SwissCreateWeb.Tests\XMLFile2.xml";
-            string sXML = System.IO.File.ReadAllText(sFile);
+            //string sFile = @"E:\Working\SwissCreateWeb\SwissCreateWeb.Tests\XMLFile2.xml";
+            //string sXML = System.IO.File.ReadAllText(sFile);
            
-            var bytes = System.Text.Encoding.UTF8.GetBytes(sXML);
+            //var bytes = System.Text.Encoding.UTF8.GetBytes(sXML);
 
-            var b = XMLData<ProjectData>.GetEntity(bytes);
+            //var b = XMLData<ProjectData>.GetEntity(bytes);
 
 
             return View();

@@ -97,7 +97,7 @@ namespace SwissCreate.Services.Projects
 
         public IList<Project> GetProjectsByUser(int userId)
         {
-            if (userId == 0) 
+            if (userId == 0)
                 return null;
 
             var query = from p in _projectRepository.Table
@@ -156,8 +156,17 @@ namespace SwissCreate.Services.Projects
                 project.Name = newName;
                 _projectRepository.Update(project);
             }
-                
 
+
+            return true;
+        }
+
+        public bool UpdateProject(Project project)
+        {
+            if (project == null)
+                return false;
+
+            _projectRepository.Update(project);
             return true;
         }
 

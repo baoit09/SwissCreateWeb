@@ -72,6 +72,171 @@ namespace SwissCreateWeb.Controllers
             return View(QuestionAnwserStep);
         }
 
+        public ActionResult DeleteQuestionAnswer(int projectId, int stepIndex, int groupindex, int questionindex, string option)
+        {
+            bool bSuccess = false;
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+                if (project != null)
+                {
+                    var questionAnswer = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[questionindex];
+                    if (option == "question")
+                    {
+                        questionAnswer.Question = string.Empty;
+                    }
+                    else if (option == "answer")
+                    {
+                        questionAnswer.Answer = string.Empty;
+                    }
+                    else if (option == "both")
+                    {
+                        var QuestionAnswers = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers;
+                        projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers = QuestionAnswers.Except(new Step_QuestionAnwser[1] { questionAnswer }).ToArray();
+                    }
+                }
+                string sXML = projectData.ToXML();
+                project.ProjectData = sXML;
+                bSuccess = _projectService.UpdateProject(project);
+            }
+            return Json(new { success = bSuccess });
+        }
+
+        public ActionResult MoveQuestionAnswer(int projectId, int stepIndex, int groupindex, int questionindex, string option)
+        {
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+                if (project != null)
+                {
+                    var nLength = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers.Length;
+                    if (option == "Up")
+                    {
+                        if (questionindex == 0)
+                        {
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            var currentQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[questionindex];
+                            var priviousQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[questionindex - 1];
+
+                            string sQuestion = currentQA.Question;
+                            string sAnswer = currentQA.Question;
+
+                            currentQA.Question = priviousQA.Question;
+                            currentQA.Answer = priviousQA.Answer;
+
+                            priviousQA.Question = sQuestion;
+                            priviousQA.Answer = sAnswer;
+                            
+                        }
+                    }
+                    else if (option == "Down")
+                    {
+                        if (questionindex == nLength - 1)
+                        {
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            var currentQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[questionindex];
+                            var nextQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[questionindex + 1];
+
+                            string sQuestion = currentQA.Question;
+                            string sAnswer = currentQA.Question;
+
+                            currentQA.Question = nextQA.Question;
+                            currentQA.Answer = nextQA.Answer;
+
+                            nextQA.Question = sQuestion;
+                            nextQA.Answer = sAnswer;
+
+                        }
+                    }
+                    else if (option == "Top")
+                    {
+                        if (questionindex == 0)
+                        {
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            var currentQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[questionindex];
+                            var priviousQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[0];
+
+                            string sQuestion = currentQA.Question;
+                            string sAnswer = currentQA.Question;
+
+                            currentQA.Question = priviousQA.Question;
+                            currentQA.Answer = priviousQA.Answer;
+
+                            priviousQA.Question = sQuestion;
+                            priviousQA.Answer = sAnswer;
+
+                        }
+                    }
+                    else if (option == "Bottom")
+                    {
+                        if (questionindex == nLength - 1)
+                        {
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            var currentQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[questionindex];
+                            var nextQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[nLength-1];
+
+                            string sQuestion = currentQA.Question;
+                            string sAnswer = currentQA.Question;
+
+                            currentQA.Question = nextQA.Question;
+                            currentQA.Answer = nextQA.Answer;
+
+                            nextQA.Question = sQuestion;
+                            nextQA.Answer = sAnswer;
+
+                        }
+                    }
+                }
+                string sXML = projectData.ToXML();
+                project.ProjectData = sXML;
+                bool bSuccess = _projectService.UpdateProject(project);
+                return Json(new { success = bSuccess });
+            }
+
+            return Json(new { success = true });
+        }
+
+        public ActionResult AddNewQuestionAnswer(int projectId, int stepIndex, int groupIndex, string questionText)
+        {
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+                if (project != null)
+                {
+                    Step_QuestionAnwser newQA = new Step_QuestionAnwser()
+                    {
+                        Question = questionText,
+                        Answer = string.Empty
+                    };
+                    var listQAs = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupIndex].QuestionAnswers.ToList();
+                    listQAs.Add(newQA);
+                    projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupIndex].QuestionAnswers = listQAs.ToArray();
+                }
+                    
+                string sXML = projectData.ToXML();
+                project.ProjectData = sXML;
+                bool bSuccess = _projectService.UpdateProject(project);
+                return Json(new { success = bSuccess });
+            }
+
+            return Json(new { success = true });
+        }
+
         #region Tabs
         public ActionResult Tab_BusinessModel(int projectId)
         {

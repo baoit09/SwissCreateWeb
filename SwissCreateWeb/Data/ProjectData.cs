@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using SwissCreateWeb.Framework.Helpers;
 
 namespace ViCode_LeVi.Data
 {
@@ -282,5 +283,36 @@ namespace ViCode_LeVi.Data
             }
         }
         #endregion
+
+        public static ProjectData GetFromXML(string sXML)
+        {
+            if (string.IsNullOrWhiteSpace(sXML))
+                return null;
+
+            try
+            {
+                var bytes = System.Text.Encoding.UTF8.GetBytes(sXML);
+                var projectData = XMLData<ProjectData>.GetEntity(bytes);
+                return projectData;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public string ToXML()
+        {
+            try
+            {
+                byte[] data = SerializerHelper.Serialize(this);
+                string sXML = System.Text.Encoding.UTF8.GetString(data);
+                return sXML;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

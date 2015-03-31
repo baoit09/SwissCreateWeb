@@ -51,7 +51,7 @@ function folder_AddChildFolder(context, e)
 	var nodeSelected = $(context);
 	var parentCateId = nodeSelected.data('id');
 
-	bootbox.prompt("Enter child folder name for folder [" + nodeSelected[0].innerText + " ] :", function (result) {
+	bootbox.prompt("Enter child folder name for folder [" + nodeSelected.text() + " ] :", function (result) {
 		if (result === null) {}
 		else
 		{ // Post data to server
@@ -73,7 +73,7 @@ function folder_AddChildFolder(context, e)
 						//	}
 						//});
 
-						window.location.href = '/Project/FileManager';
+					    window.location.href = $("#GetFileManager").val();
 					}
 					else {
 						bootbox.dialog({
@@ -96,7 +96,7 @@ function folder_AddChildFile(context, e) {
 	var nodeSelected = $(context);
 	var parentCateId = nodeSelected.data('id');
 
-	bootbox.prompt("Enter file name for folder [" + nodeSelected[0].innerText + " ] :", function (result) {
+	bootbox.prompt("Enter file name for folder [" + nodeSelected.text() + " ] :", function (result) {
 		if (result === null) { }
 		else
 		{ // Post data to server
@@ -141,7 +141,7 @@ function folder_DeleteFolder(context, e) {
 	var nodeSelected = $(context);
 	var parentCateId = nodeSelected.data('id');
 
-	bootbox.confirm("Are you sure you want to delete folder [" + nodeSelected[0].innerText + "] ?", function (result) {
+	bootbox.confirm("Are you sure you want to delete folder [" + nodeSelected.text() + " ] ?", function (result) {
 		if (result == true)
 		{
 			// Post data to server
@@ -167,7 +167,7 @@ function folder_DeleteFolder(context, e) {
 					}
 					else {
 						bootbox.dialog({
-							message: "Folder [" + nodeSelected[0].innerText + "] failed to delete. Folder should be empty.",
+						    message: "Folder [" + nodeSelected.text() + " ] failed to delete. Folder should be empty.",
 							title: "File Manager",
 							buttons: {
 								danger: {
@@ -188,7 +188,7 @@ function folder_ChangeFolderName(context, e) {
 	var parentCateId = nodeSelected.data('id');
 
 	bootbox.prompt({
-		title: "Enter new folder name for folder [ " + nodeSelected[0].innerText + " ] : ",
+	    title: "Enter new folder name for folder [ " + nodeSelected.text() + " ] : ",
 		value: "",
 		callback: function (result) {
 			if (result === null) {
@@ -216,7 +216,7 @@ function folder_ChangeFolderName(context, e) {
 						}
 						else {
 							bootbox.dialog({
-								message: "Change name of folder [" + nodeSelected[0].innerText + "] failed. The new folder name must differ with the old name",
+							    message: "Change name of folder [" + nodeSelected.text() + " ] failed. The new folder name must differ with the old name",
 								title: "File Manager",
 								buttons: {
 									danger: {
@@ -274,7 +274,7 @@ function file_DeleteFile(context, e) {
 	var nodeSelected = $(context);
 	var parentCateId = nodeSelected.data('id');
 
-	bootbox.confirm("Are you sure you want to delete file [" + nodeSelected[0].innerText + "] ?", function (result) {
+	bootbox.confirm("Are you sure you want to delete file [" + nodeSelected.text() + "] ?", function (result) {
 		if (result == true) {
 			// Post data to server
 			var url = $("#DeleteProject").val();
@@ -299,7 +299,7 @@ function file_DeleteFile(context, e) {
 					}
 					else {
 						bootbox.dialog({
-							message: "File [" + nodeSelected[0].innerText + "] failed to delete.",
+						    message: "File [" + nodeSelected.text() + " ] failed to delete.",
 							title: "File Manager",
 							buttons: {
 								danger: {
@@ -320,7 +320,7 @@ function file_ChangeFileName(context, e) {
 	var parentCateId = nodeSelected.data('id');
 
 	bootbox.prompt({
-		title: "Enter new file name for file [" + nodeSelected[0].innerText + "] :",
+	    title: "Enter new file name for file [" + nodeSelected.text() + " ] :",
 		value: "",
 		callback: function (result) {
 			if (result === null) {
@@ -348,7 +348,7 @@ function file_ChangeFileName(context, e) {
 						}
 						else {
 							bootbox.dialog({
-								message: "Change name of file [" + nodeSelected[0].innerText + "] failed.",
+							    message: "Change name of file [" + nodeSelected.text() + " ] failed.",
 								title: "File Manager",
 								buttons: {
 									danger: {

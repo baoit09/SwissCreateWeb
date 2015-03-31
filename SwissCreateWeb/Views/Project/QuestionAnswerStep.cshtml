@@ -24,7 +24,7 @@
             ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
             if (i == 0)
             {
-                <div class="tab-pane active row" id="@i" style="background-color:lightgray">
+                <div class="tab-pane active row tabQA" id="@i" style="background-color:lightgray">
                     <div class="col-md-12">
                         @for (int q = 0; q < group.QuestionAnswers.Count(); q++)
                         {
@@ -42,17 +42,19 @@
                                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="vertical-align:baseline">
                                             Action <span class="caret"></span>
                                         </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Delete</a></li>
-                                            <li><a href="#">Move Up</a></li>
-                                            <li><a href="#">Move Down</a></li>
+                                        <ul class="dropdown-menu" id="action" role="menu">
+                                            <li><a id="a_MoveTop" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Top</a></li>
+                                            <li><a id="a_MoveUp" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Up</a></li>
+                                            <li><a id="a_MoveDown" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Down</a></li>
+                                            <li><a id="a_MoveBottom" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Bottom</a></li>
+                                            <li><a id="a_Delete" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Delete</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         }
                         <hr />
-                        <button type="button" class="btn btn-default" aria-expanded="false" style="margin-bottom:10px;">
+                        <button type="button" class="btn btn-default btnAddNewQA" data-groupindex="@i" aria-expanded="false" style="margin-bottom:10px;">
                             Add new question...
                         </button>
                     </div>
@@ -60,7 +62,7 @@
             }
             else
             {
-                <div class="tab-pane row" id="@i" style="background-color:lightgray">
+                <div class="tab-pane row tabQA" id="@i" style="background-color:lightgray">
                     <div class="col-md-12">
                         @for (int q = 0; q < group.QuestionAnswers.Count(); q++)
                         {
@@ -79,16 +81,18 @@
                                             Action <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Delete</a></li>
-                                            <li><a href="#">Move Up</a></li>
-                                            <li><a href="#">Move Down</a></li>
+                                            <li><a id="a_MoveTop" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Top</a></li>
+                                            <li><a id="a_MoveUp" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Up</a></li>
+                                            <li><a id="a_MoveDown" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Down</a></li>
+                                            <li><a id="a_MoveBottom" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Bottom</a></li>
+                                            <li><a id="a_Delete" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Delete</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         }
                         <hr />
-                        <button type="button" class="btn btn-default" aria-expanded="false" style="margin-bottom:10px;">
+                        <button type="button" data-groupindex="@i" class="btn btn-default btnAddNewQA" aria-expanded="false" style="margin-bottom:10px;">
                             Add new question...
                         </button>
                     </div>
@@ -98,40 +102,10 @@
     </div>
 </div>
 
-@*@{
-        ViewBag.Title = "_QuestionAnwserStep";
-    }
+@Html.Hidden("Hidden_OpenProject", Url.Action("ProjectEdit", "Project"))
+@Html.Hidden("Hidden_DeleteQuestionAnswer", Url.Action("DeleteQuestionAnswer", "Project"))
+@Html.Hidden("Hidden_MoveQuestionAnswer", Url.Action("MoveQuestionAnswer", "Project"))
+@Html.Hidden("Hidden_AddNewQuestionAnswer", Url.Action("AddNewQuestionAnswer", "Project"))
 
-    <h2>_QuestionAnwserStep</h2>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Question)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Answer)
-            </th>
-            <th></th>
-        </tr>
-
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Answer)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
-
-    </table>*@
+<script src="~/AJSApp/Controllers/Project/ProjectEdit/QuestionAnswerStep.js"></script>

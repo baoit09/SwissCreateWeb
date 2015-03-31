@@ -267,6 +267,7 @@
     <Content Include="AJSApp\app.js" />
     <Content Include="AJSApp\Controllers\controllers.js" />
     <Content Include="AJSApp\Controllers\Project\FileManager\FileManagerController.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\QuestionAnswerStep.js" />
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\ProjectEdit.js" />
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\ProjectEditController.js" />
     <Content Include="AJSApp\Filters\filters.js" />
