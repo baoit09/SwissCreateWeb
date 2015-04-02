@@ -53,14 +53,7 @@ namespace SwissCreateWeb.Controllers
             if (project != null)
             {
                 model.Project = project.ToModel();
-
-                if (!string.IsNullOrWhiteSpace(project.ProjectData))
-                {
-                    var bytes = System.Text.Encoding.UTF8.GetBytes(project.ProjectData);
-                    var projectData = XMLData<ProjectData>.GetEntity(bytes);
-
-                    model.ProjectData = projectData;
-                }
+                model.ProjectData = ProjectData.GetFromXML(project.ProjectData);
             }
             return model;
         }
@@ -242,6 +235,30 @@ namespace SwissCreateWeb.Controllers
         {
             ProjectEditModel model = LocalGetProjectEditModel(projectId);
             return View(model);
+        }
+
+        public ActionResult Save_Tab_BusinessModel_QA(int projectId, int stepIndex, Step_QuestionAnwserStep qa)
+        {
+            bool bSuccess = false;
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+                if (projectData != null)
+                {
+                    var questionAnwserStep = projectData.Period.Steps[stepIndex].QuestionAnwserStep;
+                    for (int i = 0; i < questionAnwserStep.QuestionAnwserGroups[0].QuestionAnswers.Length; i++)
+                    {
+                        questionAnwserStep.QuestionAnwserGroups[0].QuestionAnswers[i].Answer = qa.QuestionAnwserGroups[0].QuestionAnswers[i].Answer;
+                    }
+                }
+
+                string sXML = projectData.ToXML();
+                project.ProjectData = sXML;
+                bSuccess = _projectService.UpdateProject(project);
+            }
+
+            return Json(new { success = bSuccess });
         }
 
         public ActionResult Tab_SwotAnalysis(int projectId)

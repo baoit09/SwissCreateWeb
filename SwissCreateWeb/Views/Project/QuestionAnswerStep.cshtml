@@ -3,109 +3,111 @@
     Layout = null;
 }
 
-<div style="margin-top: 5px; margin-bottom: 5px" class="col-md-12">
-    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-        @for (int i = 0; i < Model.QuestionAnwserGroups.Count(); i++)
-        {
-            ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
-            if (i == 0)
+@using (Html.BeginForm("Save_Tab_BusinessModel_QA", "Project", FormMethod.Post, new { id = "form_QA" }))
+{
+    <div style="margin-top: 5px; margin-bottom: 5px" class="">
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            @for (int i = 0; i < Model.QuestionAnwserGroups_Source.Count(); i++)
             {
-                <li class="active"><a href="#@i" data-toggle="tab">@group.Name</a></li>
+                ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups_Source[i];
+                if (i == 0)
+                {
+                    <li class="active"><a href="#@i" data-toggle="tab">@group.Name</a></li>
+                }
+                else
+                {
+                    <li><a href="#@i" data-toggle="tab">@group.Name</a></li>
+                }
             }
-            else
+        </ul>
+        <div id="my-tab-content" class="tab-content  col-md-12">
+            @for (int i = 0; i < Model.QuestionAnwserGroups_Source.Count(); i++)
             {
-                <li><a href="#@i" data-toggle="tab">@group.Name</a></li>
-            }
-        }
-    </ul>
-    <div id="my-tab-content" class="tab-content col-md-12">
-        @for (int i = 0; i < Model.QuestionAnwserGroups.Count(); i++)
-        {
-            ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
-            if (i == 0)
-            {
-                <div class="tab-pane active row tabQA" id="@i" style="background-color:lightgray">
-                    <div class="col-md-12">
-                        @for (int q = 0; q < group.QuestionAnswers.Count(); q++)
-                        {
-                            ViCode_LeVi.Data.Step_QuestionAnwser qa = group.QuestionAnswers[q];
-                            <hr />
-                            <div class="row">
-                                <div class="col-md-5" style="margin-left:5px">
-                                    <div>@qa.Question</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <textarea rows="3" style="width:100%">@qa.Answer</textarea>
-                                </div>
-                                <div class="row col-md-1">
-                                    <div class="btn-group" style="margin-top: 5px; width: 100%">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="vertical-align:baseline">
-                                            Action <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" id="action" role="menu">
-                                            <li><a id="a_MoveTop" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Top</a></li>
-                                            <li><a id="a_MoveUp" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Up</a></li>
-                                            <li><a id="a_MoveDown" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Down</a></li>
-                                            <li><a id="a_MoveBottom" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Bottom</a></li>
-                                            <li><a id="a_Delete" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Delete</a></li>
-                                        </ul>
+                ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups_Source[i];
+                if (i == 0)
+                {
+                    <div class="tab-pane active row tabQA" id="@i" style="background-color:lightgray">
+                        <div class="col-md-12">
+                            @for (int q = 0; q < group.QuestionAnswers.Count(); q++)
+                            {
+                                ViCode_LeVi.Data.Step_QuestionAnwser qa = group.QuestionAnswers[q];
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-5" style="margin-left:5px">
+                                        <div>@qa.Question</div>
+                                        <input type="hidden" name="QuestionAnwserGroups_Source[@i].QuestionAnswers[@q].Question" value="@Model.QuestionAnwserGroups_Source[i].QuestionAnswers[q].Question" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <textarea rows="3" name="QuestionAnwserGroups_Source[@i].QuestionAnswers[@q].Answer" style="width:100%">@Model.QuestionAnwserGroups_Source[i].QuestionAnswers[q].Answer</textarea>
+                                    </div>
+                                    <div class="row col-md-1">
+                                        <div class="btn-group" style="margin-top: 5px; width: 100%">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="vertical-align:baseline">
+                                                Action <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" id="action" role="menu">
+                                                <li><a id="a_MoveTop" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Top</a></li>
+                                                <li><a id="a_MoveUp" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Up</a></li>
+                                                <li><a id="a_MoveDown" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Down</a></li>
+                                                <li><a id="a_MoveBottom" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Bottom</a></li>
+                                                <li><a id="a_Delete" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Delete</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
-                        <hr />
-                        <button type="button" class="btn btn-default btnAddNewQA" data-groupindex="@i" aria-expanded="false" style="margin-bottom:10px;">
-                            Add new question...
-                        </button>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="tab-pane row tabQA" id="@i" style="background-color:lightgray">
-                    <div class="col-md-12">
-                        @for (int q = 0; q < group.QuestionAnswers.Count(); q++)
-                        {
-                            ViCode_LeVi.Data.Step_QuestionAnwser qa = group.QuestionAnswers[q];
+                            }
                             <hr />
-                            <div class="row">
-                                <div class="col-md-5" style="margin-left:5px">
-                                    <div>@qa.Question</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <textarea rows="3" style="width:100%">@qa.Answer</textarea>
-                                </div>
-                                <div class="row col-md-1">
-                                    <div class="btn-group" style="margin-top:5px; width:100%;">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="vertical-align:baseline">
-                                            Action <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a id="a_MoveTop" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Top</a></li>
-                                            <li><a id="a_MoveUp" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Up</a></li>
-                                            <li><a id="a_MoveDown" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Down</a></li>
-                                            <li><a id="a_MoveBottom" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Bottom</a></li>
-                                            <li><a id="a_Delete" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Delete</a></li>
-                                        </ul>
+                            <button type="button" class="btn btn-default btnAddNewQA" data-groupindex="@i" aria-expanded="false" style="margin-bottom:10px;">
+                                Add new question...
+                            </button>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="tab-pane row tabQA" id="@i" style="background-color:lightgray">
+                        <div class="col-md-12">
+                            @for (int q = 0; q < group.QuestionAnswers.Count(); q++)
+                            {
+                                ViCode_LeVi.Data.Step_QuestionAnwser qa = group.QuestionAnswers[q];
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-5" style="margin-left:5px">
+                                        <div>@qa.Question</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <textarea rows="3" style="width:100%">@qa.Answer</textarea>
+                                    </div>
+                                    <div class="row col-md-1">
+                                        <div class="btn-group" style="margin-top:5px; width:100%;">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="vertical-align:baseline">
+                                                Action <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" id="action" role="menu">
+                                                <li><a id="a_MoveTop" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Top</a></li>
+                                                <li><a id="a_MoveUp" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Up</a></li>
+                                                <li><a id="a_MoveDown" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Down</a></li>
+                                                <li><a id="a_MoveBottom" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Move Bottom</a></li>
+                                                <li><a id="a_Delete" data-questiontext="@qa.Question" data-groupindex="@i" data-questionindex="@q" href="#">Delete</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
-                        <hr />
-                        <button type="button" data-groupindex="@i" class="btn btn-default btnAddNewQA" aria-expanded="false" style="margin-bottom:10px;">
-                            Add new question...
-                        </button>
+                            }
+                            <hr />
+                            <button type="button" class="btn btn-default btnAddNewQA" data-groupindex="@i" aria-expanded="false" style="margin-bottom:10px;">
+                                Add new question...
+                            </button>
+                        </div>
                     </div>
-                </div>
+                }
             }
-        }
+        </div>
     </div>
-</div>
-
-@Html.Hidden("Hidden_OpenProject", Url.Action("ProjectEdit", "Project"))
-@Html.Hidden("Hidden_DeleteQuestionAnswer", Url.Action("DeleteQuestionAnswer", "Project"))
-@Html.Hidden("Hidden_MoveQuestionAnswer", Url.Action("MoveQuestionAnswer", "Project"))
-@Html.Hidden("Hidden_AddNewQuestionAnswer", Url.Action("AddNewQuestionAnswer", "Project"))
-
-
+    
+    @Html.Hidden("Hidden_OpenProject", Url.Action("ProjectEdit", "Project"))
+    @Html.Hidden("Hidden_DeleteQuestionAnswer", Url.Action("DeleteQuestionAnswer", "Project"))
+    @Html.Hidden("Hidden_MoveQuestionAnswer", Url.Action("MoveQuestionAnswer", "Project"))
+    @Html.Hidden("Hidden_AddNewQuestionAnswer", Url.Action("AddNewQuestionAnswer", "Project"))
+}
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/QuestionAnswerStep.js"></script>

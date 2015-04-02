@@ -1,6 +1,7 @@
 ﻿jQuery(document).ready(function ($) {
 
     $(".tabQA").ready(function () {
+        $(".tabQA li a").off('click');
         $(".tabQA li a").click(function () {
             var id = $(this).attr("id");
             var groupindex = $(this).data("groupindex");
@@ -40,7 +41,8 @@
             }
         });
 
-        $(".tabQA .btnAddNewQA").click(function () {
+        $(".btnAddNewQA").off('click');
+        $(".btnAddNewQA").click(function () {
             
             var projectId = $("#Hidden_ProjectId").val();
             var stepIndex = $("#Hidden_StepIndex").val();
@@ -48,7 +50,6 @@
 
             doAddNewQA(projectId, stepIndex, groupindex);
         });
-        
     });
     
     function doDelete(projectId, stepIndex, groupindex, questionindex, questiontext)
@@ -282,8 +283,8 @@
                         }
                         else {
                             bootbox.dialog({
-                                message: "File [" + result + "] failed to add.",
-                                title: "File Manager",
+                                message: "Question [" + result + "] failed to add.",
+                                title: "Question Manager",
                                 buttons: {
                                     danger: {
                                         label: "OK",

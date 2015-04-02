@@ -3,8 +3,14 @@
     Layout = null;
 }
 
-<div class="row" style="margin: 5px; color:red">@Model.ProjectData.Periods[0].Steps[0].FullName_UPPER:</div>
+<div class="row" style="margin-top:10px;">
+    <div class="col-md-11" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[0].FullName_UPPER:</div>
+    <div class="col-md-1"><button type="button" class="btn btn-default" onclick="doSave()" aria-expanded="false">Save</button></div>
+</div>
+<hr />
 @Html.Partial("QuestionAnswerStep", Model.ProjectData.Periods[0].Steps[0].QuestionAnwserStep)
 
 @Html.Hidden("Hidden_ProjectId", Model.Project.Id)
 @Html.Hidden("Hidden_StepIndex", 0)
+
+<script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_BusinessModel.js"></script>
