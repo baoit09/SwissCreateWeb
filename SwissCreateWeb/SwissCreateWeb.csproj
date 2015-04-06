@@ -85,6 +85,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -267,12 +268,46 @@
     <Content Include="AJSApp\app.js" />
     <Content Include="AJSApp\Controllers\controllers.js" />
     <Content Include="AJSApp\Controllers\Project\FileManager\FileManagerController.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\StepResult.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_Conclusion.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_HR.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_Charts.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_Risk.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_Finance.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_Marketing.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_Measures.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_Evaluation.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_Review.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_SuccessFactors.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_BusinessStrategy.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_SwotAnalysis.js" />
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\Tab_BusinessModel.js" />
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\QuestionAnswerStep.js" />
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\ProjectEdit.js" />
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\ProjectEditController.js" />
     <Content Include="AJSApp\Filters\filters.js" />
     <Content Include="App_Data\Settings.txt" />
+    <Content Include="Images\back.png" />
+    <Content Include="Images\ChartTypes\bar.jpg" />
+    <Content Include="Images\ChartTypes\column.png" />
+    <Content Include="Images\ChartTypes\grid.png" />
+    <Content Include="Images\ChartTypes\pie.png" />
+    <Content Include="Images\EzyOS.png" />
+    <Content Include="Images\home.png" />
+    <Content Include="Images\LoanDetail\applicant.png" />
+    <Content Include="Images\LoanDetail\historynote.png" />
+    <Content Include="Images\LoanDetail\loanproduct.png" />
+    <Content Include="Images\LoanDetail\mir.png" />
+    <Content Include="Images\LoanDetail\pdf.png" />
+    <Content Include="Images\LoanDetail\security.png" />
+    <Content Include="Images\LoanDetail\shortsummary.png" />
+    <Content Include="Images\ownageLoader\loader1.gif" />
+    <Content Include="Images\ownageLoader\loader2.gif" />
+    <Content Include="Images\ownageLoader\loader3.gif" />
+    <Content Include="Images\ownageLoader\loader4.gif" />
+    <Content Include="Images\ownageLoader\loader5.gif" />
+    <Content Include="Images\ownageLoader\loader6.gif" />
+    <Content Include="Images\ownageLoader\loader7.gif" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Content\BootBox\bootstrap.min.js" />
@@ -350,6 +385,18 @@
     <Content Include="Views\Project\Tab_BusinessModel.cshtml" />
     <Content Include="Views\Project\QuestionAnswerStep.cshtml" />
     <Content Include="Views\Project\Tab_SwotAnalysis.cshtml" />
+    <Content Include="Views\Project\StepResult.cshtml" />
+    <Content Include="Views\Project\Tab_BusinessStrategy.cshtml" />
+    <Content Include="Views\Project\Tab_SuccessFactors.cshtml" />
+    <Content Include="Views\Project\Tab_Review.cshtml" />
+    <Content Include="Views\Project\Tab_Evaluation.cshtml" />
+    <Content Include="Views\Project\Tab_Measures.cshtml" />
+    <Content Include="Views\Project\Tab_Marketing.cshtml" />
+    <Content Include="Views\Project\Tab_Finance.cshtml" />
+    <Content Include="Views\Project\Tab_Risk.cshtml" />
+    <Content Include="Views\Project\Tab_Charts.cshtml" />
+    <Content Include="Views\Project\Tab_HR.cshtml" />
+    <Content Include="Views\Project\Tab_Conclusion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SwissCreate.Core\SwissCreate.Core.csproj">

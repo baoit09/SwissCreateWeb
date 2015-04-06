@@ -20,15 +20,19 @@ namespace SwissCreateWeb.Controllers
         private readonly IProjectService _projectService;
         private readonly IProjectCategoryService _projectCategoryService;
 
+        private readonly ProjectSettings _projectSettings;
+
         #endregion
 
         #region Ctor
 
-        public ProjectController(IWorkContext workContext, IProjectService projectService, IProjectCategoryService projectCategoryService)
+        public ProjectController(IWorkContext workContext, IProjectService projectService, IProjectCategoryService projectCategoryService, ProjectSettings projectSettings)
         {
             this._workContext = workContext;
             this._projectService = projectService;
             this._projectCategoryService = projectCategoryService;
+
+            this._projectSettings = projectSettings;
         }
 
         #endregion
@@ -36,6 +40,7 @@ namespace SwissCreateWeb.Controllers
         public ActionResult ProjectEdit(int ProjectId)
         {
             ProjectEditModel model  = LocalGetProjectEditModel(ProjectId);
+            ViewBag.ProjectSettings = _projectSettings;
             return View(model);
         }
 
@@ -231,13 +236,10 @@ namespace SwissCreateWeb.Controllers
         }
 
         #region Tabs
-        public ActionResult Tab_BusinessModel(int projectId)
-        {
-            ProjectEditModel model = LocalGetProjectEditModel(projectId);
-            return View(model);
-        }
 
-        public ActionResult Save_Tab_BusinessModel_QA(int projectId, int stepIndex, Step_QuestionAnwserStep qa)
+        #region Shared tabs
+
+        public ActionResult Save_QuestionAnwserStep(int projectId, int stepIndex, Step_QuestionAnwserStep qa)
         {
             bool bSuccess = false;
             var project = _projectService.GetProjectById(projectId);
@@ -247,9 +249,12 @@ namespace SwissCreateWeb.Controllers
                 if (projectData != null)
                 {
                     var questionAnwserStep = projectData.Period.Steps[stepIndex].QuestionAnwserStep;
-                    for (int i = 0; i < questionAnwserStep.QuestionAnwserGroups[0].QuestionAnswers.Length; i++)
+                    for (int i = 0; i < questionAnwserStep.QuestionAnwserGroups.Length; i++)
                     {
-                        questionAnwserStep.QuestionAnwserGroups[0].QuestionAnswers[i].Answer = qa.QuestionAnwserGroups[0].QuestionAnswers[i].Answer;
+                        for (int q = 0; q < questionAnwserStep.QuestionAnwserGroups[0].QuestionAnswers.Length; q++)
+                        {
+                            questionAnwserStep.QuestionAnwserGroups[i].QuestionAnswers[q].Answer = qa.QuestionAnwserGroups[i].QuestionAnswers[q].Answer;
+                        }
                     }
                 }
 
@@ -261,11 +266,189 @@ namespace SwissCreateWeb.Controllers
             return Json(new { success = bSuccess });
         }
 
+        public ActionResult Save_StepResult(int projectId, int stepIndex, int radioResult, string Note)
+        {
+            bool bSuccess = false;
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+                if (projectData != null)
+                {
+                    var stepResult = projectData.Period.Steps[stepIndex].Result;
+                    if (radioResult == 0)
+                    {
+                        stepResult.Item = StepResult.StepResultItem_None;
+                    }
+                    else if (radioResult == 1)
+                    {
+                        stepResult.Item = StepResult.StepResultItem_Bad;
+                    }
+                    else if (radioResult == 2)
+                    {
+                        stepResult.Item = StepResult.StepResultItem_Normal;
+                    }
+                    else if (radioResult == 3)
+                    {
+                        stepResult.Item = StepResult.StepResultItem_Good;
+                    }
+                    stepResult.Note = Note;
+                }
+
+                string sXML = projectData.ToXML();
+                project.ProjectData = sXML;
+                bSuccess = _projectService.UpdateProject(project);
+            }
+
+            return Json(new { success = bSuccess });
+        }
+
+        #endregion
+
+        #region Tab_BusinessModel
+
+        public ActionResult Tab_BusinessModel(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_BusinessModel_Index;
+            return View(model);
+        }
+
+        #endregion
+
+        #region Tab_SwotAnalysis
+
         public ActionResult Tab_SwotAnalysis(int projectId)
         {
             ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_SwotAnalysis_Index;
             return PartialView(model);
         }
+
+        #endregion 
+
+        #region Tab_BusinessStrategy
+
+        public ActionResult Tab_BusinessStrategy(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_BusinessStrategy_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+        #region Tab_SuccessFactors
+
+        public ActionResult Tab_SuccessFactors(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_SuccessFactors_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+        #region Tab_Review
+
+        public ActionResult Tab_Review(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_Review_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+        #region Tab_Evaluation
+
+        public ActionResult Tab_Evaluation(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_Evaluation_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+        #region Tab_Measures
+
+        public ActionResult Tab_Measures(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_Measures_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+        #region Tab_Marketing
+
+        public ActionResult Tab_Marketing(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_Marketing_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+        #region Tab_Finance
+
+        public ActionResult Tab_Finance(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_Finance_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+        #region Tab_Risk
+
+        public ActionResult Tab_Risk(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_Risk_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+        #region Tab_Charts
+
+        public ActionResult Tab_Charts(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_Charts_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+        #region Tab_HR
+
+        public ActionResult Tab_HR(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_HR_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+        #region Tab_Conclusion
+
+        public ActionResult Tab_Conclusion(int projectId)
+        {
+            ProjectEditModel model = LocalGetProjectEditModel(projectId);
+            ViewBag.StepIndex = _projectSettings.Step_Conclusion_Index;
+            return PartialView(model);
+        }
+
+        #endregion
+
+
         #endregion
     }
 }

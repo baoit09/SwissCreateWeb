@@ -295,9 +295,10 @@ namespace ViCode_LeVi.Data
                 var projectData = XMLData<ProjectData>.GetEntity(bytes);
                 return projectData;
             }
-            catch
+            catch(Exception ex)
             {
-                return null;
+                throw ex;
+                //return null;
             }
         }
 
@@ -309,9 +310,10 @@ namespace ViCode_LeVi.Data
                 string sXML = System.Text.Encoding.UTF8.GetString(data);
                 return sXML;
             }
-            catch
+            catch(Exception ex)
             {
-                return null;
+                throw ex;
+                //return null;
             }
         }
     }

@@ -1,0 +1,49 @@
+﻿@model ViCode_LeVi.Data.StepResult
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("Save_StepResult", "Project", FormMethod.Post, new { id = "form_StepResult" }))
+{
+    <div style="margin: 5px" class="row">
+        RESULT:
+    </div>
+    <div class="row" style="margin: 5px">
+        <label id="ColumnChart">
+            @if (Model.Item.Value == 1)
+            {
+                <input type="radio" name="radioResult" value="1" checked="checked" style="background-color:red; width: 20px; height: 20px;" />
+            }
+            else
+            {
+                <input type="radio" name="radioResult" value="1" style="background-color:red; width: 20px; height: 20px;" />
+            }
+        </label>
+        <label id="PieChart">
+            @if (Model.Item.Value == 2)
+            {
+                <input type="radio" name="radioResult" value="2" checked="checked" style="background-color:yellow; width: 20px; height: 20px;" />
+            }
+            else
+            {
+                <input type="radio" name="radioResult" value="2" style="background-color: yellow; width: 20px; height: 20px;" />
+            }
+        </label>
+        <label id="DataGrid">
+            @if (Model.Item.Value == 3)
+            {
+                <input type="radio" name="radioResult" value="3" checked="checked" style="background-color:green; width: 20px; height: 20px;" />
+            }
+            else
+            {
+                <input type="radio" name="radioResult" value="3" style="background-color: green; width: 20px; height: 20px;" />
+            }
+        </label>
+    </div>
+
+    <div style="margin: 5px" class="row">
+        <textarea name="Note" rows="25" style="width: 100%">@Model.Note</textarea>
+    </div>
+
+}
+<script src="~/AJSApp/Controllers/Project/ProjectEdit/StepResult.js"></script>

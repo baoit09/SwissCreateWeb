@@ -1,6 +1,20 @@
 ﻿@model SwissCreateWeb.Models.Project.ProjectEditModel
 @{
     ViewBag.Title = "Project";
+
+    var stepBusinessModelIndex = ViewBag.ProjectSettings.Step_BusinessModel_Index;
+    var stepSwotAnalysisIndex = ViewBag.ProjectSettings.Step_SwotAnalysis_Index;
+    var stepBusinessStrategyIndex = ViewBag.ProjectSettings.Step_BusinessStrategy_Index;
+    var stepSuccessFactorsIndex = ViewBag.ProjectSettings.Step_SuccessFactors_Index;
+    var stepReviewIndex = ViewBag.ProjectSettings.Step_Review_Index;
+    var stepEvaluationIndex = ViewBag.ProjectSettings.Step_Evaluation_Index;
+    var stepMeasuresIndex = ViewBag.ProjectSettings.Step_Measures_Index;
+    var stepMarketingIndex = ViewBag.ProjectSettings.Step_Marketing_Index;
+    var stepFinanceIndex = ViewBag.ProjectSettings.Step_Finance_Index;
+    var stepRiskIndex = ViewBag.ProjectSettings.Step_Risk_Index;
+    var stepChartsIndex = ViewBag.ProjectSettings.Step_Charts_Index;
+    var stepHRIndex = ViewBag.ProjectSettings.Step_HR_Index;
+    var stepConclusionIndex = ViewBag.ProjectSettings.Step_Conclusion_Index;
 }
 
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEdit.js"></script>
@@ -41,14 +55,91 @@
             @*Tab: Business Model*@
             <li id="li_businessmodel" class="active">
                 <a id="a_businessmodel" href="#tab_businessmodel" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[0].ShortName}}
+                    {{ProjectData.Periods[0].Steps[@stepBusinessModelIndex].ShortName}}
                 </a>
             </li>
 
             @*Tab: Swot-Analysis*@
             <li id="li_swotanalysis">
                 <a id="a_swotanalysis" href="#tab_swotanalysis" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[1].ShortName}}
+                    {{ProjectData.Periods[0].Steps[@stepSwotAnalysisIndex].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: Business Strategy*@
+            <li id="li_businessstrategy">
+                <a id="a_businessstrategy" href="#tab_businessstrategy" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepBusinessStrategyIndex].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: Success Factors*@
+            <li id="li_successfactors">
+                <a id="a_successfactors" href="#tab_successfactors" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepSuccessFactorsIndex].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: Review*@
+            <li id="li_review">
+                <a id="a_review" href="#tab_review" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepReviewIndex].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: Evaluation*@
+            <li id="li_evaluation">
+                <a id="a_evaluation" href="#tab_evaluation" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepEvaluationIndex].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: Measures*@
+            <li id="li_measures">
+                <a id="a_measures" href="#tab_measures" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepMeasuresIndex].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: Marketing*@
+            <li id="li_marketing">
+                <a id="a_marketing" href="#tab_marketing" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepMarketingIndex].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: Finance*@
+            <li id="li_finance">
+                <a id="a_finance" href="#tab_finance" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepFinanceIndex].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: Risk*@
+            <li id="li_risk">
+                <a id="a_risk" href="#tab_risk" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepRiskIndex].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: Charts*@
+            <li id="li_charts">
+                <a id="a_charts" href="#tab_charts" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepChartsIndex].ShortName}}
+                </a>
+            </li>
+
+            @*Tab: HR*@
+            @*<li id="li_hr">
+                <a id="a_hr" href="#tab_hr" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepHRIndex].ShortName}}
+                </a>
+            </li>*@
+
+            @*Tab: Conclusion*@
+            <li id="li_conclusion">
+                <a id="a_conclusion" href="#tab_conclusion" data-toggle="tab" style="background-color:wheat">
+                    {{ProjectData.Periods[0].Steps[@stepConclusionIndex].ShortName}}
                 </a>
             </li>
         </ul>
@@ -64,12 +155,98 @@
 
             @*Tab: Swot-Analysis*@
             <div class="tab-pane col-md-12" id="tab_swotanalysis">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[1].FullName_UPPER}}:</div>
                 <div class="row" id="divContent_swotanalysis">
-                    @Html.Partial("Tab_SwotAnalysis", Model)
+                    @*@Html.Partial("Tab_SwotAnalysis", Model, new ViewDataDictionary { { "stepIndex", @stepSwotAnalysisIndex } })*@
                 </div>
             </div>
 
+            @*Tab: Business Strategy*@
+            <div class="tab-pane col-md-12" id="tab_businessstrategy">
+                @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[2].FullName_UPPER}}:</div>*@
+                <div class="row" id="divContent_businessstrategy">
+                    @*@Html.Partial("Tab_BusinessStrategy", Model, new ViewDataDictionary { { "stepIndex", @stepBusinessStrategyIndex } })*@
+                </div>
+            </div>
+
+            @*Tab: Success Factors*@
+            <div class="tab-pane col-md-12" id="tab_successfactors">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[3].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_successfactors">
+                    @*@Html.Partial("Tab_SuccessFactors", Model, new ViewDataDictionary { { "stepIndex", @stepSuccessFactorsIndex } })*@
+                </div>
+            </div>
+
+            @*Tab: Review*@
+            <div class="tab-pane col-md-12" id="tab_review">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[4].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_review">
+                    @*@Html.Partial("Tab_Review", Model, new ViewDataDictionary { { "stepIndex", @stepReviewIndex } })*@
+                </div>
+            </div>
+
+            @*Tab: Evaluation*@
+            <div class="tab-pane col-md-12" id="tab_evaluation">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[5].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_evaluation">
+                    @*@Html.Partial("Tab_Evaluation", Model, new ViewDataDictionary { { "stepIndex", @stepEvaluationIndex } })*@
+                </div>
+            </div>
+
+            @*Tab: Measures*@
+            <div class="tab-pane col-md-12" id="tab_measures">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[6].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_measures">
+                    @*@Html.Partial("Tab_Measures", Model, new ViewDataDictionary { { "stepIndex", @stepMeasuresIndex } })*@
+                </div>
+            </div>
+
+            @*Tab: Marketing*@
+            <div class="tab-pane col-md-12" id="tab_marketing">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[7].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_marketing">
+                    @*@Html.Partial("Tab_Marketing", Model, new ViewDataDictionary { { "stepIndex", @stepMarketingIndex } })*@
+                </div>
+            </div>
+
+            @*Tab: Finance*@
+            <div class="tab-pane col-md-12" id="tab_finance">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[8].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_finance">
+                    @*@Html.Partial("Tab_Finance", Model, new ViewDataDictionary { { "stepIndex", @stepFinanceIndex } })*@
+                </div>
+            </div>
+
+            @*Tab: Risk*@
+            <div class="tab-pane col-md-12" id="tab_risk">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[11].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_risk">
+                    @*@Html.Partial("Tab_Risk", Model, new ViewDataDictionary { { "stepIndex", @stepRiskIndex } })*@
+                </div>
+            </div>
+
+            @*Tab: Charts*@
+            <div class="tab-pane col-md-12" id="tab_charts">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[12].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_charts">
+                    @*@Html.Partial("Tab_Charts", Model, new ViewDataDictionary { { "stepIndex", @stepChartsIndex } })*@
+                </div>
+            </div>
+
+            @*Tab: HR*@
+            <div class="tab-pane col-md-12" id="tab_hr">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[13].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_hr">
+                    @*@Html.Partial("Tab_HR", Model, new ViewDataDictionary { { "stepIndex", @stepHRIndex } })*@
+                </div>
+            </div>
+
+            @*Tab: Conclusion*@
+            <div class="tab-pane col-md-12" id="tab_conclusion">
+                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[8].FullName_UPPER}}:</div>
+                <div class="row" id="divContent_conclusion">
+                    @*@Html.Partial("Tab_Conclusion", Model, new ViewDataDictionary { { "stepIndex", @stepConclusionIndex } })*@
+                </div>
+            </div>
         </div>
     </div>
 

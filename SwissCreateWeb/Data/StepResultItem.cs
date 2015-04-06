@@ -8,7 +8,7 @@ namespace ViCode_LeVi.Data
 {
     public class StepResultItem
     {
-        public Brush Color { get; set; }
+        public string Color { get; set; }
 
         public int Value { get; set; }
 

@@ -1,6 +1,8 @@
 ﻿using SwissCreate.Core;
+using SwissCreate.Core.Domain.Projects;
 using SwissCreate.Core.Domain.Users;
 using SwissCreate.Core.Infrastructure;
+using SwissCreate.Services.Configuration;
 using SwissCreate.Services.Projects;
 using SwissCreate.Services.Users;
 using SwissCreateWeb.Framework.Helpers;
@@ -19,16 +21,18 @@ namespace SwissCreateWeb.Controllers
         #region Fields
         private readonly IProjectService _projectService;
         private readonly IXmlSerializeHelper _xmlSerializeHelper;
+        private readonly ISettingService _settingService;
         #endregion
 
         #region Ctor
 
         public HomeController(){}
 
-        public HomeController(IProjectService projectService, IXmlSerializeHelper xmlSerializeHelper)
+        public HomeController(IProjectService projectService, IXmlSerializeHelper xmlSerializeHelper, ISettingService settingService)
         {
             this._projectService = projectService;
             this._xmlSerializeHelper = xmlSerializeHelper;
+            this._settingService = settingService;
         }
 
         #endregion
@@ -56,8 +60,31 @@ namespace SwissCreateWeb.Controllers
 
             //var b = XMLData<ProjectData>.GetEntity(bytes);
 
+            InitData();
 
             return View();
+        }
+
+        private void InitData()
+        {
+            //ProjectSettings projectSettings = new ProjectSettings()
+            //{
+            //    Step_BusinessModel_Index = 0,
+            //    Step_SwotAnalysis_Index = 1,
+            //    Step_BusinessStrategy_Index = 2,
+            //    Step_SuccessFactors_Index = 3,
+            //    Step_Review_Index = 4,
+            //    Step_Evaluation_Index = 5,
+            //    Step_Measures_Index = 6,
+            //    Step_Marketing_Index = 7,
+            //    Step_Finance_Index = 9,
+            //    Step_Risk_Index = 11,
+            //    Step_Charts_Index = 12,
+            //    Step_HR_Index = 10,
+            //    Step_Conclusion_Index = 8
+            //};
+
+            //_settingService.SaveSetting(projectSettings);
         }
 
         public ActionResult About()
