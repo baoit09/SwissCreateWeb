@@ -49,6 +49,8 @@
         </div>
     </div>
 
+    <hr />
+
     <div style="margin-top:5px" class="row">
 
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -130,11 +132,11 @@
             </li>
 
             @*Tab: HR*@
-            @*<li id="li_hr">
+            <li id="li_hr">
                 <a id="a_hr" href="#tab_hr" data-toggle="tab" style="background-color:wheat">
                     {{ProjectData.Periods[0].Steps[@stepHRIndex].ShortName}}
                 </a>
-            </li>*@
+            </li>
 
             @*Tab: Conclusion*@
             <li id="li_conclusion">
@@ -204,7 +206,7 @@
             <div class="tab-pane col-md-12" id="tab_marketing">
                 <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[7].FullName_UPPER}}:</div>
                 <div class="row" id="divContent_marketing">
-                    @*@Html.Partial("Tab_Marketing", Model, new ViewDataDictionary { { "stepIndex", @stepMarketingIndex } })*@
+                    @*@Html.Partial("Tab_Marketing", Model)*@
                 </div>
             </div>
 

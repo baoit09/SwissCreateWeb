@@ -397,6 +397,8 @@
     <Content Include="Views\Project\Tab_Charts.cshtml" />
     <Content Include="Views\Project\Tab_HR.cshtml" />
     <Content Include="Views\Project\Tab_Conclusion.cshtml" />
+    <Content Include="Templates\en.scg" />
+    <Content Include="Templates\vi.scg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SwissCreate.Core\SwissCreate.Core.csproj">
@@ -427,6 +429,7 @@
     <Folder Include="AJSApp\Directives\" />
     <Folder Include="AJSApp\Models\" />
     <Folder Include="AJSApp\Services\" />
+    <Folder Include="Upload\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

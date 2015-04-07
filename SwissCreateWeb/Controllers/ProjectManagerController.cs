@@ -6,6 +6,11 @@ using SwissCreate.Core.Domain.Projects;
 using System.Collections.Generic;
 using SwissCreateWeb.Models.Project;
 using SwissCreateWeb.Extensions;
+using System.Web;
+using System.IO;
+using ViCode_LeVi.Data;
+using System;
+using SwissCreateWeb.Framework.Helpers;
 
 namespace SwissCreateWeb.Controllers
 {
@@ -42,10 +47,24 @@ namespace SwissCreateWeb.Controllers
 
             ProjectCategoryModel rootCategoryModel = ConvertToModel(rootCategory);
 
+            ViewBag.ConcatedFiles = GetTemplateFiles();
+           
             return View(new FileManagerModel()
             {
                 ProjectCategoryRoot = rootCategoryModel
             });
+        }
+
+        private string GetTemplateFiles()
+        {
+            var templateFolderPath = Server.MapPath("~/Templates");
+            var templateFiles = TemplateHelpers.GetTemplates(templateFolderPath);
+            string concatedFiles = string.Empty;
+            foreach (var item in templateFiles)
+            {
+                concatedFiles += (string.IsNullOrWhiteSpace(concatedFiles) ? "" : ",") + item;
+            }
+            return concatedFiles;
         }
 
         public ActionResult GetProjectCategoryRoot()
@@ -81,7 +100,7 @@ namespace SwissCreateWeb.Controllers
             return Json(new { success = bAdded });
         }
 
-        public ActionResult AddProject(int parentCategoryId, string childFileName)
+        public ActionResult AddProject(int parentCategoryId, string childFileName, string selectTemplate)
         {
             var currentUser = _workContext.CurrentUser;
 
@@ -89,12 +108,50 @@ namespace SwissCreateWeb.Controllers
             {
                 ProjectCategoryId = parentCategoryId > 0 ? parentCategoryId : (int?)null,
                 Name = childFileName,
-                UserId = currentUser.Id
+                UserId = currentUser.Id                
             };
+
+            if (!string.IsNullOrWhiteSpace(selectTemplate))
+            {
+                var path = Path.Combine(Server.MapPath("~/Templates/"), selectTemplate);
+                project.ProjectData = TemplateHelpers.GetXMLContent(path);
+            }
 
             bool bAdded = _projectService.AddProject(project);
             return Json(new { success = bAdded });
         }
+
+        [HttpPost]
+        public ActionResult UploadFile(int projectId)
+        {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files[0];
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    BinaryReader b = new BinaryReader(file.InputStream);
+                    byte[] binData = b.ReadBytes((int)file.InputStream.Length);
+                    string result = System.Text.Encoding.UTF8.GetString(binData);
+
+                    //var fileName = Path.GetFileName(file.FileName);
+                    //var path = Path.Combine(Server.MapPath("~/Upload/"), _workContext.CurrentUser.FirstName, DateTime.Now.ToString("yyyyMMdd"), fileName);
+                    //Directory.CreateDirectory(path);
+                    //file.SaveAs(path);
+                   
+                    var project = _projectService.GetProjectById(projectId);
+                    if (project != null)
+                    {
+                        project.ProjectData = result;
+                    }
+
+                    _projectService.UpdateProject(project);
+                }
+            }
+
+            return RedirectToAction("FileManager");
+        }
+
 
         public ActionResult DeleteProjectCategory(int projectCategoryId)
         {

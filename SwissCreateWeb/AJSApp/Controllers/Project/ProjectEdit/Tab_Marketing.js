@@ -1,7 +1,7 @@
 ﻿jQuery(document).ready(function ($) {        
 });
 
-function doSave()
+function doSaveMarketing()
 {
     var form_QA = $("#form_QA")
 

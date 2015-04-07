@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
+    <Compile Include="Helpers\TemplateHelpers.cs" />
     <Compile Include="Helpers\XMLData.cs" />
     <Compile Include="Helpers\XmlSerializeHelper.cs" />
     <Compile Include="Localization\LocalizedRoute.cs" />

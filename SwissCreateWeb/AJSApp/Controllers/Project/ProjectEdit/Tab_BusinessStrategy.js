@@ -26,7 +26,7 @@ function doSave()
 
                     function (ResponseResult) {
                         if (ResponseResult.success == true) {
-                            bootbox.alert("Project saved successfully!", function () {
+                            bootbox.alert("Chien luoc: Project saved successfully!", function () {
                             });
                         }
                         else {

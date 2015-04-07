@@ -249,11 +249,11 @@ namespace SwissCreateWeb.Controllers
                 if (projectData != null)
                 {
                     var questionAnwserStep = projectData.Period.Steps[stepIndex].QuestionAnwserStep;
-                    for (int i = 0; i < questionAnwserStep.QuestionAnwserGroups.Length; i++)
+                    for (int g = 0; g < questionAnwserStep.QuestionAnwserGroups.Length; g++)
                     {
-                        for (int q = 0; q < questionAnwserStep.QuestionAnwserGroups[0].QuestionAnswers.Length; q++)
+                        for (int q = 0; q < questionAnwserStep.QuestionAnwserGroups[g].QuestionAnswers.Length; q++)
                         {
-                            questionAnwserStep.QuestionAnwserGroups[i].QuestionAnswers[q].Answer = qa.QuestionAnwserGroups[i].QuestionAnswers[q].Answer;
+                            questionAnwserStep.QuestionAnwserGroups[g].QuestionAnswers[q].Answer = qa.QuestionAnwserGroups[g].QuestionAnswers[q].Answer;
                         }
                     }
                 }
