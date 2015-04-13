@@ -61,7 +61,7 @@ namespace ViCode_LeVi.Data
         public Step_QuestionAnwserStep QuestionAnwserStep { get; set; }
 
        
-        //public Step_TaskItemStep TaskItemStep { get; set; }
+        public Step_TaskItemStep TaskItemStep { get; set; }
 
        
         //public Step_Analysis Analysis { get; set; }

@@ -257,7 +257,7 @@ namespace ViCode_LeVi.Data
 
         #region ControlTextInfoInData
 
-        ControlTextInfoInData _ControlTextInfoInData;
+        public ControlTextInfoInData _ControlTextInfoInData;
         public ControlTextInfoInData ControlTextInfoInData
         {
             get

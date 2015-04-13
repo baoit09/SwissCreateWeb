@@ -15,12 +15,10 @@ namespace ViCode_LeVi.Data
 
         public Step_TaskItemStep(Step_TaskItemGroup[] tasks)
         {
-            TaskItemGroups_Source = new ObservableCollection<Step_TaskItemGroup>(tasks);
-            Setup_Listening_4Tasks_Summary();
+            TaskItemGroups_Source = new ObservableCollection<Step_TaskItemGroup>(tasks);            
         }
-
         
-        private Step_TaskItemGroup[] TaskItemGroups
+        public Step_TaskItemGroup[] TaskItemGroups
         {
             get
             {
@@ -30,10 +28,7 @@ namespace ViCode_LeVi.Data
             }
             set
             {
-                TaskItemGroups_Source = new ObservableCollection<Step_TaskItemGroup>(value);
-                Setup_Listening_4Tasks_Summary();
-                SendPropertyChanged("TaskItemGroups");
-                SendPropertyChanged("TaskItemGroups_Source");
+                TaskItemGroups_Source = new ObservableCollection<Step_TaskItemGroup>(value);                
             }
         }
         public ObservableCollection<Step_TaskItemGroup> TaskItemGroups_Source
@@ -43,17 +38,17 @@ namespace ViCode_LeVi.Data
         }
 
         #region Tasks_Summary
-        private void Setup_Listening_4Tasks_Summary()
-        {
-            TaskItemGroups_Source.CollectionChanged -= new System.Collections.Specialized.NotifyCollectionChangedEventHandler(TaskItemGroups_Source_CollectionChanged);
-            TaskItemGroups_Source.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(TaskItemGroups_Source_CollectionChanged);
+        //private void Setup_Listening_4Tasks_Summary()
+        //{
+        //    TaskItemGroups_Source.CollectionChanged -= new System.Collections.Specialized.NotifyCollectionChangedEventHandler(TaskItemGroups_Source_CollectionChanged);
+        //    TaskItemGroups_Source.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(TaskItemGroups_Source_CollectionChanged);
 
-            foreach (var taskItems in TaskItemGroups_Source)
-            {
-                taskItems.Tasks_Source.CollectionChanged -= new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Tasks_Source_CollectionChanged);
-                taskItems.Tasks_Source.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Tasks_Source_CollectionChanged);
-            }
-        }
+        //    foreach (var taskItems in TaskItemGroups_Source)
+        //    {
+        //        taskItems.Tasks_Source.CollectionChanged -= new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Tasks_Source_CollectionChanged);
+        //        taskItems.Tasks_Source.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Tasks_Source_CollectionChanged);
+        //    }
+        //}
 
         void Tasks_Source_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {

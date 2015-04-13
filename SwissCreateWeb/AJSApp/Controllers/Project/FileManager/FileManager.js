@@ -440,5 +440,13 @@ function file_UploadProjectData(context, e) {
     //bootbox.dialog("<form action" + action + " class='form-horizontal' method='post' enctype='multipart/form-data' id='infos' action='#'><input value='" + projectId + "' id='projectId' name='projectId' type='hidden'><div>Upload file .scg for [ " + nodeSelected.text() + " ] :</div><br/><input name='letter' type='file' class='form-control file'><br/><input value='Upload' type='submit' class='form-control btn btn-primary'></form>");
 }
 
+function file_DownloadProjectData(context, e)
+{
+    var nodeSelected = $(context);
+    var projectId = nodeSelected.data('id');
+    var action = $("#UploadFile").val();
 
+    window.location.href = $("#DownloadFile").val() + "?projectId=" + projectId;
+    
+}
 //#endregion

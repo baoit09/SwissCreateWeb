@@ -7,7 +7,7 @@
         e.preventDefault();
        
         var tabID = $(this).attr("href").substr(1);
-        $(".tab-pane").each(function () {
+        $(".tab-pane .main-tab").each(function () {
             $(this).empty();
         });
 

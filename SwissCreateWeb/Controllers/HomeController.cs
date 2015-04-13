@@ -1,4 +1,5 @@
-﻿using SwissCreate.Core;
+﻿using Newtonsoft.Json;
+using SwissCreate.Core;
 using SwissCreate.Core.Domain.Projects;
 using SwissCreate.Core.Domain.Users;
 using SwissCreate.Core.Infrastructure;
@@ -22,17 +23,21 @@ namespace SwissCreateWeb.Controllers
         private readonly IProjectService _projectService;
         private readonly IXmlSerializeHelper _xmlSerializeHelper;
         private readonly ISettingService _settingService;
+
+        private readonly ProjectSettings _projectSettings;
         #endregion
 
         #region Ctor
 
         public HomeController(){}
 
-        public HomeController(IProjectService projectService, IXmlSerializeHelper xmlSerializeHelper, ISettingService settingService)
+        public HomeController(IProjectService projectService, IXmlSerializeHelper xmlSerializeHelper, ISettingService settingService, ProjectSettings projectSettings)
         {
             this._projectService = projectService;
             this._xmlSerializeHelper = xmlSerializeHelper;
             this._settingService = settingService;
+
+            this._projectSettings = projectSettings;
         }
 
         #endregion
@@ -60,13 +65,26 @@ namespace SwissCreateWeb.Controllers
 
             //var b = XMLData<ProjectData>.GetEntity(bytes);
 
-            InitData();
+            TestData();
 
             return View();
         }
 
-        private void InitData()
+        private void TestData()
         {
+            //int stepIndex = _projectSettings.Step_SuccessFactors_Index;
+            //var project = _projectService.GetProjectById(24);
+            //if (project != null)
+            //{
+            //    ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+            //    if (projectData != null)
+            //    {
+            //        var taskItemStep = projectData.Period.Steps[stepIndex].TaskItemStep;
+
+            //        string sJson = JsonConvert.SerializeObject(taskItemStep);                    
+            //    }
+            //}
+
             //ProjectSettings projectSettings = new ProjectSettings()
             //{
             //    Step_BusinessModel_Index = 0,

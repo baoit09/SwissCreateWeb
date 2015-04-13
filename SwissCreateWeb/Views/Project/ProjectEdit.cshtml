@@ -76,7 +76,7 @@
             </li>
 
             @*Tab: Success Factors*@
-            <li id="li_successfactors">
+            <li id="li_successfactors" class="">
                 <a id="a_successfactors" href="#tab_successfactors" data-toggle="tab" style="background-color:wheat">
                     {{ProjectData.Periods[0].Steps[@stepSuccessFactorsIndex].ShortName}}
                 </a>
@@ -148,7 +148,7 @@
 
         <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
             @*Tab: Business Model*@
-            <div class="tab-pane  active col-md-12" id="tab_businessmodel">
+            <div class="tab-pane active col-md-12" id="tab_businessmodel">
                 <div class="row" id="divContent_businessmodel">
                     @Html.Partial("Tab_BusinessModel", Model)
                 </div>
@@ -172,9 +172,8 @@
 
             @*Tab: Success Factors*@
             <div class="tab-pane col-md-12" id="tab_successfactors">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[3].FullName_UPPER}}:</div>
                 <div class="row" id="divContent_successfactors">
-                    @*@Html.Partial("Tab_SuccessFactors", Model, new ViewDataDictionary { { "stepIndex", @stepSuccessFactorsIndex } })*@
+                    @*@Html.Partial("Tab_SuccessFactors", Model)*@
                 </div>
             </div>
 
@@ -258,3 +257,4 @@
     @Html.Hidden("GetTab", Url.Action("", "Project"))
     
 </div>
+

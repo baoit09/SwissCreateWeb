@@ -89,6 +89,8 @@
 
 @Html.Hidden("UploadFile", Url.Action("UploadFile", "ProjectManager"))
 
+@Html.Hidden("DownloadFile", Url.Action("DownloadFile", "ProjectManager"))
+
 @*Template*@
 <input value="@ViewBag.ConcatedFiles" id="Templates" name="Templates" type="hidden">
 

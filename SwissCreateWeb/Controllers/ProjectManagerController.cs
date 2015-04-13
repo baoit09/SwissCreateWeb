@@ -11,6 +11,7 @@ using System.IO;
 using ViCode_LeVi.Data;
 using System;
 using SwissCreateWeb.Framework.Helpers;
+using System.Text;
 
 namespace SwissCreateWeb.Controllers
 {
@@ -152,6 +153,18 @@ namespace SwissCreateWeb.Controllers
             return RedirectToAction("FileManager");
         }
 
+        public ActionResult DownloadFile(int projectId)
+        {
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                string sXMLContent = project.ProjectData ?? string.Empty;
+                string sXMLFileName = (string.IsNullOrWhiteSpace(project.Name) ? ("Project_" + project.Id) : project.Name) + ".scg";
+                return new DownloadFileActionResult(sXMLContent, sXMLFileName);
+            }
+
+            return null;
+        }
 
         public ActionResult DeleteProjectCategory(int projectCategoryId)
         {
@@ -338,5 +351,38 @@ namespace SwissCreateWeb.Controllers
             return catModel;
         }
         #endregion
+    }
+
+    public class DownloadFileActionResult : ActionResult
+    {
+        public string excelData { get; set; }
+        public string fileName { get; set; }
+
+        public DownloadFileActionResult(string data, string pFileName)
+        {
+            excelData = data;
+            fileName = pFileName;
+        }
+
+        public override void ExecuteResult(ControllerContext context)
+        {
+            //Create a response stream to create and write the Excel file
+            HttpContext curContext = HttpContext.Current;
+            curContext.Response.Clear();
+            curContext.Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+            curContext.Response.Charset = "";
+            curContext.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            curContext.Response.ContentType = "application/xml";
+
+
+            //Open a memory stream that you can use to write back to the response
+            byte[] byteArray = Encoding.ASCII.GetBytes(excelData);
+            MemoryStream s = new MemoryStream(byteArray);
+            StreamReader sr = new StreamReader(s, Encoding.ASCII);
+
+            //Write the stream back to the response
+            curContext.Response.Write(sr.ReadToEnd());
+            curContext.Response.End();
+        }
     }
 }

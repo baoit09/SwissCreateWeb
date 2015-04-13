@@ -20,8 +20,8 @@ namespace ViCode_LeVi.Data
                 Tasks = new Step_TaskItem[0];
         }
         #region Name
-        
-        string _Name = string.Empty;
+
+        public string _Name = string.Empty;
         public string Name
         {
             get { return _Name; }
@@ -37,7 +37,7 @@ namespace ViCode_LeVi.Data
         #endregion
         #region Code
         
-        string _Code = string.Empty;
+        public string _Code = string.Empty;
         public string Code
         {
             get { return _Code; }
@@ -67,8 +67,8 @@ namespace ViCode_LeVi.Data
         //    }
         //}
 
-        
-        private Step_TaskItem[] Tasks
+
+        public Step_TaskItem[] Tasks
         {
             get
             {
@@ -86,39 +86,41 @@ namespace ViCode_LeVi.Data
             get;
             set;
         }
-        public Step_TaskItem[] Tasks_Source_IsActive
-        {
-            get { return Tasks_Source.Where(c => c.Active == true).ToArray(); }
-        }
+
+        //public Step_TaskItem[] Tasks_Source_IsActive
+        //{
+        //    get { return Tasks_Source.Where(c => c.Active == true).ToArray(); }
+        //    set {}
+        //}
 
 
         #region IM_Current_Task
-        Step_TaskItem _IM_Current_Task;
-        public Step_TaskItem IM_Current_Task
-        {
-            get { return _IM_Current_Task; }
-            set
-            {
-                if (_IM_Current_Task != value)
-                {
-                    _IM_Current_Task = value;
-                    SendPropertyChanged("IM_Current_Task");
-                    SendPropertyChanged("IsEnableChangeInfo");
-                    SendPropertyChanged("ShowHelpAddNew");
-                }
-            }
-        }
-        public bool IsEnableChangeInfo
-        {
-            get
-            {
-                return IM_Current_Task != null;
-            }
-        }
-        public Visibility ShowHelpAddNew
-        {
-            get { return _IM_Current_Task != null ? Visibility.Collapsed : Visibility.Visible; }
-        }
+        //Step_TaskItem _IM_Current_Task;
+        //public Step_TaskItem IM_Current_Task
+        //{
+        //    get { return _IM_Current_Task; }
+        //    set
+        //    {
+        //        if (_IM_Current_Task != value)
+        //        {
+        //            _IM_Current_Task = value;
+        //            SendPropertyChanged("IM_Current_Task");
+        //            SendPropertyChanged("IsEnableChangeInfo");
+        //            SendPropertyChanged("ShowHelpAddNew");
+        //        }
+        //    }
+        //}
+        //public bool IsEnableChangeInfo
+        //{
+        //    get
+        //    {
+        //        return IM_Current_Task != null;
+        //    }
+        //}
+        //public Visibility ShowHelpAddNew
+        //{
+        //    get { return _IM_Current_Task != null ? Visibility.Collapsed : Visibility.Visible; }
+        //}
         #endregion
 
         #region INotifyPropertyChanged Members

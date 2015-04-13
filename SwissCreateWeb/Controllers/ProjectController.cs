@@ -8,6 +8,7 @@ using SwissCreateWeb.Models.Project;
 using SwissCreateWeb.Extensions;
 using SwissCreateWeb.Framework.Helpers;
 using ViCode_LeVi.Data;
+using Newtonsoft.Json;
 
 namespace SwissCreateWeb.Controllers
 {
@@ -62,6 +63,12 @@ namespace SwissCreateWeb.Controllers
             }
             return model;
         }
+
+        #region Tabs
+
+        #region Shared tabs
+
+        #region Question Answer Operation
 
         public ActionResult QuestionAnswerStep(int projectId, int stepIndex)
         {
@@ -129,7 +136,7 @@ namespace SwissCreateWeb.Controllers
 
                             priviousQA.Question = sQuestion;
                             priviousQA.Answer = sAnswer;
-                            
+
                         }
                     }
                     else if (option == "Down")
@@ -185,7 +192,7 @@ namespace SwissCreateWeb.Controllers
                         else
                         {
                             var currentQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[questionindex];
-                            var nextQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[nLength-1];
+                            var nextQA = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupindex].QuestionAnswers[nLength - 1];
 
                             string sQuestion = currentQA.Question;
                             string sAnswer = currentQA.Question;
@@ -225,7 +232,7 @@ namespace SwissCreateWeb.Controllers
                     listQAs.Add(newQA);
                     projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep.QuestionAnwserGroups[groupIndex].QuestionAnswers = listQAs.ToArray();
                 }
-                    
+
                 string sXML = projectData.ToXML();
                 project.ProjectData = sXML;
                 bool bSuccess = _projectService.UpdateProject(project);
@@ -235,9 +242,7 @@ namespace SwissCreateWeb.Controllers
             return Json(new { success = true });
         }
 
-        #region Tabs
-
-        #region Shared tabs
+        #endregion
 
         public ActionResult Save_QuestionAnwserStep(int projectId, int stepIndex, Step_QuestionAnwserStep qa)
         {
@@ -346,6 +351,74 @@ namespace SwissCreateWeb.Controllers
             ViewBag.StepIndex = _projectSettings.Step_SuccessFactors_Index;
             return PartialView(model);
         }
+
+        public ActionResult Get_Step_TaskItemStep(int projectId)
+        {
+            int stepIndex = _projectSettings.Step_SuccessFactors_Index;
+
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+                if (projectData != null)
+                {
+                    var taskItemStep = projectData.Period.Steps[stepIndex].TaskItemStep;
+
+                    string sJson = JsonConvert.SerializeObject(taskItemStep);
+                    return Json(sJson);
+                }
+            }
+
+            return Json(string.Empty);
+        }
+
+        public ActionResult Post_Step_TaskItemStep(int projectId, Step_TaskItem[] tasks0, Step_TaskItem[] tasks1, Step_TaskItem[] tasks2)
+        {
+            int stepIndex = _projectSettings.Step_SuccessFactors_Index;
+
+            bool bSuccess = false;
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+                if (projectData != null)
+                {
+                    projectData.Period.Steps[stepIndex].TaskItemStep.TaskItemGroups[0].Tasks = tasks0;
+                    projectData.Period.Steps[stepIndex].TaskItemStep.TaskItemGroups[1].Tasks = tasks1;
+                    projectData.Period.Steps[stepIndex].TaskItemStep.TaskItemGroups[2].Tasks = tasks2;
+
+                    string sXML = projectData.ToXML();
+                    project.ProjectData = sXML;
+
+                    bSuccess = _projectService.UpdateProject(project);
+                }
+            }
+
+            return Json(new { success = bSuccess });
+        }
+
+        //public ActionResult Post_Step_TaskItemStep(int projectId, int stepIndex)
+        //{
+        //    Step_TaskItemStep taskItemStep = null;
+        //    bool bSuccess = false;
+        //    var project = _projectService.GetProjectById(projectId);
+        //    if (project != null)
+        //    {
+        //        ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+        //        if (projectData != null)
+        //        {
+        //            projectData.Period.Steps[stepIndex].TaskItemStep = taskItemStep;
+
+        //            string sXML = projectData.ToXML();
+        //            project.ProjectData = sXML;
+
+        //            bSuccess = _projectService.UpdateProject(project);
+        //        }
+        //    }
+
+        //    return Json(new { success = bSuccess });
+        //}
+
 
         #endregion
 

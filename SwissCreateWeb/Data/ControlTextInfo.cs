@@ -1812,6 +1812,7 @@ namespace ViCode_LeVi.Data
         }
         #endregion
         #endregion
+
         #region eImportanceMode
         #region eImportanceMode_Absolute_Text
         
