@@ -148,7 +148,7 @@
 
         <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
             @*Tab: Business Model*@
-            <div class="tab-pane active col-md-12" id="tab_businessmodel">
+            <div class="tab-pane active main-tab col-md-12" id="tab_businessmodel">
                 <div class="row" id="divContent_businessmodel">
                     @Html.Partial("Tab_BusinessModel", Model)
                 </div>
@@ -156,14 +156,14 @@
 
 
             @*Tab: Swot-Analysis*@
-            <div class="tab-pane col-md-12" id="tab_swotanalysis">
+            <div class="tab-pane main-tab col-md-12" id="tab_swotanalysis">
                 <div class="row" id="divContent_swotanalysis">
                     @*@Html.Partial("Tab_SwotAnalysis", Model, new ViewDataDictionary { { "stepIndex", @stepSwotAnalysisIndex } })*@
                 </div>
             </div>
 
             @*Tab: Business Strategy*@
-            <div class="tab-pane col-md-12" id="tab_businessstrategy">
+            <div class="tab-pane main-tab col-md-12" id="tab_businessstrategy">
                 @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[2].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_businessstrategy">
                     @*@Html.Partial("Tab_BusinessStrategy", Model, new ViewDataDictionary { { "stepIndex", @stepBusinessStrategyIndex } })*@
@@ -171,23 +171,22 @@
             </div>
 
             @*Tab: Success Factors*@
-            <div class="tab-pane col-md-12" id="tab_successfactors">
+            <div class="tab-pane main-tab col-md-12" id="tab_successfactors">
                 <div class="row" id="divContent_successfactors">
                     @*@Html.Partial("Tab_SuccessFactors", Model)*@
                 </div>
             </div>
 
             @*Tab: Review*@
-            <div class="tab-pane col-md-12" id="tab_review">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[4].FullName_UPPER}}:</div>
+            <div class="tab-pane main-tab col-md-12" id="tab_review">
                 <div class="row" id="divContent_review">
                     @*@Html.Partial("Tab_Review", Model, new ViewDataDictionary { { "stepIndex", @stepReviewIndex } })*@
                 </div>
             </div>
 
             @*Tab: Evaluation*@
-            <div class="tab-pane col-md-12" id="tab_evaluation">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[5].FullName_UPPER}}:</div>
+            <div class="tab-pane main-tab col-md-12" id="tab_evaluation">
+                @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[5].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_evaluation">
                     @*@Html.Partial("Tab_Evaluation", Model, new ViewDataDictionary { { "stepIndex", @stepEvaluationIndex } })*@
                 </div>
@@ -195,55 +194,55 @@
 
             @*Tab: Measures*@
             <div class="tab-pane col-md-12" id="tab_measures">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[6].FullName_UPPER}}:</div>
+                @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[6].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_measures">
                     @*@Html.Partial("Tab_Measures", Model, new ViewDataDictionary { { "stepIndex", @stepMeasuresIndex } })*@
                 </div>
             </div>
 
             @*Tab: Marketing*@
-            <div class="tab-pane col-md-12" id="tab_marketing">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[7].FullName_UPPER}}:</div>
+            <div class="tab-pane main-tab col-md-12" id="tab_marketing">
+                @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[7].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_marketing">
                     @*@Html.Partial("Tab_Marketing", Model)*@
                 </div>
             </div>
 
             @*Tab: Finance*@
-            <div class="tab-pane col-md-12" id="tab_finance">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[8].FullName_UPPER}}:</div>
+            <div class="tab-pane main-tab col-md-12" id="tab_finance">
+                @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[8].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_finance">
                     @*@Html.Partial("Tab_Finance", Model, new ViewDataDictionary { { "stepIndex", @stepFinanceIndex } })*@
                 </div>
             </div>
 
             @*Tab: Risk*@
-            <div class="tab-pane col-md-12" id="tab_risk">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[11].FullName_UPPER}}:</div>
+            <div class="tab-pane main-tab col-md-12" id="tab_risk">
+                @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[11].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_risk">
                     @*@Html.Partial("Tab_Risk", Model, new ViewDataDictionary { { "stepIndex", @stepRiskIndex } })*@
                 </div>
             </div>
 
             @*Tab: Charts*@
-            <div class="tab-pane col-md-12" id="tab_charts">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[12].FullName_UPPER}}:</div>
+            <div class="tab-pane main-tab col-md-12" id="tab_charts">
+                @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[12].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_charts">
                     @*@Html.Partial("Tab_Charts", Model, new ViewDataDictionary { { "stepIndex", @stepChartsIndex } })*@
                 </div>
             </div>
 
             @*Tab: HR*@
-            <div class="tab-pane col-md-12" id="tab_hr">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[13].FullName_UPPER}}:</div>
+            <div class="tab-pane main-tab col-md-12" id="tab_hr">
+                @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[13].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_hr">
                     @*@Html.Partial("Tab_HR", Model, new ViewDataDictionary { { "stepIndex", @stepHRIndex } })*@
                 </div>
             </div>
 
             @*Tab: Conclusion*@
-            <div class="tab-pane col-md-12" id="tab_conclusion">
-                <div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[8].FullName_UPPER}}:</div>
+            <div class="tab-pane main-tab col-md-12" id="tab_conclusion">
+                @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[8].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_conclusion">
                     @*@Html.Partial("Tab_Conclusion", Model, new ViewDataDictionary { { "stepIndex", @stepConclusionIndex } })*@
                 </div>
@@ -251,9 +250,9 @@
         </div>
     </div>
 
-    
     @Html.Hidden("ProjectEdittingId", Model.Project.Id)
     @Html.Hidden("GetProjectEditModel", Url.Action("GetProjectEditModel", "Project"))    
+    @Html.Hidden("GetProjectSettings", Url.Action("Get_Project_Settings", "Project"))
     @Html.Hidden("GetTab", Url.Action("", "Project"))
     
 </div>

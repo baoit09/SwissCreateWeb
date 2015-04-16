@@ -4,8 +4,8 @@
     var stepIndex = ViewBag.StepIndex;
     if (stepIndex == null)
     {
-        stepIndex = 0;
-    }
+        stepIndex = 4;
+    }    
 }
 
 <div class="row" style="margin-top:10px;">
@@ -14,12 +14,104 @@
 </div>
 
 <div class="row" style="margin-top:10px;">
-    <div class="col-md-10">Will be implemented soon</div>
+    <div class="col-md-10">
+        <div id="jsGrid_Review" style="min-height:500px; padding:0px;"></div>
+    </div>
     <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>
 </div>
+
+<div id="detailsForm" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modelTitle"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-group">
+                    <div class="col-md-2">Title:</div>
+                    <div class="col-md-10"><input id="Name" class="form-control"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2">Define:</div>
+                    <div class="col-md-10"><textarea id="Define" rows="4" class="form-control"></textarea></div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <div class="col-md-2">Quality Question:</div>
+                    <div class="col-md-10"><textarea id="Quality_Question" rows="3" class="form-control"></textarea></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">Weight Percent:</div>
+                    <div class="col-md-9"><input id="Quality_WeightPercent" data-targetimage="imgQuality" class="form-control inputCanChange" /></div>
+                    <div class="col-md-1"><img id="imgQuality" style="vertical-align:central" height='30' width='30' /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">Answer:</div>
+                    <div class="col-md-10"><textarea id="Quality_Answer" rows="3" class="form-control"></textarea></div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <div class="col-md-2">Quantity Question:</div>
+                    <div class="col-md-10"><textarea id="Quantity_Question" rows="3" class="form-control"></textarea></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">Weight Percent:</div>
+                    <div class="col-md-9"><input id="Quantity_WeightPercent" data-targetimage="imgQuantity" class="form-control inputCanChange" /></div>
+                    <div class="col-md-1"><img id="imgQuantity" style="vertical-align:central" height='30' width='30' /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">Answer:</div>
+                    <div class="col-md-10"><textarea id="Quantity_Answer" rows="3" class="form-control"></textarea></div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <div class="col-md-2">Systematic Question:</div>
+                    <div class="col-md-10"><textarea id="Systematic_Question" rows="3" class="form-control"></textarea></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">Weight Percent:</div>
+                    <div class="col-md-9"><input id="Systematic_WeightPercent" data-targetimage="imgSystematic" class="form-control inputCanChange" /></div>
+                    <div class="col-md-1"><img id="imgSystematic" style="vertical-align:central" height='30' width='30' /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">Answer:</div>
+                    <div class="col-md-10"><textarea id="Systematic_Answer" rows="3" class="form-control"></textarea></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_OK">OK</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 @Html.Hidden("Hidden_ProjectId", Model.Project.Id)
 @*@Html.Hidden("Hidden_StepIndex", stepIndex)*@
 <input value="@stepIndex" id="Hidden_StepIndex" name="Hidden_StepIndex" type="hidden">
+
+@Html.Hidden("Hidden_Get_Step_TaskItemStep", Url.Action("Get_Step_TaskItemStep", "Project"))
+@Html.Hidden("Hidden_Post_Step_TaskItemStep", Url.Action("Post_Step_TaskItemStep", "Project"))
+
+<link href="~/Content/jsGrid/css/jsgrid.css" rel="stylesheet" />
+<link href="~/Content/jsGrid/css/theme.css" rel="stylesheet" />
+
+<script src="~/Content/jsGrid/jsgrid.core.js"></script>
+<script src="~/Content/jsGrid/jsgrid.load-indicator.js"></script>
+<script src="~/Content/jsGrid/jsgrid.load-strategies.js"></script>
+<script src="~/Content/jsGrid/jsgrid.sort-strategies.js"></script>
+
+<script src="~/Content/jsGrid/jsgrid.field.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.text.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.number.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.select.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.checkbox.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.textarea.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.control.js"></script>
+
 
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_Review.js"></script>

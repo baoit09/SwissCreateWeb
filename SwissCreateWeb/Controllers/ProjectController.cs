@@ -308,6 +308,11 @@ namespace SwissCreateWeb.Controllers
             return Json(new { success = bSuccess });
         }
 
+        public ActionResult Get_Project_Settings()
+        {
+            return Json(_projectSettings);
+        }
+
         #endregion
 
         #region Tab_BusinessModel

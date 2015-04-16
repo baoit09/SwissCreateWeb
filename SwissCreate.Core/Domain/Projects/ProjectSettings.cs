@@ -22,5 +22,13 @@ namespace SwissCreate.Core.Domain.Projects
         public int Step_Charts_Index { get; set; }
         public int Step_HR_Index { get; set; }
         public int Step_Conclusion_Index { get; set; }
+
+        public string Url_Image_Sad { get; set; }
+        public string Url_Image_Normal { get; set; }
+        public string Url_Image_Happy { get; set; }
+
+        public int Quantity_Image_Level1 { get; set; }
+        public int Quantity_Image_Level2 { get; set; }
+        public int Quantity_Image_Level3 { get; set; }
     }
 }

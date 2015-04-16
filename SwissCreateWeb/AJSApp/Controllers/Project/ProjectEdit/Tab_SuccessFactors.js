@@ -54,7 +54,7 @@ function SetupJsGrids()
     //$("#jsGrid_StructuralCapital").css("padding", "1px");
     
     $("#jsGrid_StructuralCapital").jsGrid({
-        height: "100%",
+        height: "500px",
         width: "100%",
         //filtering: true,
         editing: true,
@@ -84,7 +84,7 @@ function SetupJsGrids()
 
     
     $("#jsGrid_RelationshipCapital").jsGrid({
-        height: "100%",
+        height: "500px",
         width: "100%",
         //filtering: true,
         editing: true,
@@ -113,7 +113,7 @@ function SetupJsGrids()
     });
 
     $("#jsGrid_Weight").jsGrid({
-        height: "100%",
+        height: "500px",
         width: "100%",
         //filtering: true,
         //editing: true,
@@ -177,7 +177,7 @@ function doSave()
                 var url = form_StepResult.attr("action");
                 $.post(url,
                         "projectId=" + $("#Hidden_ProjectId").val() +
-                        "&stepIndex=" + $("#Hidden_Tab_SuccessFactors_StepIndex").val() +
+                        "&stepIndex=" + $("#Hidden_StepIndex").val() +
                         "&" + form_StepResult.serialize(),
 
                     function (ResponseResult) {

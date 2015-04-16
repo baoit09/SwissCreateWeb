@@ -98,8 +98,16 @@ namespace SwissCreateWeb.Controllers
             //    Step_Finance_Index = 9,
             //    Step_Risk_Index = 11,
             //    Step_Charts_Index = 12,
-            //    Step_HR_Index = 10,
-            //    Step_Conclusion_Index = 8
+            //    Step_HR_Index = 13,
+            //    Step_Conclusion_Index = 8,
+
+            //    Url_Image_Sad = "~/Content/Images/1.png",
+            //    Url_Image_Normal = "~/Content/Images/2.png",
+            //    Url_Image_Happy = "~/Content/Images/3.png",
+
+            //    Quantity_Image_Level1 = 30,
+            //    Quantity_Image_Level2 = 59,
+            //    Quantity_Image_Level3 = 100
             //};
 
             //_settingService.SaveSetting(projectSettings);

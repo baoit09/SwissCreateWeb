@@ -78,7 +78,7 @@
 
 @Html.Hidden("Hidden_ProjectId", Model.Project.Id)
 @*@Html.Hidden("Hidden_StepIndex", stepIndex)*@
-<input value="@stepIndex" id="Hidden_Tab_SuccessFactors_StepIndex" name="Hidden_StepIndex" type="hidden">
+<input value="@stepIndex" id="Hidden_StepIndex" name="Hidden_StepIndex" type="hidden">
 
 @Html.Hidden("Hidden_Get_Step_TaskItemStep", Url.Action("Get_Step_TaskItemStep", "Project"))
 @Html.Hidden("Hidden_Post_Step_TaskItemStep", Url.Action("Post_Step_TaskItemStep", "Project"))
