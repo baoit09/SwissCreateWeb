@@ -4,9 +4,11 @@
     var stepIndex = ViewBag.StepIndex;
     if (stepIndex == null)
     {
-        stepIndex = 0;
+        stepIndex = 5;
     }
 }
+
+
 
 <div class="row" style="margin-top:10px;">
     <div class="col-md-11" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
@@ -14,12 +16,64 @@
 </div>
 
 <div class="row" style="margin-top:10px;">
-    <div class="col-md-10">Will be implemented soon</div>
+    <div class="col-md-10">
+        <ul class="nav nav-tabs" data-tabs="tabs">
+            @*Tab: Human Captial*@
+            <li id="li_WeightBarChart" class="active">
+                <a id="a_WeightBarChart" href="#tab_WeightBarChart" data-toggle="tab" style="background-color:wheat">
+                    @Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Analysis1
+                </a>
+            </li>
+
+            @*Tab: Structural Capital*@
+            <li id="li_ValuationBarChart">
+                <a id="a_ValuationBarChart" href="#tab_Valuation Bar Chart" data-toggle="tab" style="background-color:wheat">
+                    @Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Analysis2
+                </a>
+            </li>
+
+            @*Tab: Relationship Capital*@
+            <li id="li_PortfolioofPotential">
+                <a id="a_PortfolioofPotential" href="#tab_PortfolioofPotential" data-toggle="tab" style="background-color:wheat">
+                    @Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Analysis3
+                </a>
+            </li>
+        </ul>
+        <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
+            @*Tab: Human Captial*@
+            <div class="tab-pane active" id="tab_WeightBarChart">
+                <div id="div_WeightBarChart" style="min-height:500px; padding:0px;"></div>
+                <hr />
+                <div class="form-group">
+                    <label for="textarea_Interpretation" class="col-sm-2 control-label">Interpretation</label>
+                    <div class="col-sm-10">
+                        @*<input type="text" class="form-control" id="input_Interpretation" value="">*@
+                        <textarea id="textarea_Interpretation" rows="3" class="form-control">@Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Interpretation1</textarea>
+                    </div>
+                </div>
+                    @*<div class="row">Interpretation:</div>
+                    <div class="row"><textarea rows="3" class="form-control">@Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Interpretation1</textarea></div>*@
+                </div>
+            </div>
+
+            @*Tab: StructuralCapital*@
+            <div class="tab-pane" id="tab_ValuationBarChart">
+                <div id="div_ValuationBarChart" style="min-height:500px; padding:0px;"></div>
+            </div>
+
+            @*Tab: Relationship Capital*@
+            <div class="tab-pane" id="tab_PortfolioofPotential">
+                <div id="div_PortfolioofPotential" style="min-height:500px; padding:0px;"></div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>
 </div>
 
 @Html.Hidden("Hidden_ProjectId", Model.Project.Id)
 @*@Html.Hidden("Hidden_StepIndex", stepIndex)*@
 <input value="@stepIndex" id="Hidden_StepIndex" name="Hidden_StepIndex" type="hidden">
+@Html.Hidden("Hidden_Get_Step_TaskItemStep", Url.Action("Get_Step_TaskItemStep", "Project"))
+@Html.Hidden("Hidden_Post_Step_TaskItemStep", Url.Action("Post_Step_TaskItemStep", "Project"))
 
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_Evaluation.js"></script>
