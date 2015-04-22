@@ -20,7 +20,7 @@
 @*<script type="text/javascript" src="https://www.google.com/jsapi"></script>*@
 <script src="~/Scripts/jsapi.js"></script>
 <script type="text/javascript">
-    google.load("visualization", "1", { packages: ["corechart", "bar"] });
+    google.load("visualization", "1.1", { packages: [ "corechart", "bar"] })    
 </script>
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEdit.js"></script>
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEditController.js"></script>
@@ -153,10 +153,10 @@
 
         <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
             @*Tab: Business Model*@
-            <div class="tab-pane active col-md-12" id="tab_businessmodel">
-                <div class="row" id="divContent_businessmodel">
+            <div class="tab-pane col-md-12" id="tab_businessmodel">
+                @*<div class="row" id="divContent_businessmodel">
                     @Html.Partial("Tab_BusinessModel", Model)
-                </div>
+                </div>*@
             </div>
 
 
@@ -190,10 +190,10 @@
             </div>
 
             @*Tab: Evaluation*@
-            <div class="tab-pane main-tab col-md-12" id="tab_evaluation">
+            <div class="tab-pane active main-tab col-md-12" id="tab_evaluation">
                 @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[5].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_evaluation">
-                    @*@Html.Partial("Tab_Evaluation", Model)*@
+                    @Html.Partial("Tab_Evaluation", Model)
                 </div>
             </div>
 

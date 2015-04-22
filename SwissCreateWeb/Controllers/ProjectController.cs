@@ -447,6 +447,32 @@ namespace SwissCreateWeb.Controllers
             return PartialView(model);
         }
 
+        public ActionResult Save_Tab_Evaluation(int projectId, string sInterpretation1, string sInterpretation2, string sInterpretation3)
+        {
+            int stepIndex = _projectSettings.Step_Evaluation_Index;
+
+            bool bSuccess = false;
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+                if (projectData != null)
+                {
+                    projectData.Period.Steps[stepIndex].Analysis.Interpretation1 = sInterpretation1;
+                    projectData.Period.Steps[stepIndex].Analysis.Interpretation2 = sInterpretation2;
+                    projectData.Period.Steps[stepIndex].Analysis.Interpretation3 = sInterpretation3;
+
+                    string sXML = projectData.ToXML();
+                    project.ProjectData = sXML;
+
+                    bSuccess = _projectService.UpdateProject(project);
+                }
+            }
+
+            return Json(new { success = bSuccess });
+        }
+
+
         #endregion
 
         #region Tab_Measures

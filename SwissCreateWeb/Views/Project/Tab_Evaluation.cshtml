@@ -27,7 +27,7 @@
 
             @*Tab: Structural Capital*@
             <li id="li_ValuationBarChart">
-                <a id="a_ValuationBarChart" href="#tab_Valuation Bar Chart" data-toggle="tab" style="background-color:wheat">
+                <a id="a_ValuationBarChart" href="#tab_ValuationBarChart" data-toggle="tab" style="background-color:wheat">
                     @Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Analysis2
                 </a>
             </li>
@@ -42,23 +42,28 @@
         <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
             @*Tab: Human Captial*@
             <div class="tab-pane active" id="tab_WeightBarChart">
-                <div id="div_WeightBarChart" style="min-height:500px; padding:0px;"></div>
+                <div class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
+                    <label class="checkbox-inline"><input type="checkbox" id="checkbox_HC" name="checkboxFilter" value="HC" class="checkboxFilter">HC</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="checkbox_SC" name="checkboxFilter" value="SC" class="checkboxFilter">SC</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="checkbox_RC" name="checkboxFilter" value="RC" class="checkboxFilter">RC</label>
+                </div>
+                <div id="div_WeightBarChart" style="min-height:500px; margin:5px;"></div>
                 <hr />
-                <div class="form-group">
-                    <label for="textarea_Interpretation" class="col-sm-2 control-label">Interpretation</label>
-                    <div class="col-sm-10">
-                        @*<input type="text" class="form-control" id="input_Interpretation" value="">*@
-                        <textarea id="textarea_Interpretation" rows="3" class="form-control">@Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Interpretation1</textarea>
-                    </div>
-                </div>
-                    @*<div class="row">Interpretation:</div>
-                    <div class="row"><textarea rows="3" class="form-control">@Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Interpretation1</textarea></div>*@
-                </div>
+                <div class="row" style="margin:5px">Interpretation:</div>
+                <div class="row" style="margin:2px"><textarea rows="3" class="form-control" id="textarea_Interpretation1">@Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Interpretation1</textarea></div>
             </div>
 
             @*Tab: StructuralCapital*@
-            <div class="tab-pane" id="tab_ValuationBarChart">
-                <div id="div_ValuationBarChart" style="min-height:500px; padding:0px;"></div>
+            <div class="tab-pane active" id="tab_ValuationBarChart">
+                <div class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
+                    <label class="radio-inline"><input type="radio" id="radio_HC" name="radioFilter" value="HC" class="radioFilter">HC</label>
+                    <label class="radio-inline"><input type="radio" id="radio_SC" name="radioFilter" value="SC" class="radioFilter">SC</label>
+                    <label class="radio-inline"><input type="radio" id="radio_RC" name="radioFilter" value="RC" class="radioFilter">RC</label> 
+                </div>
+                <div id="div_ValuationBarChart" style="min-height:500px; margin:5px;"></div>
+                <hr />
+                <div class="row" style="margin:5px">Interpretation:</div>
+                <div class="row" style="margin:2px"><textarea rows="3" class="form-control" id="textarea_Interpretation2">@Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Interpretation2</textarea></div>
             </div>
 
             @*Tab: Relationship Capital*@
@@ -74,6 +79,6 @@
 @*@Html.Hidden("Hidden_StepIndex", stepIndex)*@
 <input value="@stepIndex" id="Hidden_StepIndex" name="Hidden_StepIndex" type="hidden">
 @Html.Hidden("Hidden_Get_Step_TaskItemStep", Url.Action("Get_Step_TaskItemStep", "Project"))
-@Html.Hidden("Hidden_Post_Step_TaskItemStep", Url.Action("Post_Step_TaskItemStep", "Project"))
+@Html.Hidden("Hidden_Save_Tab_Evaluation", Url.Action("Save_Tab_Evaluation", "Project"))
 
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_Evaluation.js"></script>

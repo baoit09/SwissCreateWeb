@@ -287,6 +287,7 @@
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\ProjectEdit.js" />
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\ProjectEditController.js" />
     <Content Include="AJSApp\Filters\filters.js" />
+    <Content Include="AJSApp\index.js" />
     <Content Include="App_Data\Settings.txt" />
     <Content Include="Content\Images\1.png" />
     <Content Include="Content\Images\2.png" />
