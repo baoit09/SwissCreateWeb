@@ -7,9 +7,9 @@
 {
     <div style="margin-top: 5px; margin-bottom: 5px" class="">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-            @for (int i = 0; i < Model.QuestionAnwserGroups_Source.Count(); i++)
+            @for (int i = 0; i < Model.QuestionAnwserGroups.Count(); i++)
             {
-                ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups_Source[i];
+                ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
                 if (i == 0)
                 {
                     <li class="active"><a href="#@i" data-toggle="tab">@group.Name</a></li>
@@ -21,9 +21,9 @@
             }
         </ul>
         <div id="my-tab-content" class="tab-content  col-md-12">
-            @for (int i = 0; i < Model.QuestionAnwserGroups_Source.Count(); i++)
+            @for (int i = 0; i < Model.QuestionAnwserGroups.Count(); i++)
             {
-                ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups_Source[i];
+                ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
                 if (i == 0)
                 {
                     <div class="tab-pane active row tabQA" id="@i" style="background-color:lightgray">
@@ -35,10 +35,10 @@
                             <div class="row">
                                 <div class="col-md-5" @*style="margin-left:2px"*@>
                                     <div>@qa.Question</div>
-                                    <input type="hidden" name="QuestionAnwserGroups_Source[@i].QuestionAnswers[@q].Question" value="@Model.QuestionAnwserGroups_Source[i].QuestionAnswers[q].Question" />
+                                    <input type="hidden" name="QuestionAnwserGroups[@i].QuestionAnswers[@q].Question" value="@Model.QuestionAnwserGroups[i].QuestionAnswers[q].Question" />
                                 </div>
                                 <div class="col-md-6">
-                                    <textarea rows="3" name="QuestionAnwserGroups_Source[@i].QuestionAnswers[@q].Answer" style="width:100%">@Model.QuestionAnwserGroups_Source[i].QuestionAnswers[q].Answer</textarea>
+                                    <textarea rows="3" name="QuestionAnwserGroups[@i].QuestionAnswers[@q].Answer" style="width:100%">@Model.QuestionAnwserGroups[i].QuestionAnswers[q].Answer</textarea>
                                 </div>
                                 <div class="row col-md-1">
                                     <div class="btn-group" style="margin-top: 5px">
@@ -74,10 +74,10 @@
                                 <div class="row">
                                     <div class="col-md-5" @*style="margin-left:2px"*@>
                                         <div>@qa.Question</div>
-                                        <input type="hidden" name="QuestionAnwserGroups_Source[@i].QuestionAnswers[@q].Question" value="@Model.QuestionAnwserGroups_Source[i].QuestionAnswers[q].Question" />
+                                        <input type="hidden" name="QuestionAnwserGroups[@i].QuestionAnswers[@q].Question" value="@Model.QuestionAnwserGroups[i].QuestionAnswers[q].Question" />
                                     </div>
                                     <div class="col-md-6">
-                                        <textarea rows="3" name="QuestionAnwserGroups_Source[@i].QuestionAnswers[@q].Answer" style="width:100%">@Model.QuestionAnwserGroups_Source[i].QuestionAnswers[q].Answer</textarea>
+                                        <textarea rows="3" name="QuestionAnwserGroups[@i].QuestionAnswers[@q].Answer" style="width:100%">@Model.QuestionAnwserGroups[i].QuestionAnswers[q].Answer</textarea>
                                     </div>
                                     <div class="row col-md-1">
                                         <div class="btn-group" style="margin-top: 5px">

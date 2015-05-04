@@ -1,15 +1,10 @@
 ﻿$(document).ready(function() {
- 
-    var db = {};
- 
     $.ajax({
         url: $("#Hidden_Get_Step_TaskItemStep").val(),
         type: 'POST',
         data: { "projectId": $("#Hidden_ProjectId").val() },
         success: function (data) {
-            db.TaskItemStep = $.parseJSON(data);
-            
-            window.db = db;
+            window.db.TaskItemStep = $.parseJSON(data);
             SetupJsGrids();            
         },
         error: function (jqXHR, textStatus, errorThrown) {

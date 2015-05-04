@@ -28,8 +28,7 @@ namespace ViCode_LeVi.Data
             Measurements = aMeasurements;
         }
 
-        
-        private Step_Measurement_Item[] Measurements
+        public Step_Measurement_Item[] Measurements
         {
             get
             {
@@ -49,7 +48,7 @@ namespace ViCode_LeVi.Data
         }
         #region Measurements_Source
         private ObservableCollection<Step_Measurement_Item> _Measurements_Source;
-        public ObservableCollection<Step_Measurement_Item> Measurements_Source
+        private ObservableCollection<Step_Measurement_Item> Measurements_Source
         {
             get
             {
@@ -57,177 +56,177 @@ namespace ViCode_LeVi.Data
             }
             set
             {
-                if (_Measurements_Source != null)
-                    _Measurements_Source.CollectionChanged -= _Measurements_Source_CollectionChanged;
+                //if (_Measurements_Source != null)
+                //    _Measurements_Source.CollectionChanged -= _Measurements_Source_CollectionChanged;
                 _Measurements_Source = value;
-                _Measurements_Source.CollectionChanged += _Measurements_Source_CollectionChanged;
-                SendPropertyChanged("Measurements_Source");
-                Measurements_Source_Filter_Refresh();
+                //_Measurements_Source.CollectionChanged += _Measurements_Source_CollectionChanged;
+                //SendPropertyChanged("Measurements_Source");
+                //Measurements_Source_Filter_Refresh();
             }
         }
 
-        void _Measurements_Source_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            Measurements_Source_Filter_Refresh();
-        }
+        //void _Measurements_Source_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        //{
+        //    Measurements_Source_Filter_Refresh();
+        //}
 
         #region Status Filter
-        bool _IsFilterStatus_Planning = true;
-        public bool IsFilterStatus_Planning
-        {
-            get { return _IsFilterStatus_Planning; }
-            set
-            {
-                if (_IsFilterStatus_Planning != value)
-                {
-                    _IsFilterStatus_Planning = value;
-                    if (PropertyChanged != null)
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs("IsFilterStatus_Planning"));
-                        Measurements_Source_Filter_Refresh();
-                    }
-                }
-            }
-        }
+        //bool _IsFilterStatus_Planning = true;
+        //public bool IsFilterStatus_Planning
+        //{
+        //    get { return _IsFilterStatus_Planning; }
+        //    set
+        //    {
+        //        if (_IsFilterStatus_Planning != value)
+        //        {
+        //            _IsFilterStatus_Planning = value;
+        //            if (PropertyChanged != null)
+        //            {
+        //                PropertyChanged(this, new PropertyChangedEventArgs("IsFilterStatus_Planning"));
+        //                Measurements_Source_Filter_Refresh();
+        //            }
+        //        }
+        //    }
+        //}
 
-        bool _IsFilterStatus_Beginning = true;
-        public bool IsFilterStatus_Beginning
-        {
-            get { return _IsFilterStatus_Beginning; }
-            set
-            {
-                if (_IsFilterStatus_Beginning != value)
-                {
-                    _IsFilterStatus_Beginning = value;
-                    if (PropertyChanged != null)
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs("IsFilterStatus_Beginning"));
-                        Measurements_Source_Filter_Refresh();
-                    }
-                }
-            }
-        }
+        //bool _IsFilterStatus_Beginning = true;
+        //public bool IsFilterStatus_Beginning
+        //{
+        //    get { return _IsFilterStatus_Beginning; }
+        //    set
+        //    {
+        //        if (_IsFilterStatus_Beginning != value)
+        //        {
+        //            _IsFilterStatus_Beginning = value;
+        //            if (PropertyChanged != null)
+        //            {
+        //                PropertyChanged(this, new PropertyChangedEventArgs("IsFilterStatus_Beginning"));
+        //                Measurements_Source_Filter_Refresh();
+        //            }
+        //        }
+        //    }
+        //}
 
 
-        bool _IsFilterStatus_Finished = true;
-        public bool IsFilterStatus_Finished
-        {
-            get { return _IsFilterStatus_Finished; }
-            set
-            {
-                if (_IsFilterStatus_Finished != value)
-                {
-                    _IsFilterStatus_Finished = value;
-                    if (PropertyChanged != null)
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs("IsFilterStatus_Finished"));
-                        Measurements_Source_Filter_Refresh();
-                    }
-                }
-            }
-        }
+        //bool _IsFilterStatus_Finished = true;
+        //public bool IsFilterStatus_Finished
+        //{
+        //    get { return _IsFilterStatus_Finished; }
+        //    set
+        //    {
+        //        if (_IsFilterStatus_Finished != value)
+        //        {
+        //            _IsFilterStatus_Finished = value;
+        //            if (PropertyChanged != null)
+        //            {
+        //                PropertyChanged(this, new PropertyChangedEventArgs("IsFilterStatus_Finished"));
+        //                Measurements_Source_Filter_Refresh();
+        //            }
+        //        }
+        //    }
+        //}
         #endregion
 
-        public void Measurements_Source_Filter_Refresh()
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs("Measurements_Source_Filter"));
-        }
-        public ObservableCollection<Step_Measurement_Item> Measurements_Source_Filter
-        {
-            get
-            {
-                var data = Measurements_Source.ToArray();
-                //if (IsFilterStatus_Planning == false)
-                //    data = data.Where(d => d.Status != ControlTextInfoInData.Intance.Measurement_Status_InPlanning_Text).ToArray();
-                //if (IsFilterStatus_Beginning == false)
-                //    data = data.Where(d => d.Status != ControlTextInfoInData.Intance.Measurement_Status_InBeginning_Text).ToArray();
-                //if (IsFilterStatus_Finished == false)
-                //    data = data.Where(d => d.Status != ControlTextInfoInData.Intance.Measurement_Status_Finished_Text).ToArray();
-                return new ObservableCollection<Step_Measurement_Item>(data);
-            }
-        }
-        public void Measurements_Source_SortBy_Name(System.ComponentModel.ListSortDirection d)
-        {
-            if (Measurements_Source != null)
-            {
-                if (d == ListSortDirection.Ascending)
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.Name));
-                else
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.Name));
-            }
-        }
-        public void Measurements_Source_SortBy_StartDate(System.ComponentModel.ListSortDirection d)
-        {
-            if (Measurements_Source != null)
-            {
-                if (d == ListSortDirection.Ascending)
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.StartedDate));
-                else
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.StartedDate));
-            }
-        }
-        public void Measurements_Source_SortBy_Duration(System.ComponentModel.ListSortDirection d)
-        {
-            if (Measurements_Source != null)
-            {
-                if (d == ListSortDirection.Ascending)
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.Duration));
-                else
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.Duration));
-            }
+        //public void Measurements_Source_Filter_Refresh()
+        //{
+        //    if (PropertyChanged != null)
+        //        PropertyChanged(this, new PropertyChangedEventArgs("Measurements_Source_Filter"));
+        //}
+        //public ObservableCollection<Step_Measurement_Item> Measurements_Source_Filter
+        //{
+        //    get
+        //    {
+        //        var data = Measurements_Source.ToArray();
+        //        //if (IsFilterStatus_Planning == false)
+        //        //    data = data.Where(d => d.Status != ControlTextInfoInData.Intance.Measurement_Status_InPlanning_Text).ToArray();
+        //        //if (IsFilterStatus_Beginning == false)
+        //        //    data = data.Where(d => d.Status != ControlTextInfoInData.Intance.Measurement_Status_InBeginning_Text).ToArray();
+        //        //if (IsFilterStatus_Finished == false)
+        //        //    data = data.Where(d => d.Status != ControlTextInfoInData.Intance.Measurement_Status_Finished_Text).ToArray();
+        //        return new ObservableCollection<Step_Measurement_Item>(data);
+        //    }
+        //}
+        //public void Measurements_Source_SortBy_Name(System.ComponentModel.ListSortDirection d)
+        //{
+        //    if (Measurements_Source != null)
+        //    {
+        //        if (d == ListSortDirection.Ascending)
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.Name));
+        //        else
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.Name));
+        //    }
+        //}
+        //public void Measurements_Source_SortBy_StartDate(System.ComponentModel.ListSortDirection d)
+        //{
+        //    if (Measurements_Source != null)
+        //    {
+        //        if (d == ListSortDirection.Ascending)
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.StartedDate));
+        //        else
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.StartedDate));
+        //    }
+        //}
+        //public void Measurements_Source_SortBy_Duration(System.ComponentModel.ListSortDirection d)
+        //{
+        //    if (Measurements_Source != null)
+        //    {
+        //        if (d == ListSortDirection.Ascending)
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.Duration));
+        //        else
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.Duration));
+        //    }
 
-        }
-        public void Measurements_Source_SortBy_DaysRemaining(System.ComponentModel.ListSortDirection d)
-        {
-            if (Measurements_Source != null)
-            {
-                if (d == ListSortDirection.Ascending)
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.DaysRemaining));
-                else
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.DaysRemaining));
-            }
-        }
-        public void Measurements_Source_SortBy_EndDate(System.ComponentModel.ListSortDirection d)
-        {
-            if (Measurements_Source != null)
-            {
-                if (d == ListSortDirection.Ascending)
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.EndDate));
-                else
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.EndDate));
-            }
-        }
-        public void Measurements_Source_SortBy_Status(System.ComponentModel.ListSortDirection d)
-        {
-            if (Measurements_Source != null)
-            {
-                if (d == ListSortDirection.Ascending)
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.Status));
-                else
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.Status));
-            }
-        }
-        public void Measurements_Source_SortBy_ResponsiblePerson(System.ComponentModel.ListSortDirection d)
-        {
-            if (Measurements_Source != null)
-            {
-                if (d == ListSortDirection.Ascending)
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.ResponsiblePerson));
-                else
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.ResponsiblePerson));
-            }
-        }
-        public void Measurements_Source_SortBy_Department(System.ComponentModel.ListSortDirection d)
-        {
-            if (Measurements_Source != null)
-            {
-                if (d == ListSortDirection.Ascending)
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.Department));
-                else
-                    Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.Department));
-            }
-        }
+        //}
+        //public void Measurements_Source_SortBy_DaysRemaining(System.ComponentModel.ListSortDirection d)
+        //{
+        //    if (Measurements_Source != null)
+        //    {
+        //        if (d == ListSortDirection.Ascending)
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.DaysRemaining));
+        //        else
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.DaysRemaining));
+        //    }
+        //}
+        //public void Measurements_Source_SortBy_EndDate(System.ComponentModel.ListSortDirection d)
+        //{
+        //    if (Measurements_Source != null)
+        //    {
+        //        if (d == ListSortDirection.Ascending)
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.EndDate));
+        //        else
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.EndDate));
+        //    }
+        //}
+        //public void Measurements_Source_SortBy_Status(System.ComponentModel.ListSortDirection d)
+        //{
+        //    if (Measurements_Source != null)
+        //    {
+        //        if (d == ListSortDirection.Ascending)
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.Status));
+        //        else
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.Status));
+        //    }
+        //}
+        //public void Measurements_Source_SortBy_ResponsiblePerson(System.ComponentModel.ListSortDirection d)
+        //{
+        //    if (Measurements_Source != null)
+        //    {
+        //        if (d == ListSortDirection.Ascending)
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.ResponsiblePerson));
+        //        else
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.ResponsiblePerson));
+        //    }
+        //}
+        //public void Measurements_Source_SortBy_Department(System.ComponentModel.ListSortDirection d)
+        //{
+        //    if (Measurements_Source != null)
+        //    {
+        //        if (d == ListSortDirection.Ascending)
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderBy(c => c.Department));
+        //        else
+        //            Measurements_Source = new ObservableCollection<Step_Measurement_Item>(Measurements_Source.OrderByDescending(c => c.Department));
+        //    }
+        //}
         #endregion
     }
 
@@ -247,7 +246,7 @@ namespace ViCode_LeVi.Data
 
         #region Name
         
-        string _Name = string.Empty;
+        public string _Name = string.Empty;
         public string Name
         {
             get { return _Name; }
@@ -263,8 +262,8 @@ namespace ViCode_LeVi.Data
         #endregion
 
         #region ResponsiblePerson
-        
-        string _ResponsiblePerson = string.Empty;
+
+        public string _ResponsiblePerson = string.Empty;
         public string ResponsiblePerson
         {
             get { return _ResponsiblePerson; }
@@ -280,8 +279,8 @@ namespace ViCode_LeVi.Data
         #endregion
 
         #region Department
-        
-        string _Department = string.Empty;
+
+        public string _Department = string.Empty;
         public string Department
         {
             get { return _Department; }
@@ -298,8 +297,8 @@ namespace ViCode_LeVi.Data
 
 
         #region IsIgnore
-        
-        bool _IsIgnore = false;
+
+        public bool _IsIgnore = false;
         public bool IsIgnore
         {
             get { return _IsIgnore; }
@@ -315,8 +314,8 @@ namespace ViCode_LeVi.Data
         #endregion
 
         #region StartedDate
-        
-        DateTime _StartedDate = DateTime.Now;
+
+        public DateTime _StartedDate = DateTime.Now;
         public DateTime StartedDate
         {
             get { return _StartedDate; }
@@ -344,8 +343,8 @@ namespace ViCode_LeVi.Data
         #endregion
 
         #region Duration
-        
-        int _Duration = 0;
+
+        public int _Duration = 0;
         public int Duration
         {
             get
@@ -388,8 +387,8 @@ namespace ViCode_LeVi.Data
         #endregion
 
         #region EndDate
-        
-        DateTime _EndDate = DateTime.Now;
+
+        public DateTime _EndDate = DateTime.Now;
         public DateTime EndDate
         {
             get
@@ -452,8 +451,8 @@ namespace ViCode_LeVi.Data
         #endregion
 
         #region Status
-        
-        string _Status = string.Empty;
+
+        public string _Status = string.Empty;
         public string Status
         {
             get { return _Status; }
@@ -469,8 +468,8 @@ namespace ViCode_LeVi.Data
         #endregion
 
         #region Goal
-        
-        string _Goal = string.Empty;
+
+        public string _Goal = string.Empty;
         public string Goal
         {
             get { return _Goal; }
@@ -486,8 +485,8 @@ namespace ViCode_LeVi.Data
         #endregion
 
         #region Procedure
-        
-        string _Procedure = string.Empty;
+
+        public string _Procedure = string.Empty;
         public string Procedure
         {
             get { return _Procedure; }
@@ -503,8 +502,8 @@ namespace ViCode_LeVi.Data
         #endregion
 
         #region Expenses
-        
-        string _Expenses = string.Empty;
+
+        public string _Expenses = string.Empty;
         public string Expenses
         {
             get { return _Expenses; }
@@ -520,8 +519,8 @@ namespace ViCode_LeVi.Data
         #endregion
 
         #region ExpectedBenefits
-        
-        string _ExpectedBenefits = string.Empty;
+
+        public string _ExpectedBenefits = string.Empty;
         public string ExpectedBenefits
         {
             get { return _ExpectedBenefits; }

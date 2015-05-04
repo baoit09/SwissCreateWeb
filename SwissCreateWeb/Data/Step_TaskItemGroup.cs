@@ -81,7 +81,7 @@ namespace ViCode_LeVi.Data
                 Tasks_Source = new ObservableCollection<Step_TaskItem>(value);
             }
         }
-        public ObservableCollection<Step_TaskItem> Tasks_Source
+        private ObservableCollection<Step_TaskItem> Tasks_Source
         {
             get;
             set;

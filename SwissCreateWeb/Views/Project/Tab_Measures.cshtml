@@ -4,7 +4,7 @@
     var stepIndex = ViewBag.StepIndex;
     if (stepIndex == null)
     {
-        stepIndex = 0;
+        stepIndex = 6;
     }
 }
 
@@ -14,8 +14,75 @@
 </div>
 
 <div class="row" style="margin-top:10px;">
-    <div class="col-md-10">Will be implemented soon</div>
+    <div class="col-md-10">
+        <div id="divCheckBoxes_Measures" class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
+            <label class="checkbox-inline"><input type="checkbox" id="checkbox_InPlanning" name="checkboxFilter" value="In Planning" class="checkboxFilter">In Planning</label>
+            <label class="checkbox-inline"><input type="checkbox" id="checkbox_InBeginning" name="checkboxFilter" value="In Beginning" class="checkboxFilter">In Beginning</label>
+            <label class="checkbox-inline"><input type="checkbox" id="checkbox_InFinished" name="checkboxFilter" value="In Finished" class="checkboxFilter">In Finished</label>
+        </div>
+        <div id="jsGrid_Measures" style="min-height:500px; padding:0px;"></div>
+    </div>
     <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>
+</div>
+
+<div id="detailsForm" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modelTitle"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-group">
+                    <div class="col-md-3">Title:</div>
+                    <div class="col-md-9"><input id="Name" class="form-control"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-3">Goal / outcome:</div>
+                    <div class="col-md-9"><textarea id="Goal" rows="4" class="form-control"></textarea></div>
+                </div>
+                
+                <div class="row form-group">
+                    <div class="col-md-3">Procedure:</div>
+                    <div class="col-md-9"><textarea id="Procedure" rows="4" class="form-control"></textarea></div>
+                </div>
+
+                @*<div class="row">
+                    <div class="col-md-1">Start:</div>
+                    <div class="col-md-1"><input id="StartDate" class="date-picker" /></div>
+                    <div class="col-md-1">Deadline:</div>
+                    <div class="col-md-1"><input id="DeadlineDate" class="date-picker" /></div>
+                    <div class="col-md-1">Duration:</div>
+                    <div class="col-md-1"><input id="Duration" type="text" /></div>
+                    <div class="col-md-1">days</div>
+                    <div class="col-md-1">Status</div>
+                    <div class="col-md-1"><select></select></div>
+                </div>*@
+
+                <div class="row form-group">
+                    <div class="col-md-3">Expense Investment Volume:</div>
+                    <div class="col-md-9"><textarea id="Expenses" rows="4" class="form-control"></textarea></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-3">Expected benefits:</div>
+                    <div class="col-md-9"><textarea id="ExpectedBenefits" rows="4" class="form-control"></textarea></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-3">Responsible Person:</div>
+                    <div class="col-md-9"><textarea id="ResponsiblePerson" rows="1" class="form-control"></textarea></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-3">Department:</div>
+                    <div class="col-md-9"><textarea id="Department" rows="1" class="form-control"></textarea></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_OK">OK</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
 
 @Html.Hidden("Hidden_ProjectId", Model.Project.Id)

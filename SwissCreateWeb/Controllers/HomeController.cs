@@ -31,14 +31,14 @@ namespace SwissCreateWeb.Controllers
 
         public HomeController(){}
 
-        public HomeController(IProjectService projectService, IXmlSerializeHelper xmlSerializeHelper, ISettingService settingService, ProjectSettings projectSettings)
-        {
-            this._projectService = projectService;
-            this._xmlSerializeHelper = xmlSerializeHelper;
-            this._settingService = settingService;
+        //public HomeController(IProjectService projectService, IXmlSerializeHelper xmlSerializeHelper, ISettingService settingService, ProjectSettings projectSettings)
+        //{
+        //    this._projectService = projectService;
+        //    this._xmlSerializeHelper = xmlSerializeHelper;
+        //    this._settingService = settingService;
 
-            this._projectSettings = projectSettings;
-        }
+        //    this._projectSettings = projectSettings;
+        //}
 
         #endregion
 
@@ -65,7 +65,7 @@ namespace SwissCreateWeb.Controllers
 
             //var b = XMLData<ProjectData>.GetEntity(bytes);
 
-            TestData();
+            //TestData();
 
             return View();
         }

@@ -2,27 +2,27 @@
 
 jQuery(document).ready(function ($) {
 
-    var db = {};
+    $(".radioFilter").change(radioFilterOnChange);
+    $("#radio_HC").attr("checked", "checked");
+
+    $("#divCheckBoxes :checkbox").change(checkboxFilterOnChange);
+    $("#checkbox_HC").attr("checked", "checked");
+    
+    $("#divCheckBoxes_Portfolio :checkbox").change(checkboxFilterOnChange_Portfolio);
+    $("#checkbox_HC_Portfolio").attr("checked", "checked");
+
     $.ajax({
         url: $("#Hidden_Get_Step_TaskItemStep").val(),
         type: 'POST',
         data: { "projectId": $("#Hidden_ProjectId").val() },
         success: function (data) {
-            db.TaskItemStep = $.parseJSON(data);
-            window.db = db;
+            window.db.TaskItemStep = $.parseJSON(data);
             setupCharts();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             //...
         }
     });
-
-    $(".radioFilter").change(radioFilterOnChange);
-    $("#radio_HC").attr("checked", "checked");
-
-    $(".checkboxFilter").change(checkboxFilterOnChange);
-    
-    
 });
 
 function radioFilterOnChange(e) {
@@ -33,8 +33,21 @@ function radioFilterOnChange(e) {
     }
 }
 
+function checkboxFilterOnChange_Portfolio(e) {
+    drawCharts_Portfolio();
+}
+
 function checkboxFilterOnChange(e) {
     drawCharts_Weight();
+}
+
+function getCheckedValues(parentDiv)
+{
+    var checkedValues = [];
+    $("#"+ parentDiv + " :checked").each(function (index, element) {
+        checkedValues.push($(element).val());
+    })
+    return checkedValues;
 }
 
 function setupCharts() {
@@ -52,8 +65,8 @@ function mergeTasks() {
 function drawCharts() {
     drawCharts_Weight();
     drawCharts_Valuation();
+    drawCharts_Portfolio();
 }
-
 
 function drawCharts_Weight() {
 
@@ -64,16 +77,24 @@ function drawCharts_Weight() {
     data.addColumn({ type: 'string', role: 'style' });
     data.addColumn({ type: 'string', role: 'annotation' });
 
-    for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[0].Tasks.length; i++) {
-        data.addRow([window.db.TaskItemStep.TaskItemGroups[0].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[0].Tasks[i].Name, window.db.TaskItemStep.TaskItemGroups[0].Tasks[i].Weight, "color: green", window.db.TaskItemStep.TaskItemGroups[0].Tasks[i].Weight.toString()]);
+    var checkedValues = getCheckedValues('divCheckBoxes');
+
+    if ($.inArray('HC', checkedValues) > -1) {
+        for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[0].Tasks.length; i++) {
+            data.addRow([window.db.TaskItemStep.TaskItemGroups[0].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[0].Tasks[i].Name, window.db.TaskItemStep.TaskItemGroups[0].Tasks[i].Weight, "color: green", window.db.TaskItemStep.TaskItemGroups[0].Tasks[i].Weight.toString()]);
+        }
     }
 
-    for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[1].Tasks.length; i++) {
-        data.addRow([window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].Name, window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].Weight, "color: blue", window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].Weight.toString()]);
+    if ($.inArray('SC', checkedValues) > -1) {
+        for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[1].Tasks.length; i++) {
+            data.addRow([window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].Name, window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].Weight, "color: blue", window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].Weight.toString()]);
+        }
     }
 
-    for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[2].Tasks.length; i++) {
-        data.addRow([window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].Name, window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].Weight, "color: red", window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].Weight.toString()]);
+    if ($.inArray('RC', checkedValues) > -1) {
+        for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[2].Tasks.length; i++) {
+            data.addRow([window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].Name, window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].Weight, "color: red", window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].Weight.toString()]);
+        }
     }
 
     var options = {
@@ -98,22 +119,9 @@ function drawCharts_Valuation() {
     data.addColumn('number', 'Quantity');
     data.addColumn('number', 'Quality');
     data.addColumn('number', 'Systematic');
-
     //data.addColumn({ type: 'string', role: 'style' });
     //data.addColumn({ type: 'string', role: 'annotation' });
-
-    //for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[2].Tasks.length; i++) {
-    //    data.addRow([window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].Name,
-    //        window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].Quantity_WeightPercent, window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].Quality_WeightPercent, window.db.TaskItemStep.TaskItemGroups[2].Tasks[i].Systematic_WeightPercent]);
-    //}
-
-    //for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[1].Tasks.length; i++) {
-    //    data.addRow([window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].Name,
-    //        window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].Quantity_WeightPercent, window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].Quality_WeightPercent, window.db.TaskItemStep.TaskItemGroups[1].Tasks[i].Systematic_WeightPercent]);
-    //}
-
-    
-
+       
     var taskItemIndex = 0;
     if (window.selectCode === "HC") {
         taskItemIndex = 0;
@@ -140,10 +148,68 @@ function drawCharts_Valuation() {
         bar: {
             groupWidth: "90%"
         },
-        legend: { position: "none" },
+        legend: { position: "Bottom" },
     };
 
-    var chart = new google.charts.Bar(document.getElementById('div_ValuationBarChart'));
+    var chart = new google.visualization.BarChart(document.getElementById('div_ValuationBarChart'));
+    chart.draw(data, options);
+}
+
+function drawCharts_Portfolio() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Name');
+    data.addColumn('number', 'Systematic');
+    data.addColumn('number', 'Weight');
+    data.addColumn('string', 'Type');
+    data.addColumn('number', 'Quantity');
+
+    var checkedValues = getCheckedValues('divCheckBoxes_Portfolio');
+
+    if ($.inArray('HC', checkedValues) > -1) {
+        var nIndex = 0;
+        for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks.length; i++) {
+            data.addRow([window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Name,
+                window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Systematic_WeightPercent,
+                window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Weight,
+                'Human Capital',
+                window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Quantity_WeightPercent]);
+        }
+    }
+
+    if ($.inArray('SC', checkedValues) > -1) {
+        var nIndex = 1;
+        for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks.length; i++) {
+            data.addRow([window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Name,
+                window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Systematic_WeightPercent,
+                window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Weight,
+                'Structural Captial',
+                window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Quantity_WeightPercent]);
+        }
+    }
+
+    if ($.inArray('RC', checkedValues) > -1) {
+        var nIndex = 2;
+        for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks.length; i++) {
+            data.addRow([window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].ID + ": " + window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Name,
+                window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Systematic_WeightPercent,
+                window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Weight,
+                'Relationship Capital',
+                window.db.TaskItemStep.TaskItemGroups[nIndex].Tasks[i].Quantity_WeightPercent]);
+        }
+    }
+
+    var options = {
+        height: 700,
+        width: 900,
+        title: 'Portfolio of Potential',
+        hAxis: { title: 'Assessment'},
+        vAxis: { title: 'Relative Weighting', minValue: 0, maxValue: 11 },
+        bubble: { textStyle: { fontSize: 11 } },
+        legend: { position: "none" },        
+    };
+
+    var chart = new google.visualization.BubbleChart(document.getElementById('div_PortfolioOfPotential'));
     chart.draw(data, options);
 }
 

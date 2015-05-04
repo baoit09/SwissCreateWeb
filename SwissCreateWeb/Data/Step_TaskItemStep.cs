@@ -31,7 +31,7 @@ namespace ViCode_LeVi.Data
                 TaskItemGroups_Source = new ObservableCollection<Step_TaskItemGroup>(value);                
             }
         }
-        public ObservableCollection<Step_TaskItemGroup> TaskItemGroups_Source
+        private ObservableCollection<Step_TaskItemGroup> TaskItemGroups_Source
         {
             get;
             set;
@@ -59,22 +59,22 @@ namespace ViCode_LeVi.Data
         {
             Tasks_Summary_Raise();
         }
-        public Step_TaskItem[] Tasks_Summary
-        {
-            get
-            {
-                List<Step_TaskItem> list = new List<Step_TaskItem>();
-                var groups = TaskItemGroups;
-                if (groups != null && groups.Length > 0)
-                {
-                    foreach (var grp in groups)
-                    {
-                        list.AddRange(grp.Tasks_Source.ToArray());
-                    }
-                }
-                return list.ToArray();
-            }
-        }
+        //private Step_TaskItem[] Tasks_Summary
+        //{
+        //    get
+        //    {
+        //        List<Step_TaskItem> list = new List<Step_TaskItem>();
+        //        var groups = TaskItemGroups;
+        //        if (groups != null && groups.Length > 0)
+        //        {
+        //            foreach (var grp in groups)
+        //            {
+        //                list.AddRange(grp.Tasks_Source.ToArray());
+        //            }
+        //        }
+        //        return list.ToArray();
+        //    }
+        //}
         public void Tasks_Summary_Raise()
         {
             SendPropertyChanged("Tasks_Summary");

@@ -94,24 +94,6 @@
 @*@Html.Hidden("Hidden_StepIndex", stepIndex)*@
 <input value="@stepIndex" id="Hidden_StepIndex" name="Hidden_StepIndex" type="hidden">
 
-@Html.Hidden("Hidden_Get_Step_TaskItemStep", Url.Action("Get_Step_TaskItemStep", "Project"))
-@Html.Hidden("Hidden_Post_Step_TaskItemStep", Url.Action("Post_Step_TaskItemStep", "Project"))
-
-<link href="~/Content/jsGrid/css/jsgrid.css" rel="stylesheet" />
-<link href="~/Content/jsGrid/css/theme.css" rel="stylesheet" />
-
-<script src="~/Content/jsGrid/jsgrid.core.js"></script>
-<script src="~/Content/jsGrid/jsgrid.load-indicator.js"></script>
-<script src="~/Content/jsGrid/jsgrid.load-strategies.js"></script>
-<script src="~/Content/jsGrid/jsgrid.sort-strategies.js"></script>
-
-<script src="~/Content/jsGrid/jsgrid.field.js"></script>
-<script src="~/Content/jsGrid/jsgrid.field.text.js"></script>
-<script src="~/Content/jsGrid/jsgrid.field.number.js"></script>
-<script src="~/Content/jsGrid/jsgrid.field.select.js"></script>
-<script src="~/Content/jsGrid/jsgrid.field.checkbox.js"></script>
-<script src="~/Content/jsGrid/jsgrid.field.textarea.js"></script>
-<script src="~/Content/jsGrid/jsgrid.field.control.js"></script>
-
+@Html.Hidden("Hidden_Post_Measures", Url.Action("Post_Measures", "Project"))
 
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_Review.js"></script>

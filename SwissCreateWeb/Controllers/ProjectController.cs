@@ -253,7 +253,7 @@ namespace SwissCreateWeb.Controllers
                 ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
                 if (projectData != null)
                 {
-                    var questionAnwserStep = projectData.Period.Steps[stepIndex].QuestionAnwserStep;
+                    var questionAnwserStep = projectData.Periods[0].Steps[stepIndex].QuestionAnwserStep;
                     for (int g = 0; g < questionAnwserStep.QuestionAnwserGroups.Length; g++)
                     {
                         for (int q = 0; q < questionAnwserStep.QuestionAnwserGroups[g].QuestionAnswers.Length; q++)
@@ -280,7 +280,7 @@ namespace SwissCreateWeb.Controllers
                 ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
                 if (projectData != null)
                 {
-                    var stepResult = projectData.Period.Steps[stepIndex].Result;
+                    var stepResult = projectData.Periods[0].Steps[stepIndex].Result;
                     if (radioResult == 0)
                     {
                         stepResult.Item = StepResult.StepResultItem_None;
@@ -367,7 +367,7 @@ namespace SwissCreateWeb.Controllers
                 ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
                 if (projectData != null)
                 {
-                    var taskItemStep = projectData.Period.Steps[stepIndex].TaskItemStep;
+                    var taskItemStep = projectData.Periods[0].Steps[stepIndex].TaskItemStep;
 
                     string sJson = JsonConvert.SerializeObject(taskItemStep);
                     return Json(sJson);
@@ -388,9 +388,9 @@ namespace SwissCreateWeb.Controllers
                 ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
                 if (projectData != null)
                 {
-                    projectData.Period.Steps[stepIndex].TaskItemStep.TaskItemGroups[0].Tasks = tasks0;
-                    projectData.Period.Steps[stepIndex].TaskItemStep.TaskItemGroups[1].Tasks = tasks1;
-                    projectData.Period.Steps[stepIndex].TaskItemStep.TaskItemGroups[2].Tasks = tasks2;
+                    projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[0].Tasks = tasks0;
+                    projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[1].Tasks = tasks1;
+                    projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[2].Tasks = tasks2;
 
                     string sXML = projectData.ToXML();
                     project.ProjectData = sXML;
@@ -458,9 +458,9 @@ namespace SwissCreateWeb.Controllers
                 ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
                 if (projectData != null)
                 {
-                    projectData.Period.Steps[stepIndex].Analysis.Interpretation1 = sInterpretation1;
-                    projectData.Period.Steps[stepIndex].Analysis.Interpretation2 = sInterpretation2;
-                    projectData.Period.Steps[stepIndex].Analysis.Interpretation3 = sInterpretation3;
+                    projectData.Periods[0].Steps[stepIndex].Analysis.Interpretation1 = sInterpretation1;
+                    projectData.Periods[0].Steps[stepIndex].Analysis.Interpretation2 = sInterpretation2;
+                    projectData.Periods[0].Steps[stepIndex].Analysis.Interpretation3 = sInterpretation3;
 
                     string sXML = projectData.ToXML();
                     project.ProjectData = sXML;
@@ -482,6 +482,29 @@ namespace SwissCreateWeb.Controllers
             ProjectEditModel model = LocalGetProjectEditModel(projectId);
             ViewBag.StepIndex = _projectSettings.Step_Measures_Index;
             return PartialView(model);
+        }
+
+        public ActionResult Post_Measures(int projectId, Step_Measurement_Item[] measurements)
+        {
+            int stepIndex = _projectSettings.Step_Measures_Index;
+
+            bool bSuccess = false;
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
+                if (projectData != null)
+                {
+                    projectData.Periods[0].Steps[stepIndex].Measurement.Measurements = measurements;
+                   
+                    string sXML = projectData.ToXML();
+                    project.ProjectData = sXML;
+
+                    bSuccess = _projectService.UpdateProject(project);
+                }
+            }
+
+            return Json(new { success = bSuccess });
         }
 
         #endregion

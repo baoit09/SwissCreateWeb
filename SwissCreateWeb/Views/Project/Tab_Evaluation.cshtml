@@ -42,7 +42,7 @@
         <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
             @*Tab: Human Captial*@
             <div class="tab-pane active" id="tab_WeightBarChart">
-                <div class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
+                <div id="divCheckBoxes" class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_HC" name="checkboxFilter" value="HC" class="checkboxFilter">HC</label>
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_SC" name="checkboxFilter" value="SC" class="checkboxFilter">SC</label>
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_RC" name="checkboxFilter" value="RC" class="checkboxFilter">RC</label>
@@ -67,8 +67,16 @@
             </div>
 
             @*Tab: Relationship Capital*@
-            <div class="tab-pane" id="tab_PortfolioofPotential">
-                <div id="div_PortfolioofPotential" style="min-height:500px; padding:0px;"></div>
+            <div class="tab-pane active" id="tab_PortfolioofPotential">
+                <div id="divCheckBoxes_Portfolio" class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
+                    <label class="checkbox-inline"><input type="checkbox" id="checkbox_HC_Portfolio" name="checkboxFilter" value="HC" class="checkboxFilter">HC</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="checkbox_SC_Portfolio" name="checkboxFilter" value="SC" class="checkboxFilter">SC</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="checkbox_RC_Portfolio" name="checkboxFilter" value="RC" class="checkboxFilter">RC</label>
+                </div>
+                <div id="div_PortfolioOfPotential" style="min-height:500px; margin:5px;"></div>
+                <hr />
+                <div class="row" style="margin:5px">Interpretation:</div>
+                <div class="row" style="margin:2px"><textarea rows="3" class="form-control" id="textarea_Interpretation3">@Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Interpretation3</textarea></div>
             </div>
         </div>
     </div>

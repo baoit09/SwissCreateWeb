@@ -224,20 +224,20 @@ namespace ViCode_LeVi.Data
         }
 
         public int Period_Index;
-        public RootData Period
-        {
-            get
-            {
-                if (Periods == null || Periods.Length == 0)
-                    return null;
-                if (Period_Index < 0)
-                    Period_Index = 0;
-                if (Period_Index > Periods.Length - 1)
-                    Period_Index = Periods.Length - 1;
-                var period = Periods[Period_Index];
-                return period;
-            }
-        }
+        //public RootData Period
+        //{
+        //    get
+        //    {
+        //        if (Periods == null || Periods.Length == 0)
+        //            return null;
+        //        if (Period_Index < 0)
+        //            Period_Index = 0;
+        //        if (Period_Index > Periods.Length - 1)
+        //            Period_Index = Periods.Length - 1;
+        //        var period = Periods[Period_Index];
+        //        return period;
+        //    }
+        //}
 
         #region ConfigData
 

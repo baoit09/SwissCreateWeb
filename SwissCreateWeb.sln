@@ -17,6 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissCreate.Services", "Swi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissCreateWeb.Framework", "SwissCreateWeb.Framework\SwissCreateWeb.Framework.csproj", "{64C0241C-05DB-4E8F-A378-B255660939B5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0B45B84F-3882-45E2-983B-25E37A51E8F0}"
+	ProjectSection(SolutionItems) = preProject
+		Performance1.psess = Performance1.psess
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,5 +60,8 @@ Global
 		{250F3D3F-E4A3-463B-A372-AEC01B3AE76B} = {BBE86BB0-8C59-4273-A50B-4E6B8B4BE335}
 		{FA14DB0B-A898-4960-B6B3-EC22B609D47A} = {BBE86BB0-8C59-4273-A50B-4E6B8B4BE335}
 		{FF5A39E8-B897-42A0-912E-2B72D957A8C6} = {BBE86BB0-8C59-4273-A50B-4E6B8B4BE335}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

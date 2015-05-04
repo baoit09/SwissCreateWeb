@@ -1,16 +1,16 @@
 ﻿jQuery(document).ready(function ($) {
 
     // Get Project Settings Infos and cache in client side.
-    $.ajax({
-        url: $("#GetProjectSettings").val(),
-        type: 'POST',
-        success: function (data) {
-            window.projectSettings = data;
-         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            //...
-        }
-    });
+    //$.ajax({
+    //    url: $("#GetProjectSettings").val(),
+    //    type: 'POST',
+    //    success: function (data) {
+    //        window.db.projectSettings = data;
+    //     },
+    //    error: function (jqXHR, textStatus, errorThrown) {
+    //        //...
+    //    }
+    //});
 
     $('#tabs').tab();
 

@@ -22,7 +22,7 @@ namespace ViCode_LeVi.Data
 
         public static RootData Intance
         {
-            get { return ProjectData.Intance.Period; }
+            get { return ProjectData.Intance.Periods[0]; }
         }
 
         public StepInfo[] Steps { get; set; }

@@ -1,13 +1,10 @@
 ﻿$(document).ready(function () {
-    var db = {};
     $.ajax({
         url: $("#Hidden_Get_Step_TaskItemStep").val(),
         type: 'POST',
         data: { "projectId": $("#Hidden_ProjectId").val() },
         success: function (data) {
-            db.TaskItemStep = $.parseJSON(data);
-
-            window.db = db;
+            window.db.TaskItemStep = $.parseJSON(data);
             SetupJsGrids();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -175,14 +172,14 @@ var saveClient = function (item, isNew) {
 
 function getURLImage(value)
 {
-    var urlImageSrc = window.projectSettings.Url_Image_Happy;
+    var urlImageSrc = window.db.projectSettings.Url_Image_Happy;
 
-    if (value <= window.projectSettings.Quantity_Image_Level3)
-        urlImageSrc = window.projectSettings.Url_Image_Happy;
-    if (value <= window.projectSettings.Quantity_Image_Level2)
-        urlImageSrc = window.projectSettings.Url_Image_Normal;
-    if (value <= window.projectSettings.Quantity_Image_Level1)
-        urlImageSrc = window.projectSettings.Url_Image_Sad;
+    if (value <= window.db.projectSettings.Quantity_Image_Level3)
+        urlImageSrc = window.db.projectSettings.Url_Image_Happy;
+    if (value <= window.db.projectSettings.Quantity_Image_Level2)
+        urlImageSrc = window.db.projectSettings.Url_Image_Normal;
+    if (value <= window.db.projectSettings.Quantity_Image_Level1)
+        urlImageSrc = window.db.projectSettings.Url_Image_Sad;
 
     return urlImageSrc;
 }

@@ -67,7 +67,7 @@ namespace ViCode_LeVi.Data
         public Step_Analysis Analysis { get; set; }
 
        
-        //public Step_Measurement Measurement { get; set; }
+        public Step_Measurement Measurement { get; set; }
 
        
         //public Step_BalanceAndOthers BalanceAndOthers { get; set; }
@@ -79,13 +79,13 @@ namespace ViCode_LeVi.Data
         //public Step_Budget Budget { get; set; }
        
         //public StepInfo_HumanResource HumanResource { get; set; }
-        public RootData Root
-        {
-            get
-            {
-                return RootData.Intance;
-            }
-        }
+        //public RootData Root
+        //{
+        //    get
+        //    {
+        //        return RootData.Intance;
+        //    }
+        //}
         //public bool IsCurrent
         //{
         //    get

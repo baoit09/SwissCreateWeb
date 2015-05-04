@@ -51,7 +51,7 @@ namespace ViCode_LeVi.Data
                 SendPropertyChanged("QuestionAnswers_Source");
             }
         }
-        public ObservableCollection<Step_QuestionAnwser> QuestionAnswers_Source
+        private ObservableCollection<Step_QuestionAnwser> QuestionAnswers_Source
         {
             get;
             set;

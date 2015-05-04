@@ -15,15 +15,35 @@
     var stepChartsIndex = ViewBag.ProjectSettings.Step_Charts_Index;
     var stepHRIndex = ViewBag.ProjectSettings.Step_HR_Index;
     var stepConclusionIndex = ViewBag.ProjectSettings.Step_Conclusion_Index;
+
+    var projectSetting = EngineContext.Current.Resolve<SwissCreate.Core.Domain.Projects.ProjectSettings>();
 }
 
-@*<script type="text/javascript" src="https://www.google.com/jsapi"></script>*@
 <script src="~/Scripts/jsapi.js"></script>
 <script type="text/javascript">
-    google.load("visualization", "1.1", { packages: [ "corechart", "bar"] })    
+    google.load("visualization", "1.1", { packages: ["corechart", "bar"] })
+    window.db = {}
+    window.db.projectEditing = @Html.Raw(Json.Encode(Model))
+    window.db.projectSettings = @Html.Raw(Json.Encode(projectSetting))
 </script>
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEdit.js"></script>
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEditController.js"></script>
+
+<link href="~/Content/jsGrid/css/jsgrid.css" rel="stylesheet" />
+<link href="~/Content/jsGrid/css/theme.css" rel="stylesheet" />
+
+<script src="~/Content/jsGrid/jsgrid.core.js"></script>
+<script src="~/Content/jsGrid/jsgrid.load-indicator.js"></script>
+<script src="~/Content/jsGrid/jsgrid.load-strategies.js"></script>
+<script src="~/Content/jsGrid/jsgrid.sort-strategies.js"></script>
+
+<script src="~/Content/jsGrid/jsgrid.field.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.text.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.number.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.select.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.checkbox.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.textarea.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.control.js"></script>
 
 <div ng-app="SwissCreateApp" ng-controller="ProjectCtrl">
 
@@ -52,6 +72,12 @@
             <div>{{ProjectData.UIText_StartedDate}}</div>
             <input class="form-control" value="{{ProjectData.StartedDate_Date | jsonDate: 'dd/MM/yyyy' }}" />
         </div>
+
+        @*<div class="col-md-2">
+            <div></div>
+            <button type="button" class="btn btn-default" onclick="doSave()" aria-expanded="false">Save</button>
+        </div>*@
+        
     </div>
 
     <hr />
@@ -60,7 +86,7 @@
 
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
             @*Tab: Business Model*@
-            <li id="li_businessmodel" class="active">
+            <li id="li_businessmodel" class="">
                 <a id="a_businessmodel" href="#tab_businessmodel" data-toggle="tab" style="background-color:wheat">
                     {{ProjectData.Periods[0].Steps[@stepBusinessModelIndex].ShortName}}
                 </a>
@@ -95,14 +121,14 @@
             </li>
 
             @*Tab: Evaluation*@
-            <li id="li_evaluation">
+            <li id="li_evaluation" class="">
                 <a id="a_evaluation" href="#tab_evaluation" data-toggle="tab" style="background-color:wheat">
                     {{ProjectData.Periods[0].Steps[@stepEvaluationIndex].ShortName}}
                 </a>
             </li>
 
             @*Tab: Measures*@
-            <li id="li_measures">
+            <li id="li_measures" class="active">
                 <a id="a_measures" href="#tab_measures" data-toggle="tab" style="background-color:wheat">
                     {{ProjectData.Periods[0].Steps[@stepMeasuresIndex].ShortName}}
                 </a>
@@ -190,18 +216,18 @@
             </div>
 
             @*Tab: Evaluation*@
-            <div class="tab-pane active main-tab col-md-12" id="tab_evaluation">
+            <div class="tab-pane main-tab col-md-12" id="tab_evaluation">
                 @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[5].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_evaluation">
-                    @Html.Partial("Tab_Evaluation", Model)
+                    @*@Html.Partial("Tab_Evaluation", Model)*@
                 </div>
             </div>
 
             @*Tab: Measures*@
-            <div class="tab-pane col-md-12" id="tab_measures">
+            <div class="tab-pane active col-md-12" id="tab_measures">
                 @*<div class="row" style="margin: 5px; color:red">{{ProjectData.Periods[0].Steps[6].FullName_UPPER}}:</div>*@
                 <div class="row" id="divContent_measures">
-                    @*@Html.Partial("Tab_Measures", Model, new ViewDataDictionary { { "stepIndex", @stepMeasuresIndex } })*@
+                    @Html.Partial("Tab_Measures", Model)
                 </div>
             </div>
 
