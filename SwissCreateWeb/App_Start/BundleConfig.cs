@@ -27,6 +27,23 @@ namespace SwissCreateWeb
             bundles.Add(new ScriptBundle("~/bundles/bootbox").Include(
                         "~/Scripts/bootbox.min.js"));
 
+            //bundles.Add(new StyleBundle("~/bundles/jsgridcss").Include(
+            //            "~/Content/jsGrid/css/jsgrid.css",
+            //            "~/Content/jsGrid/css/theme.css"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/jsgrid").Include(
+            //            "~/Content/jsGrid/jsgrid.core.js",
+            //            "~/Content/jsGrid/jsgrid.load-indicator.js",
+            //            "~/Content/jsGrid/jsgrid.load-strategies.js",
+            //            "~/Content/jsGrid/jsgrid.sort-strategies.js",
+            //            "~/Content/jsGrid/jsgrid.field.js",
+            //            "~/Content/jsGrid/jsgrid.field.text.js",
+            //            "~/Content/jsGrid/jsgrid.field.number.js",
+            //            "~/Content/jsGrid/jsgrid.field.select.js",
+            //            "~/Content/jsGrid/jsgrid.field.checkbox.js",
+            //            "~/Content/jsGrid/jsgrid.field.textarea.js",
+            //            "~/Content/jsGrid/jsgrid.field.control.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
                        "~/Scripts/angular.min.js"));
 

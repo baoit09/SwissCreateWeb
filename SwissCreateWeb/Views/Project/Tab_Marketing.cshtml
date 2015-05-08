@@ -10,18 +10,11 @@
 
 <div class="row" style="margin-top:10px;">
     <div class="col-md-11" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
-    <div class="col-md-1"><button type="button" class="btn btn-default" onclick="doSave()" aria-expanded="false">Save</button></div>
 </div>
-
-<hr />
 
 <div class="row" style="margin-top:10px;">
-    <div class="col-md-10">@Html.Partial("QuestionAnswerStep", Model.ProjectData.Periods[0].Steps[stepIndex].QuestionAnwserStep)</div>
-    <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>
+    <div class="col-md-10">@Html.Partial("QuestionAnswerStep", Model.ProjectData.Periods[0].Steps[stepIndex].QuestionAnwserStep, new System.Web.Mvc.ViewDataDictionary { { "stepName", "marketing" }, { "stepIndex", stepIndex } })</div>
+    <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result, new System.Web.Mvc.ViewDataDictionary { { "stepName", "marketing" }, { "stepIndex", stepIndex } })</div>
 </div>
-
-@Html.Hidden("Hidden_ProjectId", Model.Project.Id)
-@*@Html.Hidden("Hidden_StepIndex", stepIndex)*@
-<input value="@stepIndex" id="Hidden_StepIndex" name="Hidden_StepIndex" type="hidden">
 
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_Marketing.js"></script>

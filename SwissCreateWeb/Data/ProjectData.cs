@@ -180,8 +180,8 @@ namespace ViCode_LeVi.Data
         }
         #endregion
 
-        public RootData[] Periods;
-
+        public List<RootData> Periods { get; set; }
+        
         private static ProjectData _Intance = new ProjectData();
         public static ProjectData Intance
         {

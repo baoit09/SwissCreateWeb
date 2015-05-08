@@ -15,27 +15,19 @@ namespace ViCode_LeVi.Data
 
         public Step_TaskItemStep(Step_TaskItemGroup[] tasks)
         {
-            TaskItemGroups_Source = new ObservableCollection<Step_TaskItemGroup>(tasks);            
+            TaskItemGroups = new List<Step_TaskItemGroup>(tasks);            
         }
-        
-        public Step_TaskItemGroup[] TaskItemGroups
-        {
-            get
-            {
-                if (TaskItemGroups_Source == null)
-                    return null;
-                return TaskItemGroups_Source.ToArray();
-            }
-            set
-            {
-                TaskItemGroups_Source = new ObservableCollection<Step_TaskItemGroup>(value);                
-            }
-        }
-        private ObservableCollection<Step_TaskItemGroup> TaskItemGroups_Source
+
+        public List<Step_TaskItemGroup> TaskItemGroups
         {
             get;
             set;
         }
+        //public ObservableCollection<Step_TaskItemGroup> TaskItemGroups_Source
+        //{
+        //    get;
+        //    set;
+        //}
 
         #region Tasks_Summary
         //private void Setup_Listening_4Tasks_Summary()

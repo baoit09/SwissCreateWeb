@@ -12,12 +12,10 @@ namespace ViCode_LeVi.Data
     {
         public Step_TaskItemGroup(Step_TaskItem[] tasks)
         {
-            Tasks = tasks;
+            Tasks = tasks.ToList();
         }
         public Step_TaskItemGroup()
-        {
-            if (Tasks == null)
-                Tasks = new Step_TaskItem[0];
+        {            
         }
         #region Name
 
@@ -68,29 +66,39 @@ namespace ViCode_LeVi.Data
         //}
 
 
-        public Step_TaskItem[] Tasks
-        {
-            get
-            {
-                if (Tasks_Source == null)
-                    return null;
-                return Tasks_Source.ToArray();
-            }
-            set
-            {
-                Tasks_Source = new ObservableCollection<Step_TaskItem>(value);
-            }
-        }
-        private ObservableCollection<Step_TaskItem> Tasks_Source
+        //public Step_TaskItem[] Tasks
+        //{
+        //    get
+        //    {
+        //        if (Tasks_Source == null)
+        //            return null;
+        //        return Tasks_Source.ToArray();
+        //    }
+        //    set
+        //    {
+        //        Tasks_Source = new ObservableCollection<Step_TaskItem>(value);
+
+        //        //List<Step_TaskItem> b = new List<Step_TaskItem>();
+
+        //        //b.Add(new Step_TaskItem());
+        //        //Tasks_Source = new ObservableCollection<Step_TaskItem>(b);
+                
+        //        //ObservableCollection<int> a = new ObservableCollection<int>(b);
+        //    }
+        //}
+
+        public List<Step_TaskItem> Tasks
         {
             get;
             set;
         }
+        
+        
 
         //public Step_TaskItem[] Tasks_Source_IsActive
         //{
         //    get { return Tasks_Source.Where(c => c.Active == true).ToArray(); }
-        //    set {}
+        //    set { }
         //}
 
 

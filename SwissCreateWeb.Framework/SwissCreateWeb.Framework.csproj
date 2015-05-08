@@ -107,6 +107,7 @@
     <Compile Include="Localization\LocalizedUrlExtenstions.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Validators\Mvc\BaseSwissCreateModel.cs" />
+    <Compile Include="Validators\Mvc\DebugDefaultModelBinder.cs" />
     <Compile Include="Validators\Mvc\IModelAttribute.cs" />
     <Compile Include="Validators\Mvc\Routes\GuidConstraint.cs" />
     <Compile Include="Validators\Mvc\Routes\IRouteProvider.cs" />

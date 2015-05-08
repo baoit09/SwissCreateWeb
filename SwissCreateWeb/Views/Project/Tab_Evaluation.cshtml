@@ -12,7 +12,6 @@
 
 <div class="row" style="margin-top:10px;">
     <div class="col-md-11" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
-    <div class="col-md-1"><button type="button" class="btn btn-default" onclick="doSave()" aria-expanded="false">Save</button></div>
 </div>
 
 <div class="row" style="margin-top:10px;">
@@ -54,7 +53,7 @@
             </div>
 
             @*Tab: StructuralCapital*@
-            <div class="tab-pane active" id="tab_ValuationBarChart">
+            <div class="tab-pane" id="tab_ValuationBarChart">
                 <div class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
                     <label class="radio-inline"><input type="radio" id="radio_HC" name="radioFilter" value="HC" class="radioFilter">HC</label>
                     <label class="radio-inline"><input type="radio" id="radio_SC" name="radioFilter" value="SC" class="radioFilter">SC</label>
@@ -67,7 +66,7 @@
             </div>
 
             @*Tab: Relationship Capital*@
-            <div class="tab-pane active" id="tab_PortfolioofPotential">
+            <div class="tab-pane" id="tab_PortfolioofPotential">
                 <div id="divCheckBoxes_Portfolio" class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_HC_Portfolio" name="checkboxFilter" value="HC" class="checkboxFilter">HC</label>
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_SC_Portfolio" name="checkboxFilter" value="SC" class="checkboxFilter">SC</label>

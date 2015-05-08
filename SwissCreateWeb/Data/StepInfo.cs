@@ -73,10 +73,9 @@ namespace ViCode_LeVi.Data
         //public Step_BalanceAndOthers BalanceAndOthers { get; set; }
 
        
-        //public Step_RiskManagement RiskManagement { get; set; }
+        public Step_RiskManagement RiskManagement { get; set; }
 
-       
-        //public Step_Budget Budget { get; set; }
+        public Step_Budget Budget { get; set; }
        
         //public StepInfo_HumanResource HumanResource { get; set; }
         //public RootData Root

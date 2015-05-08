@@ -51,6 +51,19 @@ namespace SwissCreateWeb.Controllers
             return Json(model);
         }
 
+        public ActionResult UpdateProjectEditModel(ProjectEditModel projectEditModel)
+        {
+            bool bSuccess = false;
+            var project = _projectService.GetProjectById(projectEditModel.Project.Id);
+            if (project != null)
+            {
+                string sXML = projectEditModel.ProjectData.ToXML();
+                project.ProjectData = sXML;
+                bSuccess = _projectService.UpdateProject(project);                
+            }
+            return Json(new { success = bSuccess });
+        }
+
         private ProjectEditModel LocalGetProjectEditModel(int projectId)
         {
             ProjectEditModel model = new ProjectEditModel();
@@ -388,9 +401,9 @@ namespace SwissCreateWeb.Controllers
                 ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
                 if (projectData != null)
                 {
-                    projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[0].Tasks = tasks0;
-                    projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[1].Tasks = tasks1;
-                    projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[2].Tasks = tasks2;
+                    //projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[0].Tasks_Source = tasks0;
+                    //projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[1].Tasks = tasks1;
+                    //projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[2].Tasks = tasks2;
 
                     string sXML = projectData.ToXML();
                     project.ProjectData = sXML;

@@ -1,16 +1,7 @@
 ﻿$(document).ready(function () {
-    $.ajax({
-        url: $("#Hidden_Get_Step_TaskItemStep").val(),
-        type: 'POST',
-        data: { "projectId": $("#Hidden_ProjectId").val() },
-        success: function (data) {
-            window.db.TaskItemStep = $.parseJSON(data);
-            SetupJsGrids();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            //...
-        }
-    });
+
+    SetupJsGridsReview();
+    
 });
    
 $(".inputCanChange").bind('input', function () {
@@ -20,7 +11,7 @@ $(".inputCanChange").bind('input', function () {
     $("#" + idImageTarget).attr('src', urlImage);
 });
 
-function SetupJsGrids() {
+function SetupJsGridsReview() {
 
     var MyImgField = function (config) {
         jsGrid.Field.call(this, config);
@@ -61,7 +52,7 @@ function SetupJsGrids() {
     jsGrid.fields.img = MyImgField;
 
     $("#jsGrid_Review").jsGrid({
-        height: "100%",
+        height: "500px",
         width: "100%",
         //filtering: true,
         //editing: true,
@@ -82,15 +73,16 @@ function SetupJsGrids() {
         controller: {
             loadData: function (filter) {
                 var mergedTasks = [];
-                mergedTasks = $.merge(mergedTasks, window.db.TaskItemStep.TaskItemGroups[0].Tasks);
-                mergedTasks = $.merge(mergedTasks, window.db.TaskItemStep.TaskItemGroups[1].Tasks);
-                mergedTasks = $.merge(mergedTasks, window.db.TaskItemStep.TaskItemGroups[2].Tasks);
+                var stepIndex = window.db.projectSettings.Step_SuccessFactors_Index;
+                mergedTasks = $.merge(mergedTasks, window.db.projectEditing.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[0].Tasks);
+                mergedTasks = $.merge(mergedTasks, window.db.projectEditing.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[1].Tasks);
+                mergedTasks = $.merge(mergedTasks, window.db.projectEditing.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[2].Tasks);
                 return mergedTasks;
             }
         },
 
         fields: [
-            { name: "ID", type: "text", width: 50 },
+            { name: "ID", type: "text", width: 100 },
             { name: "Name", type: "text", width: 200 },
             { name: "Active", type: "checkbox", width: 50, title: "Active", sorting: false },
 
@@ -193,75 +185,5 @@ function updateImage()
         $("#" + idImageTarget).attr('src', urlImage);
     });
 }
-
-function doSave() {
-
-    var postUrl = $("#Hidden_Post_Step_TaskItemStep").val();
-
-    var JSONDataString = JSON.stringify({
-        projectId: $("#Hidden_ProjectId").val(),
-        //stepIndex: $("#Hidden_StepIndex").val(),
-        tasks0: window.db.TaskItemStep.TaskItemGroups[0].Tasks,
-        tasks1: window.db.TaskItemStep.TaskItemGroups[1].Tasks,
-        tasks2: window.db.TaskItemStep.TaskItemGroups[2].Tasks,
-    });
-
-    $.ajax({
-
-        url: postUrl,
-
-        type: "POST",
-
-        contentType: "application/json",
-
-        data: JSONDataString,
-
-        success: function (ResponseResult) {
-            if (ResponseResult.success == true) {
-
-                var form_StepResult = $("#form_StepResult")
-
-                // Post data to server
-                var url = form_StepResult.attr("action");
-                $.post(url,
-                        "projectId=" + $("#Hidden_ProjectId").val() +
-                        "&stepIndex=" + $("#Hidden_StepIndex").val() +
-                        "&" + form_StepResult.serialize(),
-
-                    function (ResponseResult) {
-                        if (ResponseResult.success == true) {
-                            bootbox.alert("Project saved successfully!", function () {
-                            });
-                        }
-                        else {
-                            bootbox.dialog({
-                                message: "Project saved failed",
-                                title: "Project saved",
-                                buttons: {
-                                    danger: {
-                                        label: "OK",
-                                        className: "btn-danger"
-                                    }
-                                }
-                            });
-                        }
-                    });
-            }
-            else {
-                bootbox.dialog({
-                    message: "Project saved failed",
-                    title: "Project saved",
-                    buttons: {
-                        danger: {
-                            label: "OK",
-                            className: "btn-danger"
-                        }
-                    }
-                });
-            }
-        }
-    });
-}
-
 
 

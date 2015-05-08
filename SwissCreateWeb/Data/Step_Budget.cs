@@ -186,20 +186,20 @@ namespace ViCode_LeVi.Data
                 return Cost;
             }
         }
-        public string CostCurrent_Text
-        {
-            get
-            {
-                return CostCurrent.ToString("#,###", CultureInfo.InvariantCulture) + " " + ControlTextInfo.Intance.CurrencySymbol;
-            }
-        }
-        public string CostWillDisplay_Text
-        {
-            get
-            {
-                return Cost.ToString("#,###", CultureInfo.InvariantCulture) + " " + ControlTextInfo.Intance.CurrencySymbol;
-            }
-        }
+        //public string CostCurrent_Text
+        //{
+        //    get
+        //    {
+        //        return CostCurrent.ToString("#,###", CultureInfo.InvariantCulture) + " " + ControlTextInfo.Intance.CurrencySymbol;
+        //    }
+        //}
+        //public string CostWillDisplay_Text
+        //{
+        //    get
+        //    {
+        //        return Cost.ToString("#,###", CultureInfo.InvariantCulture) + " " + ControlTextInfo.Intance.CurrencySymbol;
+        //    }
+        //}
         public double CostTotalChild
         {
             get
@@ -277,13 +277,13 @@ namespace ViCode_LeVi.Data
             }
         }
         //ObservableCollection<Step_Budget> _ObservableCollection_Childs;
-        public ObservableCollection<Step_Budget> ObservableCollection_Childs
-        {
-            get
-            {
-                return new ObservableCollection<Step_Budget>(Childs);
-            }
-        }
+        //public ObservableCollection<Step_Budget> ObservableCollection_Childs
+        //{
+        //    get
+        //    {
+        //        return new ObservableCollection<Step_Budget>(Childs);
+        //    }
+        //}
 
         public double Cost_Childs
         {

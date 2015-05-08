@@ -6,18 +6,11 @@ using System.Web;
 
 namespace ViCode_LeVi.Data
 {
+     //public class Step_TaskItem : INotifyPropertyChanged
+     //{ }
     
-    public class Step_TaskItem : INotifyPropertyChanged
+    public class Step_TaskItem
     {
-        #region INotifyPropertyChanged Members
-        public void SendPropertyChanged(string sProp)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(sProp));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
         #region ID
         private string _ID = string.Empty;
         /// <summary>
@@ -32,7 +25,7 @@ namespace ViCode_LeVi.Data
                 if (_ID != value)
                 {
                     _ID = value;
-                    SendPropertyChanged("ID");
+                    
                 }
             }
         }
@@ -40,15 +33,21 @@ namespace ViCode_LeVi.Data
         {
             get
             {
-                var sIDCharIndex = ID.IndexOf('-');
-                if (sIDCharIndex < ID.Length)
+                if (!string.IsNullOrWhiteSpace(ID))
                 {
-                    var sNum = ID.Substring(sIDCharIndex + 1);
-                    int nNum = 0;
-                    int.TryParse(sNum, out nNum);
-                    return nNum;
+                    var sIDCharIndex = ID.IndexOf('-');
+                    if (sIDCharIndex < ID.Length)
+                    {
+                        var sNum = ID.Substring(sIDCharIndex + 1);
+                        int nNum = 0;
+                        int.TryParse(sNum, out nNum);
+                        return nNum;
+                    }
                 }
                 return 0;
+            }
+            set { 
+
             }
         }
         #endregion
@@ -67,7 +66,6 @@ namespace ViCode_LeVi.Data
                 if (_Name != value)
                 {
                     _Name = value;
-                    SendPropertyChanged("Name");
                 }
             }
         }
@@ -87,7 +85,6 @@ namespace ViCode_LeVi.Data
                 if (_Active != value)
                 {
                     _Active = value;
-                    SendPropertyChanged("Active");
                 }
             }
         }
@@ -107,7 +104,6 @@ namespace ViCode_LeVi.Data
                 if (_Define != value)
                 {
                     _Define = value;
-                    SendPropertyChanged("Define");
                 }
             }
         }
@@ -127,7 +123,6 @@ namespace ViCode_LeVi.Data
                 if (_Weight != value)
                 {
                     _Weight = value;
-                    SendPropertyChanged("Weight");
                 }
             }
         }
@@ -147,14 +142,13 @@ namespace ViCode_LeVi.Data
                 if (_ReasonDescription4Weight != value)
                 {
                     _ReasonDescription4Weight = value;
-                    SendPropertyChanged("ReasonDescription4Weight");
                 }
             }
         }
         #endregion
 
-        public int ImageHeight { get { return 20; } }
-        public int ImageWidth { get { return 20; } }
+        public int ImageHeight { get { return 20; } set {} }
+        public int ImageWidth { get { return 20; } set {} }
 
         #region Quantity
         #region Quantity_Checked
@@ -168,7 +162,6 @@ namespace ViCode_LeVi.Data
                 if (_Quantity_Checked != value)
                 {
                     _Quantity_Checked = value;
-                    SendPropertyChanged("Quantity_Checked");
 
                     if (_Quantity_Checked == false)
                     {
@@ -192,7 +185,6 @@ namespace ViCode_LeVi.Data
                 if (_Quantity_Question != value)
                 {
                     _Quantity_Question = value;
-                    SendPropertyChanged("Quantity_Question");
                 }
             }
         }
@@ -220,8 +212,6 @@ namespace ViCode_LeVi.Data
                         _Quantity_WeightPercent = 0;
                     if (_Quantity_WeightPercent.HasValue && _Quantity_WeightPercent > 100)
                         _Quantity_WeightPercent = 100;
-                    SendPropertyChanged("Quantity_WeightPercent");
-                    SendPropertyChanged("Quantity_Evaluation_Image");
                 }
             }
         }
@@ -311,7 +301,6 @@ namespace ViCode_LeVi.Data
                 if (_Quantity_Answer != value)
                 {
                     _Quantity_Answer = value;
-                    SendPropertyChanged("Quantity_Answer");
                 }
             }
         }
@@ -330,7 +319,6 @@ namespace ViCode_LeVi.Data
                 if (_Quality_Checked != value)
                 {
                     _Quality_Checked = value;
-                    SendPropertyChanged("Quality_Checked");
 
                     if (_Quality_Checked == false)
                     {
@@ -354,7 +342,6 @@ namespace ViCode_LeVi.Data
                 if (_Quality_Question != value)
                 {
                     _Quality_Question = value;
-                    SendPropertyChanged("Quality_Question");
                 }
             }
         }
@@ -382,8 +369,6 @@ namespace ViCode_LeVi.Data
                         _Quality_WeightPercent = 0;
                     if (_Quality_WeightPercent.HasValue && _Quality_WeightPercent > 100)
                         _Quality_WeightPercent = 100;
-                    SendPropertyChanged("Quality_WeightPercent");
-                    SendPropertyChanged("Quality_Evaluation_Image");
                 }
             }
         }
@@ -473,7 +458,6 @@ namespace ViCode_LeVi.Data
                 if (_Quality_Answer != value)
                 {
                     _Quality_Answer = value;
-                    SendPropertyChanged("Quality_Answer");
                 }
             }
         }
@@ -492,7 +476,6 @@ namespace ViCode_LeVi.Data
                 if (_Systematic_Checked != value)
                 {
                     _Systematic_Checked = value;
-                    SendPropertyChanged("Systematic_Checked");
 
                     if (_Systematic_Checked == false)
                     {
@@ -516,7 +499,6 @@ namespace ViCode_LeVi.Data
                 if (_Systematic_Question != value)
                 {
                     _Systematic_Question = value;
-                    SendPropertyChanged("Systematic_Question");
                 }
             }
         }
@@ -544,8 +526,6 @@ namespace ViCode_LeVi.Data
                         _Systematic_WeightPercent = 0;
                     if (_Systematic_WeightPercent.HasValue && _Systematic_WeightPercent > 100)
                         _Systematic_WeightPercent = 100;
-                    SendPropertyChanged("Systematic_WeightPercent");
-                    SendPropertyChanged("Systematic_Evaluation_Image");
                 }
             }
         }
@@ -635,7 +615,6 @@ namespace ViCode_LeVi.Data
                 if (_Systematic_Answer != value)
                 {
                     _Systematic_Answer = value;
-                    SendPropertyChanged("Systematic_Answer");
                 }
             }
         }

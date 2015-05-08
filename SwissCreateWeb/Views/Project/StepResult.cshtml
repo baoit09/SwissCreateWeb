@@ -1,6 +1,8 @@
 ﻿@model ViCode_LeVi.Data.StepResult
 @{
     Layout = null;
+    var stepName = ViewData["stepName"];
+    var stepIndex = Convert.ToInt32(ViewData["stepIndex"]);
 }
 
 @using (Html.BeginForm("Save_StepResult", "Project", FormMethod.Post, new { id = "form_StepResult" }))
@@ -42,7 +44,8 @@
     </div>
 
     <div style="margin: 5px" class="row">
-        <textarea name="Note" id="Note" rows="25" style="width: 100%" class="form-control">@Model.Note</textarea>
+        <textarea name="Note" id="Note" rows="25" style="width: 100%" class="form-control" ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Note">            
+        </textarea>
     </div>
 
 }

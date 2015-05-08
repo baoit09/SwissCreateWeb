@@ -1,23 +1,18 @@
 ﻿@model SwissCreateWeb.Models.Project.ProjectEditModel
 @{
     Layout = null;
-    var stepIndex = ViewBag.StepIndex;
-    if (stepIndex == null)
-    {
-        stepIndex = 4;
-    }    
+    var stepIndex = Convert.ToInt32(ViewData["stepIndex"]);    
 }
 
 <div class="row" style="margin-top:10px;">
     <div class="col-md-11" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
-    <div class="col-md-1"><button type="button" class="btn btn-default" onclick="doSave()" aria-expanded="false">Save</button></div>
 </div>
 
 <div class="row" style="margin-top:10px;">
     <div class="col-md-10">
         <div id="jsGrid_Review" style="min-height:500px; padding:0px;"></div>
     </div>
-    <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>
+    <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result, new System.Web.Mvc.ViewDataDictionary { { "stepName", "review" }, { "stepIndex", stepIndex }})</div>
 </div>
 
 <div id="detailsForm" class="modal fade">
@@ -89,11 +84,5 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-@Html.Hidden("Hidden_ProjectId", Model.Project.Id)
-@*@Html.Hidden("Hidden_StepIndex", stepIndex)*@
-<input value="@stepIndex" id="Hidden_StepIndex" name="Hidden_StepIndex" type="hidden">
-
-@Html.Hidden("Hidden_Post_Measures", Url.Action("Post_Measures", "Project"))
 
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_Review.js"></script>

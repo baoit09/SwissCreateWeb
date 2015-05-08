@@ -23,13 +23,12 @@ namespace ViCode_LeVi.Data
 
         public Step_RiskManagement(Step_RiskManagementItem[] tasks)
         {
-            Tasks = tasks;
+            Tasks = tasks.ToList();
         }
         public Step_RiskManagement()
-        {
-            if (Tasks == null)
-                Tasks = new Step_RiskManagementItem[0];
+        {            
         }
+
         #region Name
         
         string _Name = string.Empty;
@@ -63,67 +62,52 @@ namespace ViCode_LeVi.Data
         }
         #endregion
 
-
-
-        
-        private Step_RiskManagementItem[] Tasks
-        {
-            get
-            {
-                if (Tasks_Source == null)
-                    return null;
-                return Tasks_Source.ToArray();
-            }
-            set
-            {
-                Tasks_Source = new ObservableCollection<Step_RiskManagementItem>(value);
-            }
-        }
-        public ObservableCollection<Step_RiskManagementItem> Tasks_Source
+        public List<Step_RiskManagementItem> Tasks
         {
             get;
             set;
         }
-        public Step_RiskManagementItem[] Tasks_Source_AfterSort = null;
-        public Step_RiskManagementItem[] Tasks_Source_ForReport
-        {
-            get
-            {
-                if (Tasks_Source_AfterSort != null
-                    && Tasks_Source_AfterSort.Length == Tasks_Source.Count)
-                    return Tasks_Source_AfterSort;
-                else
-                    return Tasks_Source.ToArray();
+        
+        //public Step_RiskManagementItem[] Tasks_Source_AfterSort = null;
+        //public Step_RiskManagementItem[] Tasks_Source_ForReport
+        //{
+        //    get
+        //    {
+        //        if (Tasks_Source_AfterSort != null
+        //            && Tasks_Source_AfterSort.Length == Tasks_Source.Count)
+        //            return Tasks_Source_AfterSort;
+        //        else
+        //            return Tasks_Source.ToArray();
 
-            }
-            set { }
-        }
+        //    }
+        //    set { }
+        //}
 
 
         #region IM_Current_Task
-        Step_RiskManagementItem _IM_Current_Task;
-        public Step_RiskManagementItem IM_Current_Task
-        {
-            get { return _IM_Current_Task; }
-            set
-            {
-                if (_IM_Current_Task != value)
-                {
-                    _IM_Current_Task = value;
-                    SendPropertyChanged("IM_Current_Task");
-                    SendPropertyChanged("IsEnableChangeInfo");
-                    SendPropertyChanged("ShowHelpAddNew");
-                }
-            }
-        }
-        public bool IsEnableChangeInfo
-        {
-            get { return IM_Current_Task != null; }
-        }
-        public Visibility ShowHelpAddNew
-        {
-            get { return _IM_Current_Task != null ? Visibility.Collapsed : Visibility.Visible; }
-        }
+        //Step_RiskManagementItem _IM_Current_Task;
+        //public Step_RiskManagementItem IM_Current_Task
+        //{
+        //    get { return _IM_Current_Task; }
+        //    set
+        //    {
+        //        if (_IM_Current_Task != value)
+        //        {
+        //            _IM_Current_Task = value;
+        //            SendPropertyChanged("IM_Current_Task");
+        //            SendPropertyChanged("IsEnableChangeInfo");
+        //            SendPropertyChanged("ShowHelpAddNew");
+        //        }
+        //    }
+        //}
+        //public bool IsEnableChangeInfo
+        //{
+        //    get { return IM_Current_Task != null; }
+        //}
+        //public Visibility ShowHelpAddNew
+        //{
+        //    get { return _IM_Current_Task != null ? Visibility.Collapsed : Visibility.Visible; }
+        //}
         #endregion
 
     }
