@@ -35,7 +35,7 @@
         var tabID = $(this).attr("href").substr(1);
 
         // if this tab has been loaded
-        if ($('#' + tabID).html().length > 0)
+        if ($('#' + tabID).children().length > 0)
             return;
 
         //$(".tab-pane.main-tab").each(function () {
@@ -73,6 +73,11 @@
 
 function doSaveMain() {
  
+    if (clearAdditionalProperties_Tab_Charts != null)
+    {
+        clearAdditionalProperties_Tab_Charts();
+    }
+   
     var postUrl = $("#UpdateProjectEditModel").val();
     var JSONDataString = JSON.stringify(
             {

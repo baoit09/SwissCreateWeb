@@ -92,5 +92,18 @@ namespace ViCode_LeVi.Data
 
         #endregion
 
+        #region Static Enum
+        public Static_E_Risk_Impact Static_E_Risk_Impact_Intance
+        {
+            get { return Static_E_Risk_Impact.Instance; }
+            set { Static_E_Risk_Impact.Instance = value; }
+        }
+        public Static_E_Risk_Probability Static_E_Risk_Probability_Intance
+        {
+            get { return Static_E_Risk_Probability.Instance; }
+            set { Static_E_Risk_Probability.Instance = value; }
+        }
+        #endregion
+
     }
 }

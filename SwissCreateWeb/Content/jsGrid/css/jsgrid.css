@@ -39,7 +39,7 @@
 }
 
 .jsgrid-table td {
-    padding: 0.5em 0.5em;
+    padding: 0.3em 0.3em;
 }
 
 .jsgrid-table td,
@@ -73,7 +73,7 @@
 .jsgrid-insert-row textarea,
 .jsgrid-insert-row select {
     width: 90%;
-    padding: .3em .5em;
+    padding: .3em .3em;
 }
 
 .jsgrid-filter-row input[type='checkbox'],

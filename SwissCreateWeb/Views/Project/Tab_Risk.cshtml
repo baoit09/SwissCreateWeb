@@ -4,21 +4,73 @@
     var stepIndex = ViewBag.StepIndex;
     if (stepIndex == null)
     {
-        stepIndex = 0;
+        stepIndex = 11;
     }
 }
 
-<div class="row" style="margin-top:10px;">
-    <div class="col-md-11" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
-</div>
+<link href="~/Content/redips2/csss/style.css" rel="stylesheet" />
+<script src="~/Content/redips2/redips-drag-min.js"></script>
+<script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_Risk.js"></script>
+
+<style type="text/css">
+    #table1 .redips-mark {
+        width: 90px;
+        height: 90px;
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    /*#table1 .redips-mark {
+        width: 90px;
+        height: 90px;
+        font-weight: bold;
+        font-size: 15px;
+    }*/
+
+    #table1 .redips-drag {
+        width: 30px;
+        background-color: orange;
+        font-weight: bold;
+        font-size: 15px;
+        color:white;
+        text-align:center;
+    }
+
+    #table1 .white-cell {
+        background-color: #eee;
+    }
+</style>
 
 <div class="row" style="margin-top:10px;">
-    <div class="col-md-10">Will be implemented soon</div>
+    <div class="col-md-10" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
+    <div class="col-md-2" style="color: black; margin-top: 10px;">RESULT:</div> 
+</div>
+
+<div class="row col-md-12" style="margin-top:10px;">
+    <div class="col-md-5"><div id="jsGrid_Risk"></div></div>
+    <div class="col-md-5" id="redips-drag" style="width:600px;">
+        <table id="table1">
+            @*<tbody>
+                <tr>
+                    <td class="redips-mark" style="width:110px">You</td>
+                    <td class="redips-mark" style="width:110px">can</td>
+                    <td class="redips-mark" style="width:110px">not</td>
+                    <td class="redips-mark" style="width:110px">drop</td>
+                    <td class="redips-mark" style="width:110px">here</td>
+                </tr>
+                <tr style="background-color: #eee">
+                    <td><div id="d1" class="redips-drag t1" style="width:100px">Drag</div></td>
+                    <td></td>
+                    <td><div id="d2" class="redips-drag t1" style="width:100px">and</div></td>
+                    <td><div id="d3" class="redips-drag t1" style="width:100px">drop</div></td>
+                    <td></td>
+                </tr>
+            </tbody>*@        
+        </table>
+    </div>
     <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>
 </div>
 
-@Html.Hidden("Hidden_ProjectId", Model.Project.Id)
-@*@Html.Hidden("Hidden_StepIndex", stepIndex)*@
-<input value="@stepIndex" id="Hidden_StepIndex" name="Hidden_StepIndex" type="hidden">
 
-<script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_Risk.js"></script>

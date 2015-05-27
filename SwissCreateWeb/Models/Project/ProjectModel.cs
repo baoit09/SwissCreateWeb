@@ -10,6 +10,7 @@ namespace SwissCreateWeb.Models.Project
         public string Author { get; set; }
         public string Comment { get; set; }
         public string Note { get; set; }
+        public string ReportLayout { get; set; }
         public DateTime StartedDate { get; set; }
     }
 }

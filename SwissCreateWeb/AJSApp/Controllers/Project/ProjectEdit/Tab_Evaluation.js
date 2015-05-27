@@ -2,10 +2,10 @@
 
 jQuery(document).ready(function ($) {
 
-    $(".radioFilter").change(radioFilterOnChange);
+    $(".radioFilter_Valuation").change(radioFilterOnChange_Valuation);
     $("#radio_HC").attr("checked", "checked");
 
-    $("#divCheckBoxes :checkbox").change(checkboxFilterOnChange);
+    $("#divCheckBoxes_Weight :checkbox").change(checkboxFilterOnChange_Weight);
     $("#checkbox_HC").attr("checked", "checked");
     
     $("#divCheckBoxes_Portfolio :checkbox").change(checkboxFilterOnChange_Portfolio);
@@ -25,7 +25,7 @@ jQuery(document).ready(function ($) {
     });
 });
 
-function radioFilterOnChange(e) {
+function radioFilterOnChange_Valuation(e) {
     var newSelectedCode = $(this).val();
     if (newSelectedCode != window.selectCode) {
         window.selectCode = $(this).val();
@@ -37,7 +37,7 @@ function checkboxFilterOnChange_Portfolio(e) {
     drawCharts_Portfolio();
 }
 
-function checkboxFilterOnChange(e) {
+function checkboxFilterOnChange_Weight(e) {
     drawCharts_Weight();
 }
 
@@ -77,7 +77,7 @@ function drawCharts_Weight() {
     data.addColumn({ type: 'string', role: 'style' });
     data.addColumn({ type: 'string', role: 'annotation' });
 
-    var checkedValues = getCheckedValues('divCheckBoxes');
+    var checkedValues = getCheckedValues('divCheckBoxes_Weight');
 
     if ($.inArray('HC', checkedValues) > -1) {
         for (var i = 0; i < window.db.TaskItemStep.TaskItemGroups[0].Tasks.length; i++) {

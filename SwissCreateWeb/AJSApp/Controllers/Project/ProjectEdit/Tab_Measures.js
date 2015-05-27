@@ -1,18 +1,18 @@
 ﻿jQuery(document).ready(function ($) {
 
-    $("#divCheckBoxes_Measures :checkbox").change(checkboxFilterOnChange);
+    $("#divCheckBoxes_Measures :checkbox").change(checkboxFilterOnChange_Measures);
 
     //$('.date-picker').datepicker(
     //{
     //    //dateFormat : 'dd/mm/yy'
     //});
     
-    setupJsGrids();
+    setupJsGrids_Measures();
 
 });
 
-function checkboxFilterOnChange(e) {
-    $("#jsGrid_Measures").jsGrid("loadData");
+function checkboxFilterOnChange_Measures(e) {
+    $("#jsGrid_Measures").jsGrid('loadData');
 }
 
 function getCheckedValues(parentDiv) {
@@ -23,7 +23,7 @@ function getCheckedValues(parentDiv) {
     return checkedValues;
 }
 
-function setupJsGrids()
+function setupJsGrids_Measures()
 {
     $("#jsGrid_Measures").jsGrid({
         height: "100%",
@@ -44,6 +44,7 @@ function setupJsGrids()
         },
 
         controller: {
+
             loadData: function (filter) {
 
                 var stepIndex = window.db.projectSettings.Step_Measures_Index;

@@ -15,6 +15,8 @@ namespace SwissCreate.Core.Domain.Projects
         public string Comment { get; set; }
         public string Note { get; set; }
 
+        public string ReportLayout { get; set; }
+
         public string ProjectData { get; set; }
 
         public DateTime? StartedDate { get; set; }

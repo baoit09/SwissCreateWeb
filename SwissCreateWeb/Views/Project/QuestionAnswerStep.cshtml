@@ -26,7 +26,7 @@
                 ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
                 if (i == 0)
                 {
-                    <div class="tab-pane fade in active row tabQA" id="@string.Format("{0}_{1}", stepName, i)" style="background-color:lightgray">
+                    <div class="tab-pane fade in active row tabQA" id="@string.Format("{0}_{1}", stepName, i)" style="background-color:whitesmoke">
                         <div class="row col-md-12" ng-repeat="qa in ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].QuestionAnswers">
                             <hr class="col-md-12" />
                             <div class="row col-md-12">
@@ -60,7 +60,7 @@
                 }
                 else
                 {
-                    <div class="tab-pane fade row tabQA" id="@string.Format("{0}_{1}", stepName, i)" style="background-color:lightgray">
+                    <div class="tab-pane fade row tabQA" id="@string.Format("{0}_{1}", stepName, i)" style="background-color: whitesmoke">
                         <div class="row col-md-12" ng-repeat="qa in ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].QuestionAnswers">
                             <hr class="col-md-12" />
                             <div class="row col-md-12">

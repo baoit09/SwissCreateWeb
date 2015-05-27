@@ -7,18 +7,31 @@
         stepIndex = 0;
     }
 }
-
 <div class="row" style="margin-top:10px;">
-    <div class="col-md-11" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>    
+    <div class="col-md-10" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:
+        <label class="checkbox-inline" style="color:black; margin-left:10px"><input type="checkbox" id="checkbox_AutoSumCost" ng-model="ProjectData.ConfigData.Config_Budget.AutoSetCostByTotalOfChildren">Auto sum cost</label>        
+    </div> 
+    <div class="col-md-2" style="color: black; margin-top: 10px;">RESULT:</div> 
+</div> 
+
+<div id="context-menu-budget">
+    <ul id="ul_budget" class="dropdown-menu" role="menu">
+        <li><a id="a_budget_addchild" href="#" tabindex="-1">Add child</a></li>
+        <li><a id="a_budget_change" href="#" tabindex="-1">Change</a></li>
+        <li class="NotForUnLeaf"><a id="a_budget_delete" href="#" tabindex="-1">Delete</a></li>
+        <li class="divider"></li>
+        <li id="li_budget_close"><a href="#" tabindex="-1">Close</a></li>
+    </ul>
 </div>
 
 <div class="row" style="margin-top:10px;">
-    <div class="col-md-10">Will be implemented soon</div>
-    @*<div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>*@
+    <div class="col-md-10">
+        <div class="tree budget-tree">
+            <ul id="ul_budget_tree"></ul>
+        </div>
+    </div>
+    <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>
 </div>
 
-@Html.Hidden("Hidden_ProjectId", Model.Project.Id)
-@*@Html.Hidden("Hidden_StepIndex", stepIndex)*@
 <input value="@stepIndex" id="Hidden_StepIndex" name="Hidden_StepIndex" type="hidden">
-
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_Charts.js"></script>

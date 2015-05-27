@@ -8,10 +8,9 @@
     }
 }
 
-
-
 <div class="row" style="margin-top:10px;">
-    <div class="col-md-11" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
+    <div class="col-md-10" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
+    <div class="col-md-2" style="color: black; margin-top: 10px;">RESULT:</div> 
 </div>
 
 <div class="row" style="margin-top:10px;">
@@ -41,7 +40,7 @@
         <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
             @*Tab: Human Captial*@
             <div class="tab-pane active" id="tab_WeightBarChart">
-                <div id="divCheckBoxes" class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
+                <div id="divCheckBoxes_Weight" class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_HC" name="checkboxFilter" value="HC" class="checkboxFilter">HC</label>
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_SC" name="checkboxFilter" value="SC" class="checkboxFilter">SC</label>
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_RC" name="checkboxFilter" value="RC" class="checkboxFilter">RC</label>
@@ -55,9 +54,9 @@
             @*Tab: StructuralCapital*@
             <div class="tab-pane" id="tab_ValuationBarChart">
                 <div class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
-                    <label class="radio-inline"><input type="radio" id="radio_HC" name="radioFilter" value="HC" class="radioFilter">HC</label>
-                    <label class="radio-inline"><input type="radio" id="radio_SC" name="radioFilter" value="SC" class="radioFilter">SC</label>
-                    <label class="radio-inline"><input type="radio" id="radio_RC" name="radioFilter" value="RC" class="radioFilter">RC</label> 
+                    <label class="radio-inline"><input type="radio" id="radio_HC" name="radioFilter_Valuation" value="HC" class="radioFilter_Valuation">HC</label>
+                    <label class="radio-inline"><input type="radio" id="radio_SC" name="radioFilter_Valuation" value="SC" class="radioFilter_Valuation">SC</label>
+                    <label class="radio-inline"><input type="radio" id="radio_RC" name="radioFilter_Valuation" value="RC" class="radioFilter_Valuation">RC</label> 
                 </div>
                 <div id="div_ValuationBarChart" style="min-height:500px; margin:5px;"></div>
                 <hr />

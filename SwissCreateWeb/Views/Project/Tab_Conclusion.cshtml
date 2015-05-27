@@ -8,17 +8,44 @@
     }
 }
 
+<script src="~/Content/fancytree/dist/jquery.fancytree-all.js"></script>
+<link href="~/Content/fancytree/dist/skin-lion/ui.fancytree.min.css" rel="stylesheet" />
+<script src="~/Content/fancytree/dist/src/jquery.fancytree.dnd.js"></script>
+
 <div class="row" style="margin-top:10px;">
-    <div class="col-md-11" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
+    <div class="col-md-10" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
+    <div class="col-md-2" style="color: black; margin-top: 10px;">RESULT:</div> 
 </div>
 
 <div class="row" style="margin-top:10px;">
-    <div class="col-md-10">Will be implemented soon</div>
-    @*<div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>*@
+    <div class="col-md-10">
+        <ul class="nav nav-tabs" data-tabs="tabs">
+            @*Tab: Human Captial*@
+            <li id="li_Report" class="active">
+                <a id="a_Report" href="#tab_Report" data-toggle="tab" style="background-color:wheat">
+                    Report
+                </a>
+            </li>           
+        </ul>
+        <div id="my-tab-content1" class="tab-content col-md-12" style="border:solid 1px wheat">
+            @*Tab: Human Captial*@
+            <div class="tab-pane active" id="tab_Report">
+                <div id="div_fancytree_conclusion_report" style="min-height:200px; margin-top:5px;"></div>
+                <div class="col-md-8">
+                    <label><input type="checkbox" onchange="checkBoxOnChange(this)"/> Check All</label>
+                    <button class="btn btn-default" style="margin:5px;" onclick="doNodeMove_Conclusion('moveUp')"><span class="glyphicon glyphicon-arrow-up" title="Move Up"></span></button>
+                    <button class="btn btn-default" style="margin:5px; margin-left:0px;" onclick="doNodeMove_Conclusion('moveDown')"><span class="glyphicon glyphicon-arrow-down" title="Move Down"></span></button>
+                </div>
+                <div class="col-md-4" align="right">
+                    <button class="btn btn-default" style="margin:5px;" onclick="doSaveReportLayout_Conclusion()" title="Save changes on report layout">Save Report Layout</button>
+                    <button class="btn btn-default" style="margin-top: 5px; margin-bottom: 5px;" onclick="doPrintReportLayout_Conclusion()" title="Save changes on report layout & print">Save & Print Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>
 </div>
 
-@Html.Hidden("Hidden_ProjectId", Model.Project.Id)
-@*@Html.Hidden("Hidden_StepIndex", stepIndex)*@
-<input value="@stepIndex" id="Hidden_StepIndex" name="Hidden_StepIndex" type="hidden">
+@Html.Hidden("UpdateReportLayout", Url.Action("UpdateReportLayout", "Project"))
 
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/Tab_Conclusion.js"></script>

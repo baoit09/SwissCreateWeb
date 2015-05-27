@@ -326,6 +326,18 @@ namespace SwissCreateWeb.Controllers
             return Json(_projectSettings);
         }
 
+        public ActionResult UpdateReportLayout(int projectId, string JSONReportLayout)
+        {
+            bool bSuccess = false;
+            var project = _projectService.GetProjectById(projectId);
+            if (project != null)
+            {
+                project.ReportLayout = JSONReportLayout;
+                bSuccess = _projectService.UpdateProject(project);
+            }
+
+            return Json(new { success = bSuccess });
+        }
         #endregion
 
         #region Tab_BusinessModel

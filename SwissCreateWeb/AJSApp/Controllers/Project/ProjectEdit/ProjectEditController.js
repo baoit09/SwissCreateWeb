@@ -8,6 +8,12 @@ SwissCreateApp.filter('jsonDate', function ($filter) {
     };
 });
 
+SwissCreateApp.filter('toBooleanForStepResult', function ($filter) {
+    return function (input, valueForTrue) {
+        return input == valueForTrue;
+    };
+});
+
 /* Controllers */
 SwissCreateApp.controller('ProjectCtrl', function ($scope, $http, $filter) {
 
@@ -17,19 +23,5 @@ SwissCreateApp.controller('ProjectCtrl', function ($scope, $http, $filter) {
     $scope.ProjectData = window.db.projectEditing.ProjectData;
     //endregion
     
-
-    //#region Get Data
-    //$http.post($("#GetProjectEditModel").val(),
-    //    { "projectId": $("#ProjectEdittingId").val()})
-    //   .success(function (data, status, headers, config) {
-    //       if (data != null) {
-    //           $scope.ProjectEditModel = data;
-    //           $scope.ProjectModel = data.Project;
-    //           $scope.ProjectData = data.ProjectData;
-    //       }
-    //   })
-    //   .error(function (data, status, headers, config) {
-    //       // log error
-    //   });
-    //endregion
+    $scope.temp;    
 });
