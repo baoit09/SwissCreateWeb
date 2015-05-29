@@ -372,6 +372,16 @@
     <Content Include="Content\redips2\redips-drag-min.js" />
     <Content Include="Content\redips2\redips-drag-source.js" />
     <Content Include="Images\back.png" />
+    <Content Include="Images\backgrounds\images %281%29.jpg" />
+    <Content Include="Images\backgrounds\images %282%29.jpg" />
+    <Content Include="Images\backgrounds\images %283%29.jpg" />
+    <Content Include="Images\backgrounds\images %284%29.jpg" />
+    <Content Include="Images\backgrounds\images %285%29.jpg" />
+    <Content Include="Images\backgrounds\images.jpg" />
+    <Content Include="Images\backgrounds\images2.jpg" />
+    <Content Include="Images\backgrounds\imagesCAO0DZQ4.jpg" />
+    <Content Include="Images\backgrounds\untitled.png" />
+    <Content Include="Images\backgrounds\untitled2.png" />
     <Content Include="Images\ChartTypes\bar.jpg" />
     <Content Include="Images\ChartTypes\column.png" />
     <Content Include="Images\ChartTypes\grid.png" />

@@ -5,42 +5,23 @@
     var stepIndex = Convert.ToInt32(ViewData["stepIndex"]);
 }
 
-<style>
-    .red {
-        background-color: red;
-        width: 20px;
-        height: 20px;
-    }
-    .green {
-        background-color: green;
-        width: 20px;
-        height: 20px;
-    }
-    .yellow {
-        background-color: yellow;
-        width: 20px;
-        height: 20px;
-    }
-</style>
+<div class="row">
+    Result:
+    <div>
+        <label>
+            <input type="radio" name="radioResult" value=1 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" class="red" title="Not good" />
+        </label>
+        <label>
+            <input type="radio" name="radioResult" value=2 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" class="green" title="Normal" />
+        </label>
+        <label>
+            <input type="radio" name="radioResult" value=3 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" class="yellow" title="Good" />
+        </label>
+    </div>
+</div>
 
-@using (Html.BeginForm("Save_StepResult", "Project", FormMethod.Post, new { id = "form_StepResult" }))
-{
-    @*<div style="margin: 5px" class="row">
-        RESULT:
-    </div>*@
-    <div class="row" style="margin: 0px">
-        <label id="ColumnChart">
-            <input type="radio" name="radioResult" value=1 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" class="red"/>
-        </label>
-        <label id="PieChart">
-            <input type="radio" name="radioResult" value=2 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" class="green"/>
-        </label>
-        <label id="DataGrid">
-            <input type="radio" name="radioResult" value=3 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" class="yellow"/>
-        </label>
-    </div>
-    <div style="margin-bottom: 5px" class="row">
-        <textarea name="Note" id="Note" rows="40" style="width: 100%" class="form-control" ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Note"></textarea>
-    </div>
-}
+<div style="margin-bottom: 5px" class="row">
+    <textarea name="Note" id="Note" rows="40" class="form-control" ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Note"></textarea>
+</div>
+
 

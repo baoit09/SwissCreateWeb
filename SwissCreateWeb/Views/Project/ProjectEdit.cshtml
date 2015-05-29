@@ -19,12 +19,10 @@
     var projectSetting = EngineContext.Current.Resolve<SwissCreate.Core.Domain.Projects.ProjectSettings>();    
 }
 
-@*<script src="~/Scripts/jsapi.js"></script>*@
-<script type="text/javascript">
-    //google.load("visualization", "1.1", { packages: ["corechart", "bar"] })
+<script type="text/javascript">    
     window.db = {}
     window.db.projectEditing = @Html.Raw(Json.Encode(Model))
-    window.db.projectSettings = @Html.Raw(Json.Encode(projectSetting))    
+    window.db.projectSettings = @Html.Raw(Json.Encode(projectSetting))
 </script>
 
 <style type="text/css">
@@ -33,7 +31,32 @@
         margin-bottom: 10px;
         border: 0;
         border-top: 1px solid #eee;
+        color:white;
     }
+    .red {
+        color: red;
+        width: 20px;
+        height: 20px;
+    }
+
+    .green {
+        color: green;
+        width: 20px;
+        height: 20px;
+    }
+
+    .yellow {
+        color: yellow;
+        width: 20px;
+        height: 20px;
+    }
+
+    .tab-pane {
+        padding: 10px;
+    }
+    div {
+        background-image: url("Images/backgrounds/untitled.png");
+    }    
 </style>
 
 
@@ -96,7 +119,7 @@
 
         <ul id="mainTabs" class="nav nav-tabs">
             @*Tab: Business Model*@
-            <li id="li_businessmodel" class="">
+            <li id="li_businessmodel" class="active">
                 <a id="a_businessmodel" href="#tab_businessmodel" data-toggle="tab" style="background-color:wheat">
                     {{ProjectData.Periods[0].Steps[@stepBusinessModelIndex].ShortName}}
                 </a>
@@ -180,7 +203,7 @@
             </li>
 
             @*Tab: Conclusion*@
-            <li id="li_conclusion" class="active">
+            <li id="li_conclusion" class="">
                 <a id="a_conclusion" href="#tab_conclusion" data-toggle="tab" style="background-color:wheat">
                     {{ProjectData.Periods[0].Steps[@stepConclusionIndex].ShortName}}
                 </a>
@@ -189,67 +212,67 @@
 
         <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
             @*Tab: Business Model*@
-            <div class="tab-pane main-tab col-md-12" id="tab_businessmodel">
-                @*@Html.Partial("Tab_BusinessModel", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_BusinessModel_Index } })*@
+            <div class="tab-pane main-tab in active col-md-12" id="tab_businessmodel">
+                @Html.Partial("Tab_BusinessModel", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_BusinessModel_Index } })
             </div>
 
             @*Tab: Swot-Analysis*@
             <div class="tab-pane main-tab col-md-12" id="tab_swotanalysis">
-                @*@Html.Partial("Tab_SwotAnalysis", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_SwotAnalysis_Index } })*@
+                @Html.Partial("Tab_SwotAnalysis", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_SwotAnalysis_Index } })
             </div>
 
             @*Tab: Business Strategy*@
             <div class="tab-pane main-tab col-md-12" id="tab_businessstrategy">
-                @*@Html.Partial("Tab_BusinessStrategy", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_BusinessStrategy_Index } })*@
+                @Html.Partial("Tab_BusinessStrategy", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_BusinessStrategy_Index } })
             </div>
 
             @*Tab: Success Factors*@
             <div class="tab-pane main-tab col-md-12" id="tab_successfactors">
-                @*@Html.Partial("Tab_SuccessFactors", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_SuccessFactors_Index } })*@
+                @Html.Partial("Tab_SuccessFactors", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_SuccessFactors_Index } })
             </div>
         
             @*Tab: Review*@
             <div class="tab-pane main-tab col-md-12" id="tab_review">
-                @*@Html.Partial("Tab_Review", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Review_Index } })*@
+                @Html.Partial("Tab_Review", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Review_Index } })
             </div>
           
             @*Tab: Evaluation*@
             <div class="tab-pane main-tab col-md-12" id="tab_evaluation">
-                @*@Html.Partial("Tab_Evaluation", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Evaluation_Index } })*@
+                @Html.Partial("Tab_Evaluation", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Evaluation_Index } })
             </div>
             
             @*Tab: Measures*@
             <div class="tab-pane main-tab col-md-12" id="tab_measures">
-                @*@Html.Partial("Tab_Measures", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Measures_Index } })*@
+                @Html.Partial("Tab_Measures", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Measures_Index } })
             </div>
 
             @*Tab: Marketing*@
             <div class="tab-pane main-tab col-md-12" id="tab_marketing">
-                @*@Html.Partial("Tab_Marketing", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Marketing_Index } })*@
+                @Html.Partial("Tab_Marketing", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Marketing_Index } })
             </div>
                 
             @*Tab: Finance*@
             <div class="tab-pane main-tab col-md-12" id="tab_finance">
-                @*@Html.Partial("Tab_Finance", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Finance_Index } })*@
+                @Html.Partial("Tab_Finance", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Finance_Index } })
             </div>
             
             @*Tab: Risk*@
             <div class="tab-pane main-tab col-md-12" id="tab_risk">
-                @*@Html.Partial("Tab_Risk", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Risk_Index } })*@
+                @Html.Partial("Tab_Risk", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Risk_Index } })
             </div>
                 
             @*Tab: Charts*@
             <div class="tab-pane main-tab  col-md-12" id="tab_charts">
-                @*@Html.Partial("Tab_Charts", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Charts_Index } })*@
+                @Html.Partial("Tab_Charts", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Charts_Index } })
             </div>
            
             @*Tab: HR*@
             <div class="tab-pane main-tab fade col-md-12" id="tab_hr">
-                @*@Html.Partial("Tab_HR", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_HR_Index } })*@
+                @Html.Partial("Tab_HR", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_HR_Index } })
             </div>
          
             @*Tab: Conclusion*@
-            <div class="tab-pane main-tab in active fade col-md-12" id="tab_conclusion">
+            <div class="tab-pane main-tab fade col-md-12" id="tab_conclusion">
                 @Html.Partial("Tab_Conclusion", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Conclusion_Index } })
             </div>
         </div>

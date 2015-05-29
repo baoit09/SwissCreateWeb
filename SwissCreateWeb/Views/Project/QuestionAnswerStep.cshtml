@@ -5,96 +5,100 @@
     var stepIndex = Convert.ToInt32(ViewData["stepIndex"]);
 }
 
-<div style="margin-top: 5px; margin-bottom: 5px" class="" id="divQAMain">
-        <ul id="tabs" class="nav nav-tabs">
-            @for (int i = 0; i < Model.QuestionAnwserGroups.Count(); i++)
-            {
-                ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
-                if (i == 0)
-                {
-                    <li class="active"><a href="#@string.Format("{0}_{1}", stepName, i)">{{ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].Name}}</a></li>
-                }
-                else
-                {
-                    <li><a href="#@string.Format("{0}_{1}", stepName, i)">{{ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].Name}}</a></li>
-                }
-            }
-        </ul>
-        <div id="my-tab-content" class="tab-content col-md-12">
-            @for (int i = 0; i < Model.QuestionAnwserGroups.Count(); i++)
-            {
-                ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
-                if (i == 0)
-                {
-                    <div class="tab-pane fade in active row tabQA" id="@string.Format("{0}_{1}", stepName, i)" style="background-color:whitesmoke">
-                        <div class="row col-md-12" ng-repeat="qa in ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].QuestionAnswers">
-                            <hr class="col-md-12" />
-                            <div class="row col-md-12">
-                                <div class="col-md-5">
-                                    <div ng-bind="qa.Question"></div>                                    
-                                </div>
-                                <div class="col-md-6">
-                                    <textarea rows="4" style="width:100%" ng-model="qa.Answer"></textarea>
-                                </div>
-                                <div class="col-md-1">
-                                    <div>
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="vertical-align:baseline">
-                                            Action <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" id="action" role="menu">
-                                            <li><a id="a_MoveTop"       data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Top</a></li>
-                                            <li><a id="a_MoveUp"        data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Up</a></li>
-                                            <li><a id="a_MoveDown"      data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Down</a></li>
-                                            <li><a id="a_MoveBottom"    data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Bottom</a></li>
-                                            <li><a id="a_Delete"        data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button type="button" class="btn btn-default btnAddNewQA" data-stepindex="@stepIndex" data-groupindex="@i" aria-expanded="false" style="margin:10px;">
-                            Add new question...
-                        </button>
-                    </div>
-                }
-                else
-                {
-                    <div class="tab-pane fade row tabQA" id="@string.Format("{0}_{1}", stepName, i)" style="background-color: whitesmoke">
-                        <div class="row col-md-12" ng-repeat="qa in ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].QuestionAnswers">
-                            <hr class="col-md-12" />
-                            <div class="row col-md-12">
-                                <div class="col-md-5">
-                                    <div ng-bind="qa.Question"></div>                                    
-                                </div>
-                                <div class="col-md-6">
-                                    <textarea rows="4" style="width:100%" ng-model="qa.Answer"></textarea>
-                                </div>
-                                <div class="col-md-1">
-                                    <div>
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="vertical-align:baseline">
-                                            Action <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" id="action" role="menu">
-                                            <li><a id="a_MoveTop"       data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Top</a></li>
-                                            <li><a id="a_MoveUp"        data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Up</a></li>
-                                            <li><a id="a_MoveDown"      data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Down</a></li>
-                                            <li><a id="a_MoveBottom"    data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Bottom</a></li>
-                                            <li><a id="a_Delete"        data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button type="button" class="btn btn-default btnAddNewQA" data-stepindex="@stepIndex" data-groupindex="@i" aria-expanded="false" style="margin:10px;">
-                            Add new question...
-                        </button>
-                    </div>
-                }
-            }
-        </div>
-    </div>
+<div>
+    <ul id="tabs" class="nav nav-tabs">
 
+        @for (int i = 0; i < Model.QuestionAnwserGroups.Count(); i++)
+{
+    ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
+    if (i == 0)
+    {
+        <li class="active" style="background-color: wheat;"><a href="#@string.Format("{0}_{1}", stepName, i)">{{ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].Name}}</a></li>
+    }
+    else
+    {
+        <li style="background-color: wheat;"><a href="#@string.Format("{0}_{1}", stepName, i)">{{ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].Name}}</a></li>
+    }
+}
+    </ul>
+
+    <div id="my-tab-content2" class="tab-content col-md-12" style="border:solid 1px wheat">
+
+        @for (int i = 0; i < Model.QuestionAnwserGroups.Count(); i++)
+        {
+            ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
+            if (i == 0)
+            {
+                <div class="tab-pane active tabQA" id="@string.Format("{0}_{1}", stepName, i)">
+                    <div ng-repeat="qa in ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].QuestionAnswers">
+                        <div>
+                            <div class="col-md-5" style="margin-top:20px;">
+                                <div ng-bind="qa.Question"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <textarea rows="3" style="width:100%" ng-model="qa.Answer" class="form-control"></textarea>
+                            </div>
+                            <div class="col-md-1">
+                                <div>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="vertical-align:baseline">
+                                        Action <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" id="action" role="menu">
+                                        <li><a id="a_MoveTop" data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Top</a></li>
+                                        <li><a id="a_MoveUp" data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Up</a></li>
+                                        <li><a id="a_MoveDown" data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Down</a></li>
+                                        <li><a id="a_MoveBottom" data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Bottom</a></li>
+                                        <li><a id="a_Delete" data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <hr />
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default btnAddNewQA" data-stepindex="@stepIndex" data-groupindex="@i" aria-expanded="false" style="margin:10px;">
+                        Add new question...
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div class="tab-pane tabQA" id="@string.Format("{0}_{1}", stepName, i)">
+                    <div ng-repeat="qa in ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].QuestionAnswers">
+                        <div>
+                            <div class="col-md-5" style="margin-top:20px;">
+                                <div ng-bind="qa.Question"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <textarea rows="3" style="width:100%" ng-model="qa.Answer" class="form-control"></textarea>
+                            </div>
+                            <div class="col-md-1">
+                                <div>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="vertical-align:baseline">
+                                        Action <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" id="action" role="menu">
+                                        <li><a id="a_MoveTop" data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Top</a></li>
+                                        <li><a id="a_MoveUp" data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Up</a></li>
+                                        <li><a id="a_MoveDown" data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Down</a></li>
+                                        <li><a id="a_MoveBottom" data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Move Bottom</a></li>
+                                        <li><a id="a_Delete" data-stepindex="@stepIndex" data-questiontext="{{qa.Question}}" data-groupindex="@i" data-questionindex={{$index}} href="#">Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <hr />
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default btnAddNewQA" data-stepindex="@stepIndex" data-groupindex="@i" aria-expanded="false" style="margin:10px;">
+                        Add new question...
+                    </button>
+                </div>
+            }
+        }
+    </div>
+</div>
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/QuestionAnswerStep.js"></script>
-    
+

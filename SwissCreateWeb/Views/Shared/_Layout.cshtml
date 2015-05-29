@@ -25,7 +25,12 @@
     <script type="text/javascript">
         google.load("visualization", "1.1", { packages: ["corechart", "bar"] })    
     </script>
-
+    <style>
+        body {
+            background-image: url('../Images/backgrounds/images (4).jpg');
+            /*background-color: #e5e5e5;*/
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -38,7 +43,7 @@
                 </button>
                 <a href="@Url.Action("Index", "Home" )">
                     <img src="~/Content/Images/logo_swiss_create.png" class="img-responsive" alt="swiss create" />
-                </a>                
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -61,12 +66,12 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        
         <footer>
             <p>&copy; @DateTime.Now.Year - Swiss Create Business Development</p>
             @Html.Action("LanguageSelector", "Common")
         </footer>
-    </div>       
+    </div>
     @RenderSection("scripts", required: false)
 </body>
 </html>

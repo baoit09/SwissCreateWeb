@@ -6,39 +6,104 @@
     {
         stepIndex = 0;
     }
+    var projectSettings = EngineContext.Current.Resolve<SwissCreate.Core.Domain.Projects.ProjectSettings>();
+}
+
+@helper RenderATab(int localStepIndex, bool isLastRow)
+{
+    <div class="row">
+        <div class="col-md-2" style="margin-top:20px;">
+            {{ProjectData.Periods[0].Steps[@localStepIndex].ShortName}}
+        </div>
+        <div class="col-md-9">
+            <textarea class="form-control" rows="3" style="width:100%" ng-model="ProjectData.Periods[0].Steps[@localStepIndex].Result.Note"></textarea>
+        </div>
+        <div class="col-md-1" style="margin-top:20px;">
+            <div>
+                <label>
+                    <input type="radio" name="radioResult_@localStepIndex" value=1 ng-model="ProjectData.Periods[0].Steps[@localStepIndex].Result.Item.Value" class="red" title="Not good" />
+                </label>
+                <label>
+                    <input type="radio" name="radioResult_@localStepIndex" value=2 ng-model="ProjectData.Periods[0].Steps[@localStepIndex].Result.Item.Value" class="green" title="Normal" />
+                </label>
+                <label>
+                    <input type="radio" name="radioResult_@localStepIndex" value=3 ng-model="ProjectData.Periods[0].Steps[@localStepIndex].Result.Item.Value" class="yellow" title="Good" />
+                </label>
+            </div>
+        </div>
+    </div>
+    if (!isLastRow)
+    {
+        <hr class="row" />
+    }
 }
 
 <script src="~/Content/fancytree/dist/jquery.fancytree-all.js"></script>
-<link href="~/Content/fancytree/dist/skin-lion/ui.fancytree.min.css" rel="stylesheet" />
+<link href="~/Content/fancytree/dist/skin-win8/ui.fancytree.min.css" rel="stylesheet" />
 <script src="~/Content/fancytree/dist/src/jquery.fancytree.dnd.js"></script>
 
-<div class="row" style="margin-top:10px;">
-    <div class="col-md-10" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
-    <div class="col-md-2" style="color: black; margin-top: 10px;">RESULT:</div> 
+<div class="row" style="margin-top:15px;">
+    <div class="col-md-10" style="color:red">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>    
 </div>
 
 <div class="row" style="margin-top:10px;">
     <div class="col-md-10">
         <ul class="nav nav-tabs" data-tabs="tabs">
-            @*Tab: Human Captial*@
-            <li id="li_Report" class="active">
+            @*Tab Summary*@
+            <li id="li_Summary" class="active">
+                <a id="a_Summary" href="#tab_Summary" data-toggle="tab" style="background-color:wheat">
+                    Summary
+                </a>
+            </li>
+
+            @*Tab Report*@
+            <li id="li_Report">
                 <a id="a_Report" href="#tab_Report" data-toggle="tab" style="background-color:wheat">
                     Report
                 </a>
-            </li>           
+            </li>
         </ul>
         <div id="my-tab-content1" class="tab-content col-md-12" style="border:solid 1px wheat">
-            @*Tab: Human Captial*@
-            <div class="tab-pane active" id="tab_Report">
+
+            @*Tab Summary*@
+            <div class="tab-pane active" id="tab_Summary">
+                @{
+                    List<int> tabIndices = new List<int>();
+                    tabIndices.Add(projectSettings.Step_BusinessModel_Index);
+                    tabIndices.Add(projectSettings.Step_SwotAnalysis_Index);
+                    tabIndices.Add(projectSettings.Step_BusinessStrategy_Index);
+                    tabIndices.Add(projectSettings.Step_SuccessFactors_Index);
+                    tabIndices.Add(projectSettings.Step_Review_Index);
+                    tabIndices.Add(projectSettings.Step_Evaluation_Index);
+                    tabIndices.Add(projectSettings.Step_Measures_Index);
+                    tabIndices.Add(projectSettings.Step_Marketing_Index);
+                    tabIndices.Add(projectSettings.Step_Finance_Index);
+                    tabIndices.Add(projectSettings.Step_Risk_Index);
+                    tabIndices.Add(projectSettings.Step_Charts_Index);
+                    tabIndices.Add(projectSettings.Step_HR_Index);
+                    tabIndices.Add(projectSettings.Step_Conclusion_Index);
+
+                    int nLength = tabIndices.Count();
+                    for (var i = 0; i < nLength; i++)
+                    {
+                        @RenderATab(tabIndices[i], i == (nLength - 1));
+                    }
+                }
+            </div>
+
+            @*Tab Report*@
+            <div class="tab-pane" id="tab_Report">
                 <div id="div_fancytree_conclusion_report" style="min-height:200px; margin-top:5px;"></div>
-                <div class="col-md-8">
-                    <label><input type="checkbox" onchange="checkBoxOnChange(this)"/> Check All</label>
-                    <button class="btn btn-default" style="margin:5px;" onclick="doNodeMove_Conclusion('moveUp')"><span class="glyphicon glyphicon-arrow-up" title="Move Up"></span></button>
-                    <button class="btn btn-default" style="margin:5px; margin-left:0px;" onclick="doNodeMove_Conclusion('moveDown')"><span class="glyphicon glyphicon-arrow-down" title="Move Down"></span></button>
-                </div>
-                <div class="col-md-4" align="right">
-                    <button class="btn btn-default" style="margin:5px;" onclick="doSaveReportLayout_Conclusion()" title="Save changes on report layout">Save Report Layout</button>
-                    <button class="btn btn-default" style="margin-top: 5px; margin-bottom: 5px;" onclick="doPrintReportLayout_Conclusion()" title="Save changes on report layout & print">Save & Print Report</button>
+                <div class="row">
+                    <div class="col-md-8" align="left">
+                        <label><input type="checkbox" onchange="checkBoxOnChange(this)" /> Check All</label>
+                        <button class="btn btn-default" style="margin:5px;" onclick="doNodeMove_Conclusion('moveUp')"><span class="glyphicon glyphicon-arrow-up" title="Move Up"></span></button>
+                        <button class="btn btn-default" style="margin:5px; margin-left:0px;" onclick="doNodeMove_Conclusion('moveDown')"><span class="glyphicon glyphicon-arrow-down" title="Move Down"></span></button>
+                    </div>
+                    <div class="col-md-4" align="right">
+                        <button class="btn btn-default" style="margin:5px;" onclick="doSaveReportLayout_Conclusion()" title="Save changes on report layout">Save Report Layout</button>
+                        <button class="btn btn-default" style="margin-top: 5px; margin-bottom: 5px;" onclick="doPrintReportLayout_Conclusion()" title="Save changes on report layout & print">Save & Print Report</button>
+                    </div>
                 </div>
             </div>
         </div>
