@@ -18,8 +18,20 @@ namespace SwissCreateWeb.Infrastructure
         {
             #region User Mapping
 
-            Mapper.CreateMap<User, UserProfileModel>();            
+            Mapper.CreateMap<User, UserProfileModel>();
             Mapper.CreateMap<UserProfileModel, User>();
+
+            Mapper.CreateMap<User, UserItemModel>()
+                .ForMember(ui => ui.AccountType, mce => mce.MapFrom(u => GetAccounTypeId(u)))
+                .ForMember(ui => ui.HasPassword, mce => mce.MapFrom(u => !string.IsNullOrWhiteSpace(u.Password)));
+            Mapper.CreateMap<UserItemModel, User>();
+
+            #endregion
+
+            #region UserRole Mapping
+
+            Mapper.CreateMap<UserRole, UserRoleModel>();
+            Mapper.CreateMap<UserRoleModel, UserRole>();
 
             #endregion
 
@@ -27,7 +39,7 @@ namespace SwissCreateWeb.Infrastructure
 
             Mapper.CreateMap<Project, ProjectModel>();
             Mapper.CreateMap<ProjectModel, Project>();
-           
+
             #endregion
 
             #region Project Category Mapping
@@ -36,6 +48,15 @@ namespace SwissCreateWeb.Infrastructure
             Mapper.CreateMap<ProjectCategoryModel, ProjectCategory>();
 
             #endregion
+        }
+        public static int? GetAccounTypeId(User u)
+        {
+            var role = u.UserRoles.FirstOrDefault();
+            if (role != null)
+            {
+                return role.Id;
+            }
+            return (int?)null;
         }
         public int Order
         {

@@ -12,10 +12,12 @@ using ViCode_LeVi.Data;
 using System;
 using SwissCreateWeb.Framework.Helpers;
 using System.Text;
+using SwissCreateWeb.CustomAttributes;
 
 namespace SwissCreateWeb.Controllers
 {
     [Authorize]
+    [HasPermission_AuthorizeFilter(SystemName = "Management.Files")]
     public class ProjectManagerController : Controller
     {
         #region Fields

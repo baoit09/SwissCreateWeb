@@ -1,4 +1,8 @@
-﻿@model SwissCreateWeb.Models.Project.ProjectEditModel
+﻿@using SwissCreate.Core.Domain.Security;
+@using SwissCreate.Core;
+
+@model SwissCreateWeb.Models.Project.ProjectEditModel
+
 @{
     ViewBag.Title = "Project";
 
@@ -16,49 +20,25 @@
     var stepHRIndex = ViewBag.ProjectSettings.Step_HR_Index;
     var stepConclusionIndex = ViewBag.ProjectSettings.Step_Conclusion_Index;
 
-    var projectSetting = EngineContext.Current.Resolve<SwissCreate.Core.Domain.Projects.ProjectSettings>();    
+    var projectSetting = EngineContext.Current.Resolve<SwissCreate.Core.Domain.Projects.ProjectSettings>();
+    List<PermissionRecord> perms = new List<PermissionRecord>();
+    if (Request.IsAuthenticated)
+    {
+        var workContext = EngineContext.Current.Resolve<IWorkContext>();
+        perms = workContext.CurrentUser.UserRoles.SelectMany(ur => ur.PermissionRecords).ToList();
+    }
+
+    var isForTesting = false;
 }
 
-<script type="text/javascript">    
+<script type="text/javascript">
+
     window.db = {}
     window.db.projectEditing = @Html.Raw(Json.Encode(Model))
     window.db.projectSettings = @Html.Raw(Json.Encode(projectSetting))
 </script>
 
-<style type="text/css">
-    hr {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        border: 0;
-        border-top: 1px solid #eee;
-        color:white;
-    }
-    .red {
-        color: red;
-        width: 20px;
-        height: 20px;
-    }
-
-    .green {
-        color: green;
-        width: 20px;
-        height: 20px;
-    }
-
-    .yellow {
-        color: yellow;
-        width: 20px;
-        height: 20px;
-    }
-
-    .tab-pane {
-        padding: 10px;
-    }
-    div {
-        background-image: url("Images/backgrounds/untitled.png");
-    }    
-</style>
-
+<link href="~/Content/projectedit.css" rel="stylesheet" />
 
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEdit.js"></script>
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEditController.js"></script>
@@ -79,7 +59,7 @@
 <script src="~/Content/jsGrid/jsgrid.field.textarea.js"></script>
 <script src="~/Content/jsGrid/jsgrid.field.control.js"></script>
 
-<div id="divMainProjectEdit" ng-app="SwissCreateApp" ng-controller="ProjectCtrl">
+<div id="divMainProjectEdit" class="" ng-app="SwissCreateApp" ng-controller="ProjectCtrl">
 
     <div class="row" style="margin-top:5px">
         <div class="col-md-2">
@@ -119,162 +99,242 @@
 
         <ul id="mainTabs" class="nav nav-tabs">
             @*Tab: Business Model*@
-            <li id="li_businessmodel" class="active">
-                <a id="a_businessmodel" href="#tab_businessmodel" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepBusinessModelIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepBusinessModel"))
+            {
+                <li id="li_businessmodel" class="active">
+                    <a id="a_businessmodel" href="#tab_businessmodel" data-toggle="tab">
+                        {{ProjectData.Periods[0].Steps[@stepBusinessModelIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: Swot-Analysis*@
-            <li id="li_swotanalysis">
-                <a id="a_swotanalysis" href="#tab_swotanalysis" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepSwotAnalysisIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepSwotAnalysis"))
+            {
+
+                <li id="li_swotanalysis">
+                    <a id="a_swotanalysis" href="#tab_swotanalysis" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepSwotAnalysisIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: Business Strategy*@
-            <li id="li_businessstrategy">
-                <a id="a_businessstrategy" href="#tab_businessstrategy" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepBusinessStrategyIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepBusinessStrategy"))
+            {
+                <li id="li_businessstrategy">
+                    <a id="a_businessstrategy" href="#tab_businessstrategy" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepBusinessStrategyIndex].ShortName}}
+                    </a>
+                </li>
+            }
+
 
             @*Tab: Success Factors*@
-            <li id="li_successfactors" class="">
-                <a id="a_successfactors" href="#tab_successfactors" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepSuccessFactorsIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepSuccessFactors"))
+            {
+                <li id="li_successfactors" class="">
+                    <a id="a_successfactors" href="#tab_successfactors" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepSuccessFactorsIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: Review*@
-            <li id="li_review">
-                <a id="a_review" href="#tab_review" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepReviewIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepReview"))
+            {
+                <li id="li_review">
+                    <a id="a_review" href="#tab_review" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepReviewIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: Evaluation*@
-            <li id="li_evaluation" class="">
-                <a id="a_evaluation" href="#tab_evaluation" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepEvaluationIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepEvaluation"))
+            {
+                <li id="li_evaluation" class="">
+                    <a id="a_evaluation" href="#tab_evaluation" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepEvaluationIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: Measures*@
-            <li id="li_measures" class="">
-                <a id="a_measures" href="#tab_measures" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepMeasuresIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepMeasures"))
+            {
+                <li id="li_measures" class="">
+                    <a id="a_measures" href="#tab_measures" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepMeasuresIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: Marketing*@
-            <li id="li_marketing">
-                <a id="a_marketing" href="#tab_marketing" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepMarketingIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepMarketing"))
+            {
+                <li id="li_marketing">
+                    <a id="a_marketing" href="#tab_marketing" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepMarketingIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: Finance*@
-            <li id="li_finance">
-                <a id="a_finance" href="#tab_finance" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepFinanceIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepFinance"))
+            {
+                <li id="li_finance">
+                    <a id="a_finance" href="#tab_finance" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepFinanceIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: Risk*@
-            <li id="li_risk">
-                <a id="a_risk" href="#tab_risk" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepRiskIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepRisk"))
+            {
+                <li id="li_risk">
+                    <a id="a_risk" href="#tab_risk" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepRiskIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: Charts*@
-            <li id="li_charts" class="">
-                <a id="a_charts" href="#tab_charts" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepChartsIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepCharts"))
+            {
+                <li id="li_charts" class="">
+                    <a id="a_charts" href="#tab_charts" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepChartsIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: HR*@
-            <li id="li_hr">
-                <a id="a_hr" href="#tab_hr" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepHRIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepHR"))
+            {
+                <li id="li_hr">
+                    <a id="a_hr" href="#tab_hr" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepHRIndex].ShortName}}
+                    </a>
+                </li>
+            }
 
             @*Tab: Conclusion*@
-            <li id="li_conclusion" class="">
-                <a id="a_conclusion" href="#tab_conclusion" data-toggle="tab" style="background-color:wheat">
-                    {{ProjectData.Periods[0].Steps[@stepConclusionIndex].ShortName}}
-                </a>
-            </li>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepConclusion"))
+            {
+                <li id="li_conclusion" class="">
+                    <a id="a_conclusion" href="#tab_conclusion" data-toggle="tab" >
+                        {{ProjectData.Periods[0].Steps[@stepConclusionIndex].ShortName}}
+                    </a>
+                </li>
+            }
         </ul>
 
-        <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
+        <div id="my-tab-content" class="tab-content col-md-12 tab-content-border">
             @*Tab: Business Model*@
-            <div class="tab-pane main-tab in active col-md-12" id="tab_businessmodel">
-                @Html.Partial("Tab_BusinessModel", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_BusinessModel_Index } })
-            </div>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepBusinessModel"))
+            {
+                <div class="tab-pane main-tab in active col-md-12" id="tab_businessmodel">
+                    @Html.Partial("Tab_BusinessModel", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_BusinessModel_Index } })
+                </div>
+            }
 
             @*Tab: Swot-Analysis*@
-            <div class="tab-pane main-tab col-md-12" id="tab_swotanalysis">
-                @Html.Partial("Tab_SwotAnalysis", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_SwotAnalysis_Index } })
-            </div>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepBusinessModel"))
+            {
+                <div class="tab-pane main-tab col-md-12" id="tab_swotanalysis">
+                    @Html.Partial("Tab_SwotAnalysis", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_SwotAnalysis_Index } })
+                </div>
+            }
 
             @*Tab: Business Strategy*@
-            <div class="tab-pane main-tab col-md-12" id="tab_businessstrategy">
-                @Html.Partial("Tab_BusinessStrategy", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_BusinessStrategy_Index } })
-            </div>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepBusinessModel") && !isForTesting)
+            {
+                <div class="tab-pane main-tab col-md-12" id="tab_businessstrategy">
+                    @Html.Partial("Tab_BusinessStrategy", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_BusinessStrategy_Index } })
+                </div>
+            }
 
             @*Tab: Success Factors*@
-            <div class="tab-pane main-tab col-md-12" id="tab_successfactors">
-                @Html.Partial("Tab_SuccessFactors", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_SuccessFactors_Index } })
-            </div>
-        
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepSwotAnalysis") && !isForTesting)
+            {
+                <div class="tab-pane main-tab col-md-12" id="tab_successfactors">
+                    @Html.Partial("Tab_SuccessFactors", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_SuccessFactors_Index } })
+                </div>
+            }
+
             @*Tab: Review*@
-            <div class="tab-pane main-tab col-md-12" id="tab_review">
-                @Html.Partial("Tab_Review", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Review_Index } })
-            </div>
-          
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepSuccessFactors") && !isForTesting)
+            {
+                <div class="tab-pane main-tab col-md-12" id="tab_review">
+                    @Html.Partial("Tab_Review", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Review_Index } })
+                </div>
+            }
+
             @*Tab: Evaluation*@
-            <div class="tab-pane main-tab col-md-12" id="tab_evaluation">
-                @Html.Partial("Tab_Evaluation", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Evaluation_Index } })
-            </div>
-            
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepReview") && !isForTesting)
+            {
+                <div class="tab-pane main-tab col-md-12" id="tab_evaluation">
+                    @Html.Partial("Tab_Evaluation", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Evaluation_Index } })
+                </div>
+            }
+
             @*Tab: Measures*@
-            <div class="tab-pane main-tab col-md-12" id="tab_measures">
-                @Html.Partial("Tab_Measures", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Measures_Index } })
-            </div>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepEvaluation") && !isForTesting)
+            {
+                <div class="tab-pane main-tab col-md-12" id="tab_measures">
+                    @Html.Partial("Tab_Measures", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Measures_Index } })
+                </div>
+            }
 
             @*Tab: Marketing*@
-            <div class="tab-pane main-tab col-md-12" id="tab_marketing">
-                @Html.Partial("Tab_Marketing", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Marketing_Index } })
-            </div>
-                
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepMarketing") && !isForTesting)
+            {
+                <div class="tab-pane main-tab col-md-12" id="tab_marketing">
+                    @Html.Partial("Tab_Marketing", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Marketing_Index } })
+                </div>
+            }
+
             @*Tab: Finance*@
-            <div class="tab-pane main-tab col-md-12" id="tab_finance">
-                @Html.Partial("Tab_Finance", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Finance_Index } })
-            </div>
-            
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepFinance") && !isForTesting)
+            {
+                <div class="tab-pane main-tab col-md-12" id="tab_finance">
+                    @Html.Partial("Tab_Finance", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Finance_Index } })
+                </div>
+            }
+
             @*Tab: Risk*@
-            <div class="tab-pane main-tab col-md-12" id="tab_risk">
-                @Html.Partial("Tab_Risk", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Risk_Index } })
-            </div>
-                
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepRisk") && !isForTesting)
+            {
+                <div class="tab-pane main-tab col-md-12" id="tab_risk">
+                    @Html.Partial("Tab_Risk", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Risk_Index } })
+                </div>
+            }
+
             @*Tab: Charts*@
-            <div class="tab-pane main-tab  col-md-12" id="tab_charts">
-                @Html.Partial("Tab_Charts", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Charts_Index } })
-            </div>
-           
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepCharts") && !isForTesting)
+            {
+                <div class="tab-pane main-tab  col-md-12" id="tab_charts">
+                    @Html.Partial("Tab_Charts", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Charts_Index } })
+                </div>
+            }
+
             @*Tab: HR*@
-            <div class="tab-pane main-tab fade col-md-12" id="tab_hr">
-                @Html.Partial("Tab_HR", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_HR_Index } })
-            </div>
-         
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepHR") && !isForTesting)
+            {
+                <div class="tab-pane main-tab fade col-md-12" id="tab_hr">
+                    @Html.Partial("Tab_HR", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_HR_Index } })
+                </div>
+            }
+
             @*Tab: Conclusion*@
-            <div class="tab-pane main-tab fade col-md-12" id="tab_conclusion">
-                @Html.Partial("Tab_Conclusion", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Conclusion_Index } })
-            </div>
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepConclusion") && !isForTesting)
+            {
+                <div class="tab-pane main-tab fade col-md-12" id="tab_conclusion">
+                    @Html.Partial("Tab_Conclusion", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Conclusion_Index } })
+                </div>
+            }
         </div>
     </div>
 
@@ -285,4 +345,3 @@
     @Html.Hidden("GetTab", Url.Action("", "Project"))
 
 </div>
-

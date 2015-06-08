@@ -74,6 +74,9 @@
     <Compile Include="Mapping\Companies\CompanyMappingMap.cs" />
     <Compile Include="Mapping\Configuration\SettingMap.cs" />
     <Compile Include="Mapping\Directory\CurrencyMap.cs" />
+    <Compile Include="Mapping\Email\EmailTemplateMap.cs" />
+    <Compile Include="Mapping\Email\MessageQueueMap.cs" />
+    <Compile Include="Mapping\Email\MessageQueue_HistoryMap.cs" />
     <Compile Include="Mapping\Localization\LanguageMap.cs" />
     <Compile Include="Mapping\Localization\LocaleStringResourceMap.cs" />
     <Compile Include="Mapping\Localization\LocalizedPropertyMap.cs" />

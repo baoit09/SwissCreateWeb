@@ -212,7 +212,7 @@ namespace SwissCreate.Services.Users
         }
         
         /// <summary>
-        /// Change password
+        /// Generate password
         /// </summary>
         /// <param name="request">Request</param>
         /// <returns>Result</returns>

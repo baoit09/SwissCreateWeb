@@ -30,6 +30,30 @@ namespace SwissCreateWeb.Extensions
             return entity.MapTo<UserProfileModel, User>();
         }
 
+        public static UserItemModel ToUserItemModel(this User entity)
+        {
+            return entity.MapTo<User, UserItemModel>();
+        }
+
+        public static User ToEntity2(this UserItemModel entity)
+        {
+            return entity.MapTo<UserItemModel, User>();
+        }
+
+        #endregion
+
+        #region UserRole
+
+        public static UserRoleModel ToModel(this UserRole entity)
+        {
+            return entity.MapTo<UserRole, UserRoleModel>();
+        }
+
+        public static UserRole ToEntity(this UserRoleModel entity)
+        {
+            return entity.MapTo<UserRoleModel, UserRole>();
+        }
+
         #endregion
 
         #region Project

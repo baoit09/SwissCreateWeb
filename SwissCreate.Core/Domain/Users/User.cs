@@ -94,7 +94,7 @@ namespace SwissCreate.Core.Domain.Users
         /// <summary>
         /// Gets or sets the date and time of entity creation
         /// </summary>
-        public DateTime CreatedOnUtc { get; set; }
+        public DateTime? CreatedOnUtc { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time of last login
@@ -104,7 +104,7 @@ namespace SwissCreate.Core.Domain.Users
         /// <summary>
         /// Gets or sets the date and time of last activity
         /// </summary>
-        public DateTime LastActivityDateUtc { get; set; }
+        public DateTime? LastActivityDateUtc { get; set; }
 
         /// <summary>
         /// Gets or sets the customer roles
@@ -112,7 +112,7 @@ namespace SwissCreate.Core.Domain.Users
         public virtual ICollection<UserRole> UserRoles
         {
             get { return _userRoles ?? (_userRoles = new List<UserRole>()); }
-            protected set { _userRoles = value; }
+            set { _userRoles = value; }
         }
 
         public virtual ICollection<Project> Projects { get; set; }

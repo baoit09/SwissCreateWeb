@@ -73,11 +73,10 @@
 
 function doSaveMain() {
  
-    if (clearAdditionalProperties_Tab_Charts != null)
-    {
+    if (typeof clearAdditionalProperties_Tab_Charts != 'undefined') {
         clearAdditionalProperties_Tab_Charts();
-    }
-   
+    };
+
     var postUrl = $("#UpdateProjectEditModel").val();
     var JSONDataString = JSON.stringify(
             {
@@ -89,21 +88,7 @@ function doSaveMain() {
         url: postUrl,
         type: "POST",
         contentType: "application/json",
-        data: JSONDataString,
-        //data: {
-        //    //stepInfo0: window.db.projectEditing.ProjectData.Periods[0].Steps[0],
-        //    stepInfo: window.db.projectEditing.ProjectData.Periods[0].Steps[13]
-        //    //stepInfo2: window.db.projectEditing.ProjectData.Periods[0].Steps[2],
-        //    //stepInfo3: window.db.projectEditing.ProjectData.Periods[0].Steps[3],
-        //    //stepInfo4: window.db.projectEditing.ProjectData.Periods[0].Steps[4],
-        //    //stepInfo5: window.db.projectEditing.ProjectData.Periods[0].Steps[5],
-        //    //stepInfo6: window.db.projectEditing.ProjectData.Periods[0].Steps[6],
-        //    //stepInfo7: window.db.projectEditing.ProjectData.Periods[0].Steps[7],
-        //    //stepInfo8: window.db.projectEditing.ProjectData.Periods[0].Steps[8],
-        //    //stepInfo9: window.db.projectEditing.ProjectData.Periods[0].Steps[9],
-        //    //stepInfo10: window.db.projectEditing.ProjectData.Periods[0].Steps[10],
-        //    //stepInfo11: window.db.projectEditing.ProjectData.Periods[0].Steps[11],
-        //},
+        data: JSONDataString,        
         success: function (ResponseResult) {
             if (ResponseResult.success == true) {
                 bootbox.alert("Project saved successfully!", function () {

@@ -9,8 +9,16 @@ namespace SwissCreate.Core.Data
         {
             RawDataSettings=new Dictionary<string, string>();
         }
+
         public string DataProvider { get; set; }
+
         public string DataConnectionString { get; set; }
+
+        /// <summary>
+        /// Force update DB Schema everytime app startups
+        /// </summary>
+        public bool ForceUpdateDBSchema { get; set; }
+
         public IDictionary<string, string> RawDataSettings { get; set; }
 
         public bool IsValid()

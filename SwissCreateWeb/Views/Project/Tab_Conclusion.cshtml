@@ -42,8 +42,8 @@
 <link href="~/Content/fancytree/dist/skin-win8/ui.fancytree.min.css" rel="stylesheet" />
 <script src="~/Content/fancytree/dist/src/jquery.fancytree.dnd.js"></script>
 
-<div class="row" style="margin-top:15px;">
-    <div class="col-md-10" style="color:red">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>    
+<div class="row">
+    <div class="col-md-10">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>    
 </div>
 
 <div class="row" style="margin-top:10px;">
@@ -51,19 +51,19 @@
         <ul class="nav nav-tabs" data-tabs="tabs">
             @*Tab Summary*@
             <li id="li_Summary" class="active">
-                <a id="a_Summary" href="#tab_Summary" data-toggle="tab" style="background-color:wheat">
+                <a id="a_Summary" href="#tab_Summary" data-toggle="tab">
                     Summary
                 </a>
             </li>
 
             @*Tab Report*@
             <li id="li_Report">
-                <a id="a_Report" href="#tab_Report" data-toggle="tab" style="background-color:wheat">
+                <a id="a_Report" href="#tab_Report" data-toggle="tab">
                     Report
                 </a>
             </li>
         </ul>
-        <div id="my-tab-content1" class="tab-content col-md-12" style="border:solid 1px wheat">
+        <div id="my-tab-content1" class="tab-content col-md-12 tab-content-border">
 
             @*Tab Summary*@
             <div class="tab-pane active" id="tab_Summary">

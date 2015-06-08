@@ -1,0 +1,36 @@
+﻿hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
+    color: white;
+}
+
+/*Result - Radio Image*/
+.result-panel label > input { /* HIDE RADIO */
+    display: none;
+}
+    .result-panel label > input + img { /* IMAGE STYLES */
+        cursor: pointer;
+        border: 1px solid transparent;
+    }
+
+    .result-panel label > input:checked + img { /* (CHECKED) IMAGE STYLES */
+        border: 1px solid #0094ff;
+    }
+/*================================================================================*/
+
+.tab-pane {
+    padding: 10px;
+}
+
+div {
+    background-image: url("Images/backgrounds/untitled.png");
+}
+
+.tab-content-border {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}

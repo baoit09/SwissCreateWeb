@@ -1,0 +1,49 @@
+﻿@model SwissCreateWeb.Models.User.UserManagementModel
+
+<script type="text/javascript">
+    if(window.db == undefined)
+        window.db = {}
+    window.db.userManagementModel = @Html.Raw(Json.Encode(Model))
+</script>
+
+@{
+    ViewBag.Title = "Users Management";
+}
+
+<div class="row" style="margin-top:5px">
+    <div class="col-md-11">
+        <h4>Users Management</h4>
+    </div>
+    <div align="right">
+        <button type="button" class="btn btn-default btn-info" onclick="doSaveUsers()" aria-expanded="false" style="margin:10px;" title="Save all users">Save</button>
+    </div>
+</div>
+@*<hr />*@
+<div>
+    <div id="jsGrid_Users"></div>
+</div>
+
+@Html.Hidden("UpdateUserManagementModel", Url.Action("UpdateUserManagementModel", "User"))
+
+@Html.Hidden("GenerateUserPassword", Url.Action("GenerateUserPassword", "User"))
+
+@Html.Hidden("GetUserManagementModel", Url.Action("GetUserManagementModel", "User"))
+
+
+<link href="~/Content/jsGrid/css/jsgrid.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/jsGrid/css/theme.css" rel="stylesheet" type="text/css" />
+
+<script src="~/Content/jsGrid/jsgrid.core.js"></script>
+<script src="~/Content/jsGrid/jsgrid.load-indicator.js"></script>
+<script src="~/Content/jsGrid/jsgrid.load-strategies.js"></script>
+<script src="~/Content/jsGrid/jsgrid.sort-strategies.js"></script>
+
+<script src="~/Content/jsGrid/jsgrid.field.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.text.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.number.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.select.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.checkbox.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.textarea.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.control.js"></script>
+
+<script src="~/AJSApp/Controllers/User/Index.js"></script>

@@ -63,6 +63,9 @@ namespace SwissCreate.Core.Data
                     case "DataConnectionString":
                         shellSettings.DataConnectionString = value;
                         break;
+                    case "ForceUpdateDBSchema":
+                        shellSettings.ForceUpdateDBSchema = Convert.ToBoolean(value);
+                        break;
                     default:
                         shellSettings.RawDataSettings.Add(key,value);
                         break;

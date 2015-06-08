@@ -7,8 +7,8 @@
         stepIndex = 0;
     }
 }
-<div class="row" style="margin-top:10px;">
-    <div class="col-md-10" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:
+<div class="row">
+    <div class="col-md-10">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:
         <label class="checkbox-inline" style="color:black; margin-left:10px"><input type="checkbox" id="checkbox_AutoSumCost" ng-model="ProjectData.ConfigData.Config_Budget.AutoSetCostByTotalOfChildren">Auto sum cost</label>        
     </div> 
 </div> 

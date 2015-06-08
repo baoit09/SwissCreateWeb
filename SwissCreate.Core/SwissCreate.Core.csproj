@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Caching" />
@@ -109,6 +110,9 @@
     <Compile Include="Domain\Configuration\Setting.cs" />
     <Compile Include="Domain\Directory\Currency.cs" />
     <Compile Include="Domain\Directory\CurrencySettings.cs" />
+    <Compile Include="Domain\Email\EmailTemplate.cs" />
+    <Compile Include="Domain\Email\MessageQueue.cs" />
+    <Compile Include="Domain\Email\MessageQueue_History.cs" />
     <Compile Include="Domain\Localization\ILocalizedEntity.cs" />
     <Compile Include="Domain\Localization\ILocalizedEnum.cs" />
     <Compile Include="Domain\Localization\Language.cs" />

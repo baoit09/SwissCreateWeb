@@ -8,7 +8,7 @@
 
 function setupJsGrids() {
     $("#jsGrid_Risk").jsGrid({
-        height: "500px",
+        height: "auto",
         width: "100%",
         //filtering: true,
         editing: true,

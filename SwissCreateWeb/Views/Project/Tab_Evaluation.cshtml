@@ -8,8 +8,8 @@
     }
 }
 
-<div class="row" style="margin-top:10px;">
-    <div class="col-md-10" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
+<div class="row">
+    <div class="col-md-10">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
 </div>
 
 <div class="row" style="margin-top:10px;">
@@ -17,26 +17,26 @@
         <ul class="nav nav-tabs" data-tabs="tabs">
             @*Tab: Human Captial*@
             <li id="li_WeightBarChart" class="active">
-                <a id="a_WeightBarChart" href="#tab_WeightBarChart" data-toggle="tab" style="background-color:wheat">
+                <a id="a_WeightBarChart" href="#tab_WeightBarChart" data-toggle="tab">
                     @Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Analysis1
                 </a>
             </li>
 
             @*Tab: Structural Capital*@
             <li id="li_ValuationBarChart">
-                <a id="a_ValuationBarChart" href="#tab_ValuationBarChart" data-toggle="tab" style="background-color:wheat">
+                <a id="a_ValuationBarChart" href="#tab_ValuationBarChart" data-toggle="tab">
                     @Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Analysis2
                 </a>
             </li>
 
             @*Tab: Relationship Capital*@
             <li id="li_PortfolioofPotential">
-                <a id="a_PortfolioofPotential" href="#tab_PortfolioofPotential" data-toggle="tab" style="background-color:wheat">
+                <a id="a_PortfolioofPotential" href="#tab_PortfolioofPotential" data-toggle="tab">
                     @Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Analysis3
                 </a>
             </li>
         </ul>
-        <div id="my-tab-content" class="tab-content col-md-12" style="border:solid 1px wheat">
+        <div id="my-tab-content" class="tab-content col-md-12 tab-content-border">
             @*Tab: Human Captial*@
             <div class="tab-pane active" id="tab_WeightBarChart">
                 <div id="divCheckBoxes_Weight" class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
@@ -55,7 +55,7 @@
                 <div class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
                     <label class="radio-inline"><input type="radio" id="radio_HC" name="radioFilter_Valuation" value="HC" class="radioFilter_Valuation">HC</label>
                     <label class="radio-inline"><input type="radio" id="radio_SC" name="radioFilter_Valuation" value="SC" class="radioFilter_Valuation">SC</label>
-                    <label class="radio-inline"><input type="radio" id="radio_RC" name="radioFilter_Valuation" value="RC" class="radioFilter_Valuation">RC</label> 
+                    <label class="radio-inline"><input type="radio" id="radio_RC" name="radioFilter_Valuation" value="RC" class="radioFilter_Valuation">RC</label>
                 </div>
                 <div id="div_ValuationBarChart" style="min-height:500px; margin:5px;"></div>
                 <hr />

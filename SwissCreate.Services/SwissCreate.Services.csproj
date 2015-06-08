@@ -101,6 +101,8 @@
     <Compile Include="Tasks\Task.cs" />
     <Compile Include="Tasks\TaskManager.cs" />
     <Compile Include="Tasks\TaskThread.cs" />
+    <Compile Include="UserRoles\IUserRoleService.cs" />
+    <Compile Include="UserRoles\UserService.cs" />
     <Compile Include="Users\ChangePasswordRequest.cs" />
     <Compile Include="Users\UserRegistrationRequest.cs" />
     <Compile Include="Users\UserRegistrationResult.cs" />

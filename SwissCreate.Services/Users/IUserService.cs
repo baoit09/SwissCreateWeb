@@ -25,6 +25,12 @@ namespace SwissCreate.Services.Users
         void DeleteUser(User user);
 
         /// <summary>
+        /// Delete a users
+        /// </summary>
+        /// <param name="customer">Users</param>
+        void DeleteUsers(IEnumerable<User> users);
+
+        /// <summary>
         /// Gets a user
         /// </summary>
         /// <param name="userId">User identifier</param>
@@ -64,6 +70,12 @@ namespace SwissCreate.Services.Users
         /// </summary>
         /// <param name="customer">User</param>
         void InsertUser(User user);
+
+        /// <summary>
+        /// Insert a users
+        /// </summary>
+        /// <param name="customer">Users</param>
+        void InsertUsers(IEnumerable<User> users);
 
         /// <summary>
         /// Updates the user

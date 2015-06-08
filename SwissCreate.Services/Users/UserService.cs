@@ -51,9 +51,20 @@ namespace SwissCreate.Services.Users
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            user.Deleted = true;
+            _userRepository.Delete(user);            
+        }
 
-            UpdateUser(user);
+        public void DeleteUsers(IEnumerable<User> users)
+        {
+            if (users == null && !users.Any())
+                throw new ArgumentNullException("users");
+
+            foreach (var user in users)
+            {
+                user.Deleted = true;
+            }
+
+            UpdateUser(users.FirstOrDefault());
         }
 
         public User GetUserById(int userId)
@@ -137,6 +148,17 @@ namespace SwissCreate.Services.Users
 
             //event notification
             _eventPublisher.EntityInserted(user);
+        }
+
+        public void InsertUsers(IEnumerable<User> users)
+        {
+            if (users == null)
+                throw new ArgumentNullException("user");
+
+            _userRepository.Insert(users);
+
+            //event notification
+            _eventPublisher.EntityInserted(users.FirstOrDefault());
         }
 
         public void UpdateUser(User user)

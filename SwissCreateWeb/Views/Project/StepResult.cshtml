@@ -5,23 +5,28 @@
     var stepIndex = Convert.ToInt32(ViewData["stepIndex"]);
 }
 
-<div class="row">
-    Result:
-    <div>
+<div class="row panel panel-default">
+    <div class="panel-heading result-panel" style="background-color:white">
+        Result:
         <label>
-            <input type="radio" name="radioResult" value=1 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" class="red" title="Not good" />
+            <input type="radio" value=1 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" title="Not good" />
+            <img src="~/Images/Circles/red-circle.ico" title="Not good" />
         </label>
         <label>
-            <input type="radio" name="radioResult" value=2 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" class="green" title="Normal" />
+            <input type="radio" value=2 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" title="Normal" />
+            <img src="~/Images/Circles/green-circle.ico" title="Normal" />
         </label>
         <label>
-            <input type="radio" name="radioResult" value=3 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" class="yellow" title="Good" />
+            <input type="radio" value=3 ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Item.Value" title="Good" />
+            <img src="~/Images/Circles/yellow-circle.ico" title="Good" />
         </label>
+    </div>
+    <div class="panel-body">
+        <textarea name="Note" id="Note" style="width:100%; height:300px; border-color: transparent;" class="" ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Note"></textarea>
     </div>
 </div>
 
-<div style="margin-bottom: 5px" class="row">
-    <textarea name="Note" id="Note" rows="40" class="form-control" ng-model="ProjectData.Periods[0].Steps[@stepIndex].Result.Note"></textarea>
-</div>
+
+
 
 

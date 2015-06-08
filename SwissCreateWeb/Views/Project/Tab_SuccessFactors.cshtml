@@ -4,16 +4,16 @@
     var stepIndex = Convert.ToInt32(ViewData["stepIndex"]);
 }
 
-<div class="row" style="margin-top:10px;">
-    <div class="col-md-10" style="color:red; margin-top:10px;">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
+<div class="row">
+    <div class="col-md-10">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
 </div>
 
 <div class="row" style="margin-top:10px;">
     <div class="col-md-10">
-        <ul class="nav nav-tabs" data-tabs="tabs">
+        <ul class="nav nav-tabs">
             @*Tab: Human Captial*@
             <li id="li_HumanCaptial" class="active">
-                <a id="a_HumanCaptial" href="#tab_HumanCaptial" data-toggle="tab" style="background-color:wheat">
+                <a id="a_HumanCaptial" href="#tab_HumanCaptial" data-toggle="tab">
                     @Model.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[0].Name
                     (@Model.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[0].Code)
                 </a>
@@ -21,7 +21,7 @@
 
             @*Tab: Structural Capital*@
             <li id="li_StructuralCapital">
-                <a id="a_StructuralCapital" href="#tab_StructuralCapital" data-toggle="tab" style="background-color:wheat">
+                <a id="a_StructuralCapital" href="#tab_StructuralCapital" data-toggle="tab">
                     @Model.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[1].Name
                     (@Model.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[1].Code)
                 </a>
@@ -29,7 +29,7 @@
 
             @*Tab: Relationship Capital*@
             <li id="li_RelationshipCapital">
-                <a id="a_RelationshipCapital" href="#tab_RelationshipCapital" data-toggle="tab" style="background-color:wheat">
+                <a id="a_RelationshipCapital" href="#tab_RelationshipCapital" data-toggle="tab">
                     @Model.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[2].Name
                     (@Model.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[2].Code)
                 </a>
@@ -37,7 +37,7 @@
 
             @*Tab: Weight*@
             <li id="li_Weight">
-                <a id="a_Weight" href="#tab_Weight" data-toggle="tab" style="background-color:wheat">
+                <a id="a_Weight" href="#tab_Weight" data-toggle="tab">
                     @Model.ProjectData._ControlTextInfoInData.TaskItem_WeightText
                     (@Model.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[0].Code, 
                     @Model.ProjectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[1].Code, 
@@ -45,7 +45,7 @@
                 </a>
             </li>
         </ul>
-        <div id="my-tab-content" class="tab-content" style="border:solid 1px wheat" >
+        <div id="my-tab-content" class="tab-content tab-content-border">
             @*Tab: Human Captial*@
             <div class="tab-pane in active" id="tab_HumanCaptial">
                 <div id="jsGrid_HumanCaptial"></div>

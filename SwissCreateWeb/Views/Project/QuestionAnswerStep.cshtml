@@ -13,16 +13,16 @@
     ViCode_LeVi.Data.Step_QuestionAnwserGroup group = Model.QuestionAnwserGroups[i];
     if (i == 0)
     {
-        <li class="active" style="background-color: wheat;"><a href="#@string.Format("{0}_{1}", stepName, i)">{{ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].Name}}</a></li>
+        <li class="active"><a href="#@string.Format("{0}_{1}", stepName, i)">{{ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].Name}}</a></li>
     }
     else
     {
-        <li style="background-color: wheat;"><a href="#@string.Format("{0}_{1}", stepName, i)">{{ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].Name}}</a></li>
+        <li ><a href="#@string.Format("{0}_{1}", stepName, i)">{{ProjectData.Periods[0].Steps[@stepIndex].QuestionAnwserStep.QuestionAnwserGroups[@i].Name}}</a></li>
     }
 }
     </ul>
 
-    <div id="my-tab-content2" class="tab-content col-md-12" style="border:solid 1px wheat">
+    <div id="my-tab-content2" class="tab-content col-md-12 tab-content-border">
 
         @for (int i = 0; i < Model.QuestionAnwserGroups.Count(); i++)
         {

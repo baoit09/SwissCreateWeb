@@ -1,4 +1,23 @@
-﻿<!DOCTYPE html>
+﻿@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using SwissCreate.Core;
+@using SwissCreate.Core.Caching;
+@using SwissCreate.Core.Data;
+@using SwissCreate.Core.Domain.Users;
+@using SwissCreate.Core.Domain.Security;
+@using SwissCreate.Services.Users;
+
+@{
+    List<PermissionRecord> perms = new List<PermissionRecord>();
+    if (Request.IsAuthenticated)
+    {
+        var workContext = EngineContext.Current.Resolve<IWorkContext>();
+        perms = workContext.CurrentUser.UserRoles.SelectMany(ur => ur.PermissionRecords).ToList();
+    }
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -9,21 +28,21 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-        
-    @Scripts.Render("~/bundles/angularjs")     
+
+    @Scripts.Render("~/bundles/angularjs")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/bootbox")
 
     @*<script type="text/javascript" src="https://www.google.com/jsapi"></script>*@
-    <script src="~/Scripts/public.common.js"></script>   
+    <script src="~/Scripts/public.common.js"></script>
 
     <link href="~/Content/BootStrapTree/bootstrap.tree.css" rel="stylesheet" />
     <script src="~/Content/BootStrapTree/bootstrap.tree.js"></script>
-    <script src="~/Content/BootStrapContextMenu/bootstrap.contextmenu.js"></script>    
+    <script src="~/Content/BootStrapContextMenu/bootstrap.contextmenu.js"></script>
 
     <script src="~/Scripts/jsapi.js"></script>
     <script type="text/javascript">
-        google.load("visualization", "1.1", { packages: ["corechart", "bar"] })    
+        google.load("visualization", "1.1", { packages: ["corechart", "bar"] })
     </script>
     <style>
         body {
@@ -47,16 +66,33 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("File Management", "FileManager", "ProjectManager")</li>
+                    @if(perms != null &&
+                        (
+                        perms.Exists(p => p.SystemName == "Management.Files") ||
+                        perms.Exists(p => p.SystemName == "Management.Users") ||
+                        perms.Exists(p => p.SystemName == "Management.AccountTypes")
+                        )
+                    )
+                    {
                     <li class="dropdown">
-                        <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Swiss Create<span class="caret"></span></a>
+
+                        <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Management<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">New</a></li>
-                            <li><a href="#">Open</a></li>
-                            <li><a href="#">Import</a></li>
-                            <li><a href="#">Modify Info</a></li>
+                            @if (perms != null && perms.Any(p => p.SystemName == "Management.Files"))
+                                {
+                                <li>@Html.ActionLink("Files", "FileManager", "ProjectManager")</li>
+                                }
+                            @if (perms != null && perms.Any(p => p.SystemName == "Management.Users"))
+                                {
+                                <li>@Html.ActionLink("Users ", "Index", "User", routeValues: null, htmlAttributes: new { title = "User Management" })</li>
+                                }
+                            @if (perms != null && perms.Any(p => p.SystemName == "Management.AccountTypes"))
+                                {
+                                //<li>@Html.ActionLink("Account Types", "UserRoles", "User", routeValues: null, htmlAttributes: new { title = "Account Type Management" })</li>
+                                }
                         </ul>
                     </li>
+                    }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -66,9 +102,10 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        
+
+        <br />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Swiss Create Business Development</p>
+            <p>&copy; @DateTime.Now.Year - Swiss Create Business Development.</p>
             @Html.Action("LanguageSelector", "Common")
         </footer>
     </div>

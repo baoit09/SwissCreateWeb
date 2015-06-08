@@ -21,6 +21,7 @@ using SwissCreate.Services.Localization;
 using SwissCreate.Services.Logging;
 using SwissCreate.Services.Projects;
 using SwissCreate.Services.Security;
+using SwissCreate.Services.UserRoles;
 using SwissCreate.Services.Users;
 using SwissCreate.Web.Framework;
 using SwissCreateWeb.Framework.Helpers;
@@ -126,6 +127,7 @@ namespace SwissCreateWeb.Framework
             #region Business Services
 
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+            builder.RegisterType<UserRoleService>().As<IUserRoleService>().InstancePerLifetimeScope();
             //company context
             builder.RegisterType<WebCompanyContext>().As<ICompanyContext>().InstancePerLifetimeScope();
 
