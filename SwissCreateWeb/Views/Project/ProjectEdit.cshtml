@@ -32,13 +32,18 @@
 }
 
 <script type="text/javascript">
-
     window.db = {}
     window.db.projectEditing = @Html.Raw(Json.Encode(Model))
     window.db.projectSettings = @Html.Raw(Json.Encode(projectSetting))
 </script>
 
 <link href="~/Content/projectedit.css" rel="stylesheet" />
+@*<script src="~/Scripts/jsapi.js"></script>*@
+<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart'],'language':'ru'}]}"></script>
+<script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEdit.js"></script>
+<script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEditController.js"></script>
+
+@*<link href="~/Content/projectedit.css" rel="stylesheet" />
 
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEdit.js"></script>
 <script src="~/AJSApp/Controllers/Project/ProjectEdit/ProjectEditController.js"></script>
@@ -57,43 +62,40 @@
 <script src="~/Content/jsGrid/jsgrid.field.select.js"></script>
 <script src="~/Content/jsGrid/jsgrid.field.checkbox.js"></script>
 <script src="~/Content/jsGrid/jsgrid.field.textarea.js"></script>
-<script src="~/Content/jsGrid/jsgrid.field.control.js"></script>
+<script src="~/Content/jsGrid/jsgrid.field.control.js"></script>*@
 
 <div id="divMainProjectEdit" class="" ng-app="SwissCreateApp" ng-controller="ProjectCtrl">
 
-    <div class="row" style="margin-top:5px">
+    <div class="row" style="margin-top:10px">
         <div class="col-md-2">
             <div>{{ProjectData.UIText_CompanyName}}</div>
-            <input class="form-control" value="{{ProjectData.CompanyName}}" />
+            <input style="margin-top:5px;" class="form-control" value="{{ProjectData.CompanyName}}" />
         </div>
 
         <div class="col-md-2">
             <div>{{ProjectData.UIText_Name}}</div>
-            <input class="form-control" value="{{ProjectData.Name}}" />
+            <input style="margin-top:5px;" class="form-control" value="{{ProjectData.Name}}" />
         </div>
 
         <div class="col-md-2">
             <div>{{ProjectData.UIText_Author}}</div>
-            <input class="form-control" value="{{ProjectData.Author}}" />
+            <input style="margin-top:5px;" class="form-control" value="{{ProjectData.Author}}" />
         </div>
 
         <div class="col-md-2">
             <div>{{ProjectData.UIText_Comment}}</div>
-            <input class="form-control" value="{{ProjectData.Comment}}" />
+            <input style="margin-top:5px;" class="form-control" value="{{ProjectData.Comment}}" />
         </div>
 
         <div class="col-md-2">
             <div>{{ProjectData.UIText_StartedDate}}</div>
-            <input class="form-control" value="{{ProjectData.StartedDate_Date | jsonDate: 'dd/MM/yyyy' }}" />
+            <input style="margin-top:5px;" class="form-control" value="{{ProjectData.StartedDate_Date | jsonDate: 'dd/MM/yyyy' }}" />
         </div>
 
         <div class="col-md-2">
-            <button type="button" class="btn btn-default btn-info" onclick="doSaveMain()" aria-expanded="false" style="margin:10px;">Save</button>
+            <button type="button" class="btn btn-default btn-info" onclick="doSaveMain()" aria-expanded="false" style="margin:20px; width:100px;">Save</button>
         </div>
-
     </div>
-
-    <hr />
 
     <div style="margin-top:5px" class="row">
 
@@ -244,15 +246,15 @@
             @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepBusinessModel"))
             {
                 <div class="tab-pane main-tab col-md-12" id="tab_swotanalysis">
-                    @Html.Partial("Tab_SwotAnalysis", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_SwotAnalysis_Index } })
+                    @*@Html.Partial("Tab_SwotAnalysis", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_SwotAnalysis_Index } })*@
                 </div>
             }
 
             @*Tab: Business Strategy*@
-            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepBusinessModel") && !isForTesting)
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepBusinessModel"))
             {
                 <div class="tab-pane main-tab col-md-12" id="tab_businessstrategy">
-                    @Html.Partial("Tab_BusinessStrategy", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_BusinessStrategy_Index } })
+                    @*@Html.Partial("Tab_BusinessStrategy", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_BusinessStrategy_Index } })*@
                 </div>
             }
 
@@ -289,10 +291,10 @@
             }
 
             @*Tab: Marketing*@
-            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepMarketing") && !isForTesting)
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepMarketing"))
             {
                 <div class="tab-pane main-tab col-md-12" id="tab_marketing">
-                    @Html.Partial("Tab_Marketing", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Marketing_Index } })
+                    @*@Html.Partial("Tab_Marketing", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Marketing_Index } })*@
                 </div>
             }
 
@@ -321,10 +323,10 @@
             }
 
             @*Tab: HR*@
-            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepHR") && !isForTesting)
+            @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepHR"))
             {
                 <div class="tab-pane main-tab fade col-md-12" id="tab_hr">
-                    @Html.Partial("Tab_HR", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_HR_Index } })
+                    @*@Html.Partial("Tab_HR", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_HR_Index } })*@
                 </div>
             }
 
@@ -332,7 +334,7 @@
             @if (perms != null && perms.Any(p => p.SystemName == "ProjectEditing.StepConclusion") && !isForTesting)
             {
                 <div class="tab-pane main-tab fade col-md-12" id="tab_conclusion">
-                    @Html.Partial("Tab_Conclusion", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Conclusion_Index } })
+                    @*@Html.Partial("Tab_Conclusion", Model, new System.Web.Mvc.ViewDataDictionary { { "stepIndex", projectSetting.Step_Conclusion_Index } })*@
                 </div>
             }
         </div>

@@ -126,7 +126,8 @@ namespace SwissCreateWeb.Framework
 
             #region Business Services
 
-            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+            builder.RegisterType<UserService>().As<IUserService>()
+                .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static")).InstancePerLifetimeScope();
             builder.RegisterType<UserRoleService>().As<IUserRoleService>().InstancePerLifetimeScope();
             //company context
             builder.RegisterType<WebCompanyContext>().As<ICompanyContext>().InstancePerLifetimeScope();
@@ -169,7 +170,7 @@ namespace SwissCreateWeb.Framework
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<GenericAttributeService>().As<IGenericAttributeService>().InstancePerLifetimeScope();
-            builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
+            builder.RegisterType<ProjectService>().As<IProjectService>().WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static")).InstancePerLifetimeScope();
             builder.RegisterType<ProjectCategoryService>().As<IProjectCategoryService>().InstancePerLifetimeScope();
 
             #endregion

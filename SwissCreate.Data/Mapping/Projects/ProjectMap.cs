@@ -26,6 +26,16 @@ namespace SwissCreate.Data.Mapping.Projects
                 .HasForeignKey(p => p.UserId)
                 .WillCascadeOnDelete(false);
 
+            this.HasOptional(p => p.LastViewedByUser)
+                .WithMany(u => u.LastViewedProjects)
+                .HasForeignKey(p => p.LastViewedByUserId)
+                .WillCascadeOnDelete(false);
+
+            this.HasOptional(p => p.LastUpdatedByUser)
+                .WithMany(u => u.LastUpdatedProjects)
+                .HasForeignKey(p => p.LastUpdatedByUserId)
+                .WillCascadeOnDelete(false);
+
             this.HasOptional(p => p.ProjectCategory)
                 .WithMany(pc => pc.Projects)
                 .HasForeignKey(p => p.ProjectCategoryId)

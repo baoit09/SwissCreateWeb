@@ -1,4 +1,34 @@
-﻿jQuery(document).ready(function ($) {
+﻿/// <reference path="Workers.js" />
+jQuery(document).ready(function ($) {
+
+    //if (typeof (Worker) !== "undefined") {
+    //    // Yes! Web worker support!
+    //    try {
+    //        var worker = new Worker("Workers.js");
+    //        worker.addEventListener('error', onError, false);
+    //    } catch (e) {
+    //        console.log('Error creating the worker.');
+    //    }
+    //    worker.onmessage = function (event) {
+    //        alert('onmessage');
+    //    };
+    //    worker.onerror = function (event) {
+    //        alert('onerror');
+    //    };
+    //} else {
+    //    // Sorry! No Web Worker support..
+    //    alert('Sorry! No Web Worker support..');
+    //}
+
+    //function onError(e) {
+    //    var a = e;
+    //}
+
+    $(window).bind('beforeunload', function () {
+        if (window.db.IsProjectEditModelChanged === true) {
+            return 'You have made some changes on this Project. Please stay on this page to save these changes.';
+        }
+    });
 
     $('#a_businessmodel').on('shown.bs.tab', function (e) {
         $('#businessmodel_0').addClass("in active");
@@ -19,7 +49,7 @@
     $('#a_evaluation').on('shown.bs.tab', function (e) {
         $('#tab_WeightBarChart').addClass("in active");
     });
-    
+
     $('#a_hr').on('shown.bs.tab', function (e) {
         $('#hr_0').addClass("in active");
     });
@@ -38,13 +68,8 @@
         if ($('#' + tabID).children().length > 0)
             return;
 
-        //$(".tab-pane.main-tab").each(function () {
-        //    $(this).empty();
-        //});
-
         var url = $("#GetTab").val() + "/" + tabID + "?projectId=" + $("#ProjectEdittingId").val();
         var request = $.ajax({
-            //url: '/@ViewContext.RouteData.Values["controller"]/' + tabID +"?projectId=" + 23,
             url: url,
             cache: false,
             type: "get",
@@ -52,7 +77,16 @@
         });
 
         request.done(function (msg) {
+
             $("#" + tabID).html(msg);
+
+            var element = $("#" + tabID);
+            var injector = $('[ng-app]').injector();
+            var scope = $('[ng-app]').scope();
+            var $compile = injector.get('$compile');
+            $compile(element.contents())(scope);
+            scope.$digest();
+            
         });
 
         request.fail(function (jqXHR, textStatus) {
@@ -64,15 +98,15 @@
     });
 
     //#region: Sub Tabs
-    $('#tabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show')
-    });
+    //$('#tabs a').click(function (e) {
+    //    e.preventDefault();
+    //    $(this).tab('show')
+    //});
     //#endregion
 });
 
 function doSaveMain() {
- 
+
     if (typeof clearAdditionalProperties_Tab_Charts != 'undefined') {
         clearAdditionalProperties_Tab_Charts();
     };
@@ -88,11 +122,15 @@ function doSaveMain() {
         url: postUrl,
         type: "POST",
         contentType: "application/json",
-        data: JSONDataString,        
+        data: JSONDataString,
         success: function (ResponseResult) {
             if (ResponseResult.success == true) {
                 bootbox.alert("Project saved successfully!", function () {
                 });
+
+                window.db.IsProjectEditModelChanged = false;
+                var scope = angular.element($("#divMainProjectEdit")).scope();
+                scope.register();
             }
             else {
                 bootbox.dialog({
@@ -104,7 +142,7 @@ function doSaveMain() {
                             className: "btn-danger"
                         }
                     }
-                });
+                });                
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {

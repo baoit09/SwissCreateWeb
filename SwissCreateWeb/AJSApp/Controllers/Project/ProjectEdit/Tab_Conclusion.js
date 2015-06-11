@@ -1,11 +1,27 @@
 ﻿jQuery(document).ready(function ($) {
-    // Build Tree Structure.
-    window.db.Tab_Conclusion_Data = {};
-    window.db.Tab_Conclusion_Data.nodes = buildTreeNode();
+    
+    //$('#a_conclusion').on('shown.bs.tab', function (e) {
+    //});
 
-    // Render Tree
-    renderTree();
+    if (window.db.tabConclusion === undefined || window.db.tabConclusion.tabLoaded === false) {
+
+        initData_TabConclusion();
+
+        // Render Tree
+        renderTree();
+
+        window.db.tabConclusion.tabLoaded = true;
+    }
 });
+
+function initData_TabConclusion()
+{
+    if (window.db.tabConclusion === undefined) {
+        window.db.tabConclusion = {};
+        window.db.tabConclusion.tabLoaded = false;
+        window.db.tabConclusion.nodes = buildTreeNode();        
+    }
+}
 
 function node(title, description, reportControlName, reportControlLevel, allowMove, children) {
     this.title = title,
@@ -246,7 +262,7 @@ function renderTree() {
         keyboard: true, // Support keyboard navigation.
         quicksearch: true, // Navigate to next node by typing the first letters.
         titlesTabbable: true, // Node titles can receive keyboard focus
-        source: window.db.Tab_Conclusion_Data.nodes,
+        source: window.db.tabConclusion.nodes,
         dblclick: function(event, data) {
             data.node.toggleSelected();
         },
@@ -459,5 +475,4 @@ function doSaveReportLayout_Conclusion()
 }
 
 function doPrintReportLayout_Conclusion() {
-
 }

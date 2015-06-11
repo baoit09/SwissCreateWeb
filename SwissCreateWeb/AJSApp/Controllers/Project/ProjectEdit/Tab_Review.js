@@ -1,17 +1,100 @@
 ﻿$(document).ready(function () {
 
-    SetupJsGridsReview();
-    
-});
-   
-$(".inputCanChange").bind('input', function () {
-    var value = $(this).val();
-    var urlImage = getURLImage(value);
-    var idImageTarget = $(this).data("targetimage");
-    $("#" + idImageTarget).attr('src', urlImage);
+    $('#a_review').on('shown.bs.tab', function (e) {
+        if (window.db.tabReview === undefined || window.db.tabReview.tabLoaded === false)
+        {
+            initData_TabReview();
+
+            initEventHanlders_TabReview();
+
+            setupJsGridsReview();
+
+            window.db.tabReview.tabLoaded = true;
+        }
+    });
 });
 
-function SetupJsGridsReview() {
+function initData_TabReview()
+{
+    if (window.db.tabReview === undefined) {
+        window.db.tabReview = {};
+        window.db.tabReview.tabLoaded = false;
+
+        window.db.tabReview.showDetailsDialog = function (dialogType, item) {
+
+            $("#detailsForm").modal("show");
+
+            $("#modelTitle").html("Detail of " + item.ID + ":");
+
+            // Tiêu đề
+            $("#Name").val(item.Name);
+            // Định nghĩa
+            $("#Define").val(item.Define);
+
+            // So luong
+            $("#Quality_Question").val(item.Quality_Question);
+            $("#Quality_WeightPercent").val(item.Quality_WeightPercent);
+            $("#Quality_Answer").val(item.Quality_Answer);
+
+            // Chat luong
+            $("#Quantity_Question").val(item.Quantity_Question);
+            $("#Quantity_WeightPercent").val(item.Quantity_WeightPercent);
+            $("#Quantity_Answer").val(item.Quantity_Answer);
+
+            // He thong
+            $("#Systematic_Question").val(item.Systematic_Question);
+            $("#Systematic_WeightPercent").val(item.Systematic_WeightPercent);
+            $("#Systematic_Answer").val(item.Systematic_Answer);
+
+            $("#button_OK").off("click").on("click", function () {
+                window.db.tabReview.saveClient(item, dialogType === "Add");
+            });
+
+            updateImage();
+        };
+
+        window.db.tabReview.saveClient = function (item, isNew) {
+
+            $.extend(item, {
+                // Tiêu đề
+                Name: $("#Name").val(),
+                // Định nghĩa
+                Define: $("#Define").val(),
+
+                // So luong
+                Quality_Question: $("#Quality_Question").val(),
+                Quality_WeightPercent: $("#Quality_WeightPercent").val(),
+                Quality_Answer: $("#Quality_Answer").val(),
+
+                // Chat luong
+                Quantity_Question: $("#Quantity_Question").val(),
+                Quantity_WeightPercent: $("#Quantity_WeightPercent").val(),
+                Quantity_Answer: $("#Quantity_Answer").val(),
+
+                // He thong
+                Systematic_Question: $("#Systematic_Question").val(),
+                Systematic_WeightPercent: $("#Systematic_WeightPercent").val(),
+                Systematic_Answer: $("#Systematic_Answer").val()
+            });
+
+            $("#jsGrid_Review").jsGrid(isNew ? "insertItem" : "updateItem", item);
+
+            $("#detailsForm").modal("hide");
+        };
+    }
+}
+   
+function initEventHanlders_TabReview()
+{
+    $(".inputCanChange").bind('input', function () {
+        var value = $(this).val();
+        var urlImage = getURLImage(value);
+        var idImageTarget = $(this).data("targetimage");
+        $("#" + idImageTarget).attr('src', urlImage);
+    });    
+}
+
+function setupJsGridsReview() {
 
     var MyImgField = function (config) {
         jsGrid.Field.call(this, config);
@@ -67,7 +150,7 @@ function SetupJsGridsReview() {
 
         rowClick: function(args)
         {
-            showDetailsDialog("Edit", args.item);
+            window.db.tabReview.showDetailsDialog("Edit", args.item);
         },
 
         controller: {
@@ -99,68 +182,6 @@ function SetupJsGridsReview() {
         ]
     });    
 }
-
-var showDetailsDialog = function (dialogType, item) {
-
-    $("#detailsForm").modal("show");
-
-    $("#modelTitle").html("Detail of " + item.ID + ":");
-    
-    // Tiêu đề
-    $("#Name").val(item.Name);
-    // Định nghĩa
-    $("#Define").val(item.Define);
-
-    // So luong
-    $("#Quality_Question").val(item.Quality_Question);
-    $("#Quality_WeightPercent").val(item.Quality_WeightPercent);
-    $("#Quality_Answer").val(item.Quality_Answer);
-    
-    // Chat luong
-    $("#Quantity_Question").val(item.Quantity_Question);
-    $("#Quantity_WeightPercent").val(item.Quantity_WeightPercent);
-    $("#Quantity_Answer").val(item.Quantity_Answer);
-    
-    // He thong
-    $("#Systematic_Question").val(item.Systematic_Question);
-    $("#Systematic_WeightPercent").val(item.Systematic_WeightPercent);
-    $("#Systematic_Answer").val(item.Systematic_Answer);
-
-    $("#button_OK").off("click").on("click", function () {
-        saveClient(item, dialogType === "Add");
-    });
-
-    updateImage();
-};
-
-var saveClient = function (item, isNew) {
-   
-    $.extend(item, {
-    // Tiêu đề
-    Name:    $("#Name").val(),
-    // Định nghĩa
-    Define: $("#Define").val(),
-
-    // So luong
-    Quality_Question: $("#Quality_Question").val(),
-    Quality_WeightPercent: $("#Quality_WeightPercent").val(),
-    Quality_Answer: $("#Quality_Answer").val(),
-    
-    // Chat luong
-    Quantity_Question: $("#Quantity_Question").val(),
-    Quantity_WeightPercent: $("#Quantity_WeightPercent").val(),
-    Quantity_Answer: $("#Quantity_Answer").val(),
-    
-    // He thong
-    Systematic_Question: $("#Systematic_Question").val(),
-    Systematic_WeightPercent: $("#Systematic_WeightPercent").val(),
-    Systematic_Answer: $("#Systematic_Answer").val()
-    });
-
-    $("#jsGrid_Review").jsGrid(isNew ? "insertItem" : "updateItem", item);
-
-    $("#detailsForm").modal("hide");
-};
 
 function getURLImage(value)
 {

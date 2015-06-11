@@ -1,13 +1,32 @@
 ﻿$(document).ready(function () {
-    SetupJsGridsSuccessFactors();
+
+    $('#a_successfactors').on('shown.bs.tab', function (e)
+    {
+        if (window.db.tabSuccessFactors === undefined || window.db.tabSuccessFactors.tabLoaded === false)
+        {
+            initData_TabSuccessFactors();
+
+            setupJsGridsSuccessFactors();
+
+            window.db.tabSuccessFactors.tabLoaded = true;
+        }
+    });
 });
 
-function SetupJsGridsSuccessFactors()
+function initData_TabSuccessFactors()
+{
+    if (window.db.tabSuccessFactors === undefined) {
+        window.db.tabSuccessFactors = {};
+        window.db.tabSuccessFactors.tabLoaded = false;        
+    }
+}
+
+function setupJsGridsSuccessFactors()
 {
     var stepIndex = window.db.projectSettings.Step_SuccessFactors_Index;
 
     $("#jsGrid_HumanCaptial").jsGrid({
-        height: "500px",
+        height: "auto",
         width: "100%",
         //filtering: true,
         editing: true,
@@ -36,7 +55,7 @@ function SetupJsGridsSuccessFactors()
     });
     
     $("#jsGrid_StructuralCapital").jsGrid({
-        height: "500px",
+        height: "auto",
         width: "100%",
         //filtering: true,
         editing: true,
@@ -65,7 +84,7 @@ function SetupJsGridsSuccessFactors()
     });
     
     $("#jsGrid_RelationshipCapital").jsGrid({
-        height: "500px",
+        height: "auto",
         width: "100%",
         //filtering: true,
         editing: true,
@@ -94,7 +113,7 @@ function SetupJsGridsSuccessFactors()
     });
 
     $("#jsGrid_Weight").jsGrid({
-        height: "500px",
+        height: "auto",
         width: "100%",
         //filtering: true,
         //editing: true,

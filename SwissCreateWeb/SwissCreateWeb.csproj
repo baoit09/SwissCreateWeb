@@ -209,6 +209,7 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomAttributes\HasPermission_AuthorizeFilter.cs" />
+    <Compile Include="CustomAttributes\SwissCreateOutputCacheAttribute.cs" />
     <Compile Include="Data\ConfigData.cs" />
     <Compile Include="Data\ControlTextInfo.cs" />
     <Compile Include="Data\ProjectData.cs" />
@@ -292,6 +293,7 @@
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\QuestionAnswerStep.js" />
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\ProjectEdit.js" />
     <Content Include="AJSApp\Controllers\Project\ProjectEdit\ProjectEditController.js" />
+    <Content Include="AJSApp\Controllers\Project\ProjectEdit\Workers.js" />
     <Content Include="AJSApp\Controllers\User\Index.js" />
     <Content Include="AJSApp\Filters\filters.js" />
     <Content Include="AJSApp\index.js" />

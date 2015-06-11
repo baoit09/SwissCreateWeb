@@ -1,15 +1,32 @@
 ﻿jQuery(document).ready(function ($) {
 
-    $("#divCheckBoxes_Measures :checkbox").change(checkboxFilterOnChange_Measures);
+    $('#a_measures').on('shown.bs.tab', function (e) {
 
-    //$('.date-picker').datepicker(
-    //{
-    //    //dateFormat : 'dd/mm/yy'
-    //});
+        if (window.db.tabMeasures === undefined || window.db.tabMeasures.tabLoaded === false) {
+
+            initData_TabMeasures();
+
+            initEventHanlders_TabMeasures();
+
+            setupJsGrids_Measures();
+
+            window.db.tabMeasures.tabLoaded = true;
+        }
+    });
     
-    setupJsGrids_Measures();
-
 });
+
+function initData_TabMeasures() {
+
+    if (window.db.tabMeasures === undefined) {
+        window.db.tabMeasures = {};
+        window.db.tabMeasures.tabLoaded = false;        
+    }
+}
+
+function initEventHanlders_TabMeasures() {
+    $("#divCheckBoxes_Measures :checkbox").change(checkboxFilterOnChange_Measures);
+}
 
 function checkboxFilterOnChange_Measures(e) {
     $("#jsGrid_Measures").jsGrid('loadData');

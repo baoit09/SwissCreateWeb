@@ -1,10 +1,29 @@
 ﻿jQuery(document).ready(function ($) {
-    // show Risks on grid
-    setupJsGrids();
 
-    // show chart
-    setupRedips();
+    $('#a_risk').on('shown.bs.tab', function (e)
+    {
+        if (window.db.tabRisk === undefined || window.db.tabRisk.tabLoaded === false)
+        {
+            initData_TabRisk();
+
+            // show Risks on grid
+            setupJsGrids();
+
+            // show chart
+            setupRedips();
+
+            window.db.tabRisk.tabLoaded = true;
+        }
+    });
 });
+
+function initData_TabRisk()
+{
+    if (window.db.tabRisk === undefined) {
+        window.db.tabRisk = {};
+        window.db.tabRisk.tabLoaded = false;        
+    }
+}
 
 function setupJsGrids() {
     $("#jsGrid_Risk").jsGrid({
@@ -34,7 +53,7 @@ function setupJsGrids() {
             { name: "Risk", type: "text", title: "Risk", width: 100 },
             { name: "Impact", type: "select", title: "Impact", items: window.db.projectEditing.ProjectData.Periods[0].Static_E_Risk_Impact_Intance.Intances, valueField: "Mark", textField: "sName" },
             { name: "Probability", type: "select", title: "Probability", items: window.db.projectEditing.ProjectData.Periods[0].Static_E_Risk_Probability_Intance.Intances, valueField: "Mark", textField: "sName" },
-            { name: "Manage", type: "text", title: "Measures", width: 120 },
+            { name: "Manage", type: "text", title: "Measures"},
             { type: "control" }
         ],
 

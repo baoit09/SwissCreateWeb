@@ -8,11 +8,16 @@
     }
 }
 
+<script src="~/Scripts/jsapi.js"></script>
+<script type="text/javascript">
+    //google.load("visualization", "1.1", { packages: ["corechart", "bar"] })
+</script>
+
 <div class="row">
     <div class="col-md-10">@Model.ProjectData.Periods[0].Steps[stepIndex].FullName_UPPER:</div>
 </div>
 
-<div class="row" style="margin-top:10px;">
+<div id="div_TabEvaluationMain" class="row" style="margin-top:10px;">
     <div class="col-md-10">
         <ul class="nav nav-tabs" data-tabs="tabs">
             @*Tab: Human Captial*@
@@ -39,39 +44,42 @@
         <div id="my-tab-content" class="tab-content col-md-12 tab-content-border">
             @*Tab: Human Captial*@
             <div class="tab-pane active" id="tab_WeightBarChart">
-                <div id="divCheckBoxes_Weight" class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
+                <div id="divCheckBoxes_Weight" class="row radio" style="display: block; margin:10px">
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_HC" name="checkboxFilter" value="HC" class="checkboxFilter">HC</label>
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_SC" name="checkboxFilter" value="SC" class="checkboxFilter">SC</label>
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_RC" name="checkboxFilter" value="RC" class="checkboxFilter">RC</label>
                 </div>
-                <div id="div_WeightBarChart" style="min-height:500px; margin:5px;"></div>
                 <hr />
+                <div id="div_WeightBarChart" style="margin-left:10px;"></div>
+                @*<hr />*@
                 <div class="row" style="margin:5px">Interpretation:</div>
                 <div class="row" style="margin:2px"><textarea rows="3" class="form-control" id="textarea_Interpretation1">@Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Interpretation1</textarea></div>
             </div>
 
             @*Tab: StructuralCapital*@
             <div class="tab-pane" id="tab_ValuationBarChart">
-                <div class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
+                <div class="row radio" style="display: block; margin:10px">
                     <label class="radio-inline"><input type="radio" id="radio_HC" name="radioFilter_Valuation" value="HC" class="radioFilter_Valuation">HC</label>
                     <label class="radio-inline"><input type="radio" id="radio_SC" name="radioFilter_Valuation" value="SC" class="radioFilter_Valuation">SC</label>
                     <label class="radio-inline"><input type="radio" id="radio_RC" name="radioFilter_Valuation" value="RC" class="radioFilter_Valuation">RC</label>
                 </div>
-                <div id="div_ValuationBarChart" style="min-height:500px; margin:5px;"></div>
                 <hr />
+                <div id="div_ValuationBarChart" style="margin-left:10px;"></div>
+                @*<hr />*@
                 <div class="row" style="margin:5px">Interpretation:</div>
                 <div class="row" style="margin:2px"><textarea rows="3" class="form-control" id="textarea_Interpretation2">@Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Interpretation2</textarea></div>
             </div>
 
             @*Tab: Relationship Capital*@
             <div class="tab-pane" id="tab_PortfolioofPotential">
-                <div id="divCheckBoxes_Portfolio" class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
+                <div id="divCheckBoxes_Portfolio" class="row radio" style="display: block; margin:10px">
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_HC_Portfolio" name="checkboxFilter" value="HC" class="checkboxFilter">HC</label>
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_SC_Portfolio" name="checkboxFilter" value="SC" class="checkboxFilter">SC</label>
                     <label class="checkbox-inline"><input type="checkbox" id="checkbox_RC_Portfolio" name="checkboxFilter" value="RC" class="checkboxFilter">RC</label>
                 </div>
-                <div id="div_PortfolioOfPotential" style="min-height:500px; margin:5px;"></div>
                 <hr />
+                <div id="div_PortfolioOfPotential" style="margin-left:10px;"></div>
+                @*<hr />*@
                 <div class="row" style="margin:5px">Interpretation:</div>
                 <div class="row" style="margin:2px"><textarea rows="3" class="form-control" id="textarea_Interpretation3">@Model.ProjectData.Periods[0].Steps[stepIndex].Analysis.Interpretation3</textarea></div>
             </div>

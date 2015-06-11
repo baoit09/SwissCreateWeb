@@ -1,8 +1,30 @@
 ﻿jQuery(document).ready(function ($) {
 
-    drawBudgetTree();
+    $('#a_charts').on('shown.bs.tab', function (e) {
+
+        if (window.db.tabChart === undefined || window.db.tabChart.tabLoaded === false) {
+
+            initData_TabChart()
+
+            drawBudgetTree();
+
+            window.db.tabChart.tabLoaded = true;
+        }
+    });
 
 });
+
+function initData_TabChart()
+{
+    if (window.db.tabChart === undefined) {
+        window.db.tabChart = {};
+        window.db.tabChart.tabLoaded = false;
+        window.db.tabChart.rootBudget = {};
+        window.db.tabChart.budgets = [];
+        window.db.tabChart.budgetId = 1;
+        window.db.tabChart.spanElements = [];
+    }
+}
 
 //********************* Start: draw tree functions ******************************************
 
@@ -10,8 +32,8 @@ function drawBudgetTree() {
 
     //#region get root budget and set parent budget for all child budgets.
     var stepIndex = window.db.projectSettings.Step_Charts_Index;
-    var budget = window.db.projectEditing.ProjectData.Periods[0].Steps[stepIndex].Budget
-    setParent(budget);
+    window.db.tabChart.rootBudget = window.db.projectEditing.ProjectData.Periods[0].Steps[stepIndex].Budget;
+    setParent(window.db.tabChart.rootBudget)
     //#endregion
 
     //#region clear tree
@@ -20,7 +42,7 @@ function drawBudgetTree() {
     //#endregion
    
     //#region draw Tree and mapping node with budget (underlying data)
-    renderABudget(budget, ul);
+    renderABudget(window.db.tabChart.rootBudget, ul);
     $('.budget-tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
     $('.budget-tree li.parent_li > span').on('click', function (e) {
         var children = $(this).parent('li.parent_li').find(' > ul > li');
@@ -37,18 +59,47 @@ function drawBudgetTree() {
     //#endregion
 
     //#region check cost to alarm for all nodes
-    checkCostAllBudgets(budget);
+    checkCostAllBudgets(window.db.tabChart.rootBudget);
     //#endregion
 }
 
 function setParent(budget) {
     if (budget != null && budget.Childs != null) {
+        budget.budgetId = window.db.tabChart.budgetId++;
+        window.db.tabChart.budgets.push(budget);
         var nLength = budget.Childs.length;
         for (var i = 0; i < nLength; i++) {
-            budget.Childs[i].parentBudget = budget;
+            budget.Childs[i].parentBudgetId = budget.budgetId;
             setParent(budget.Childs[i]);
         }
     }
+}
+
+function findBudget(budgetId)
+{
+    if (window.db.tabChart.budgets === undefined)
+        return null;
+
+    var nLength = window.db.tabChart.budgets.length;
+    for (var i = 0; i < nLength; i++) {
+        if (window.db.tabChart.budgets[i].budgetId === budgetId)
+            return window.db.tabChart.budgets[i];
+    }
+
+    return null;
+}
+
+function findSpanElement(budgetId) {
+    if (window.db.tabChart.spanElements === undefined)
+        return null;
+
+    var nLength = window.db.tabChart.spanElements.length;
+    for (var i = 0; i < nLength; i++) {
+        if (window.db.tabChart.spanElements[i].forBudgetId === budgetId)
+            return window.db.tabChart.spanElements[i];
+    }
+
+    return null;
 }
 
 function renderABudget(budget, ul) {
@@ -63,7 +114,8 @@ function renderABudget(budget, ul) {
         .data("budget", budget)
         .addClass('BudgetContextMenu')
         .appendTo(li);
-        budget.spanElement = span;
+        span[0].forBudgetId = budget.budgetId;
+        window.db.tabChart.spanElements.push(span[0]);
         
         var i = $('<i/>')
         .appendTo(span)
@@ -106,18 +158,28 @@ function checkCost(budget, alsoCheckParent) {
         var childTotalAmount = getChildTotalAmount(budget);
         var parentAmount = parseFloat(budget.Cost);
         if (childTotalAmount > parentAmount) {
-            budget.spanElement.attr("style", 'background-color: #ffffcc')
-            var sMsg = "Total of children budget (" + childTotalAmount + "$) is greater than total budget (" + parentAmount + "$), please add another number.";
-            $(budget.spanElement).find("i").attr("title", sMsg);
+            var spanElement = findSpanElement(budget.budgetId)
+            if(spanElement)
+            {
+                $(spanElement).attr("style", 'background-color: #ffffcc')
+                var sMsg = "Total of children budget (" + childTotalAmount + "$) is greater than total budget (" + parentAmount + "$), please add another number.";
+                $(spanElement).find("i").attr("title", sMsg);
+            }
         }
         else {
-            budget.spanElement.attr("style", '')
-            $(budget.spanElement).find("i").attr("title", '');
+            var spanElement = findSpanElement(budget.budgetId)
+            if (spanElement) {
+                $(spanElement).attr("style", '')
+                $(spanElement).find("i").attr("title", '');
+            }
         }
     }
 
     if (alsoCheckParent) {
-        checkCost(budget.parentBudget)
+        var parentBudget = findBudget(budget.parentBudgetId)
+        if (parentBudget != null) {
+            checkCost(budget.parentBudgetId)
+        }
     }
 }
 
@@ -293,6 +355,8 @@ function budget_AddChildBudget(context, e) {
 
                     if (ValidateBudget(childBudget))
                     {
+                        childBudget.parentBudgetId = parentBudget.budgetId;
+
                         parentBudget.Childs.push(childBudget);
 
                         if (isAutoSumCost()) {
@@ -377,7 +441,7 @@ function budget_DeleteBudget(context, e) {
                 className: "btn-primary",
                 callback: function () {
 
-                    var parentBudget = selecteBudget.parentBudget;
+                    var parentBudget = findBudget(selecteBudget.parentBudgetId);
                     var index = parentBudget.Childs.indexOf(selecteBudget)
                     if (index > -1)
                     {
@@ -416,7 +480,8 @@ function clearAdditionalProperties_Rec(budget)
     if (budget == null)
         return;
 
-    delete budget.parentBudget;
+    delete budget.budgetId;
+    delete budget.parentBudgetId;
     delete budget.spanElement;
 
     if (budget.Childs != null) {

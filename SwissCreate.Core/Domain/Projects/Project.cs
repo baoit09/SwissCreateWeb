@@ -27,6 +27,14 @@ namespace SwissCreate.Core.Domain.Projects
         public int? ProjectCategoryId { get; set; }
         public virtual ProjectCategory ProjectCategory { get; set; }
 
+        public DateTime? LastViewedDateTime { get; set; }
+        public int? LastViewedByUserId { get; set; }
+        public virtual User LastViewedByUser { get; set; }
+
+        public DateTime? LastUpdatedDateTime { get; set; }
+        public int? LastUpdatedByUserId { get; set; }
+        public virtual User LastUpdatedByUser { get; set; }
+
         public override string ToString()
         {
             return Name;

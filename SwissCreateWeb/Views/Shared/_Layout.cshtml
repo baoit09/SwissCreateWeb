@@ -6,14 +6,19 @@
 @using SwissCreate.Core.Data;
 @using SwissCreate.Core.Domain.Users;
 @using SwissCreate.Core.Domain.Security;
+@using SwissCreate.Core.Domain.Projects;
 @using SwissCreate.Services.Users;
 
 @{
     List<PermissionRecord> perms = new List<PermissionRecord>();
+    List<Project> lastViewedProjects = new List<Project>();
     if (Request.IsAuthenticated)
     {
         var workContext = EngineContext.Current.Resolve<IWorkContext>();
         perms = workContext.CurrentUser.UserRoles.SelectMany(ur => ur.PermissionRecords).ToList();
+
+        var projectService = EngineContext.Current.Resolve<SwissCreate.Services.Projects.IProjectService>();
+        lastViewedProjects = projectService.GetProjectsByLastView(workContext.CurrentUser, 5).ToList();
     }
 }
 
@@ -40,16 +45,40 @@
     <script src="~/Content/BootStrapTree/bootstrap.tree.js"></script>
     <script src="~/Content/BootStrapContextMenu/bootstrap.contextmenu.js"></script>
 
-    <script src="~/Scripts/jsapi.js"></script>
+    @*<script src="~/Scripts/jsapi.js"></script>
     <script type="text/javascript">
         google.load("visualization", "1.1", { packages: ["corechart", "bar"] })
-    </script>
+    </script>*@
     <style>
         body {
             background-image: url('../Images/backgrounds/images (4).jpg');
             /*background-color: #e5e5e5;*/
         }
     </style>
+
+    <link href="~/Content/jsGrid/css/jsgrid.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/jsGrid/css/theme.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Content/jsGrid/jsgrid.core.js"></script>
+    <script src="~/Content/jsGrid/jsgrid.load-indicator.js"></script>
+    <script src="~/Content/jsGrid/jsgrid.load-strategies.js"></script>
+    <script src="~/Content/jsGrid/jsgrid.sort-strategies.js"></script>
+
+    <script src="~/Content/jsGrid/jsgrid.field.js"></script>
+    <script src="~/Content/jsGrid/jsgrid.field.text.js"></script>
+    <script src="~/Content/jsGrid/jsgrid.field.number.js"></script>
+    <script src="~/Content/jsGrid/jsgrid.field.select.js"></script>
+    <script src="~/Content/jsGrid/jsgrid.field.checkbox.js"></script>
+    <script src="~/Content/jsGrid/jsgrid.field.textarea.js"></script>
+    <script src="~/Content/jsGrid/jsgrid.field.control.js"></script>
+
+    <script src="~/Content/fancytree/dist/jquery.fancytree-all.js"></script>
+    <link href="~/Content/fancytree/dist/skin-win8/ui.fancytree.min.css" rel="stylesheet" />
+    <script src="~/Content/fancytree/dist/src/jquery.fancytree.dnd.js"></script>
+
+    <link href="~/Content/redips2/csss/style.css" rel="stylesheet" />
+    <script src="~/Content/redips2/redips-drag-min.js"></script>
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -66,7 +95,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @if(perms != null &&
+                    @if (perms != null &&
                         (
                         perms.Exists(p => p.SystemName == "Management.Files") ||
                         perms.Exists(p => p.SystemName == "Management.Users") ||
@@ -74,24 +103,35 @@
                         )
                     )
                     {
-                    <li class="dropdown">
-
-                        <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Management<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            @if (perms != null && perms.Any(p => p.SystemName == "Management.Files"))
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Management<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                @if (perms != null && perms.Any(p => p.SystemName == "Management.Files"))
                                 {
-                                <li>@Html.ActionLink("Files", "FileManager", "ProjectManager")</li>
+                                    <li>@Html.ActionLink("Files", "FileManager", "ProjectManager")</li>
                                 }
-                            @if (perms != null && perms.Any(p => p.SystemName == "Management.Users"))
+                                @if (perms != null && perms.Any(p => p.SystemName == "Management.Users"))
                                 {
-                                <li>@Html.ActionLink("Users ", "Index", "User", routeValues: null, htmlAttributes: new { title = "User Management" })</li>
+                                    <li>@Html.ActionLink("Users ", "Index", "User", routeValues: null, htmlAttributes: new { title = "User Management" })</li>
                                 }
-                            @if (perms != null && perms.Any(p => p.SystemName == "Management.AccountTypes"))
+                                @if (perms != null && perms.Any(p => p.SystemName == "Management.AccountTypes"))
                                 {
-                                //<li>@Html.ActionLink("Account Types", "UserRoles", "User", routeValues: null, htmlAttributes: new { title = "Account Type Management" })</li>
+                                    //<li>@Html.ActionLink("Account Types", "UserRoles", "User", routeValues: null, htmlAttributes: new { title = "Account Type Management" })</li>
                                 }
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (lastViewedProjects != null && lastViewedProjects.Any())
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Recent Projects<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach (var p in lastViewedProjects)
+                                {
+                                    <li>@Html.ActionLink(p.Name, "ProjectEdit", "Project", new { ProjectId = p.Id }, new { })</li>
+                                }
+                            </ul>
+                        </li>
                     }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>

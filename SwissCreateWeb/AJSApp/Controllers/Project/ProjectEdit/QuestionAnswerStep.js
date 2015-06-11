@@ -306,5 +306,10 @@
             }
         }        
     }
+       
 });
+
+function goto() {
+    return false;
+}
 

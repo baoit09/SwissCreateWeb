@@ -14,6 +14,27 @@ namespace SwissCreate.Services.Users
     public partial class UserService : IUserService
     {
         #region Constants
+
+        /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : show hidden records?
+        /// </remarks>
+        private const string USER_ALL_KEY = "SwissCreate.User.all";
+        /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : system name
+        /// </remarks>
+        private const string USER_BY_USERID_KEY = "SwissCreate.User.UserId-{0}";
+
+        /// <summary>
+        /// Key pattern to clear cache
+        /// </summary>
+        private const string USER_PATTERN_KEY = "SwissCreate.User.";
+
         #endregion
 
         #region Fields
@@ -31,19 +52,23 @@ namespace SwissCreate.Services.Users
 
         public virtual IPagedList<User> GetAllUsers(DateTime? createdFromUtc = null, DateTime? createdToUtc = null, int pageIndex = 0, int pageSize = Int32.MaxValue)
         {
-            var query = _userRepository.Table;
+            string sKey = USER_ALL_KEY;
+            return _cacheManager.Get(sKey, () =>
+            {
+                var query = _userRepository.Table;
 
-            if (createdFromUtc.HasValue)
-                query = query.Where(u => createdFromUtc.Value <= u.CreatedOnUtc);
+                if (createdFromUtc.HasValue)
+                    query = query.Where(u => createdFromUtc.Value <= u.CreatedOnUtc);
 
-            if (createdToUtc.HasValue)
-                query = query.Where(u => createdToUtc.Value >= u.CreatedOnUtc);
+                if (createdToUtc.HasValue)
+                    query = query.Where(u => createdToUtc.Value >= u.CreatedOnUtc);
 
-            query = query.Where(u => !u.Deleted);
-            query = query.OrderBy(u => u.Id);
+                query = query.Where(u => !u.Deleted);
+                query = query.OrderBy(u => u.Id);
 
-            var users = new PagedList<User>(query, pageIndex, pageSize);
-            return users;
+                var users = new PagedList<User>(query, pageIndex, pageSize);
+                return users;
+            });            
         }
 
         public void DeleteUser(User user)
@@ -51,7 +76,11 @@ namespace SwissCreate.Services.Users
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            _userRepository.Delete(user);            
+            _userRepository.Delete(user);
+
+            _eventPublisher.EntityDeleted(user);
+
+            _cacheManager.RemoveByPattern(USER_PATTERN_KEY);
         }
 
         public void DeleteUsers(IEnumerable<User> users)
@@ -65,6 +94,8 @@ namespace SwissCreate.Services.Users
             }
 
             UpdateUser(users.FirstOrDefault());
+
+            _cacheManager.RemoveByPattern(USER_PATTERN_KEY);
         }
 
         public User GetUserById(int userId)
@@ -72,7 +103,12 @@ namespace SwissCreate.Services.Users
             if (userId == 0)
                 return null;
 
-            return _userRepository.GetById(userId);
+            string sKey = string.Format(USER_BY_USERID_KEY, userId);
+
+            return _cacheManager.Get(sKey, () =>
+            {
+                return _userRepository.GetById(userId);
+            });            
         }
 
         public IList<User> GetUsersByIds(int[] userIds)
@@ -146,6 +182,8 @@ namespace SwissCreate.Services.Users
 
             _userRepository.Insert(user);
 
+            _cacheManager.RemoveByPattern(USER_PATTERN_KEY);
+
             //event notification
             _eventPublisher.EntityInserted(user);
         }
@@ -157,6 +195,8 @@ namespace SwissCreate.Services.Users
 
             _userRepository.Insert(users);
 
+            _cacheManager.RemoveByPattern(USER_PATTERN_KEY);
+
             //event notification
             _eventPublisher.EntityInserted(users.FirstOrDefault());
         }
@@ -167,6 +207,8 @@ namespace SwissCreate.Services.Users
                 throw new ArgumentNullException("user");
 
             _userRepository.Update(user);
+
+            _cacheManager.RemoveByPattern(USER_PATTERN_KEY);
 
             //event notification
             _eventPublisher.EntityUpdated(user);

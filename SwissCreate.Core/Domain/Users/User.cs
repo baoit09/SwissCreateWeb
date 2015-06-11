@@ -117,6 +117,10 @@ namespace SwissCreate.Core.Domain.Users
 
         public virtual ICollection<Project> Projects { get; set; }
 
+        public virtual ICollection<Project> LastViewedProjects { get; set; }
+
+        public virtual ICollection<Project> LastUpdatedProjects { get; set; }
+
         public virtual ICollection<ProjectCategory> ProjectCategories { get; set; }
 
         public override string ToString()

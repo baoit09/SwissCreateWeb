@@ -1,5 +1,6 @@
 ﻿using SwissCreate.Core;
 using SwissCreate.Core.Domain.Projects;
+using SwissCreate.Core.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,5 +58,16 @@ namespace SwissCreate.Services.Projects
         bool ChangeProjectName(int projectId, string newName);
 
         bool UpdateProject(Project project);
+
+        bool LogLastViewProject(int projectId, User user);
+        bool LogLastUpdateProject(int projectId, User user);
+
+        /// <summary>      
+        /// 
+        /// Get project by Last View
+        /// </summary>
+        /// <param name="categoryId">category id</param>
+        /// <returns></returns>
+        IList<Project> GetProjectsByLastView(User user, int nTop);
     }
 }

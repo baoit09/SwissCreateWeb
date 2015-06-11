@@ -14,11 +14,12 @@
 
 <div class="row" style="margin-top:10px;">
     <div class="col-md-10">
-        <div id="divCheckBoxes_Measures" class="row radio" style="display: block; margin:10px; border-bottom:1px dotted; border-color:gray;">
+        <div id="divCheckBoxes_Measures" class="row radio" style="display: block; margin:10px">
             <label class="checkbox-inline"><input type="checkbox" id="checkbox_InPlanning" name="checkboxFilter" value="In Planning" class="checkboxFilter">In Planning</label>
             <label class="checkbox-inline"><input type="checkbox" id="checkbox_InBeginning" name="checkboxFilter" value="In Beginning" class="checkboxFilter">In Beginning</label>
             <label class="checkbox-inline"><input type="checkbox" id="checkbox_InFinished" name="checkboxFilter" value="In Finished" class="checkboxFilter">In Finished</label>
         </div>
+        <hr />
         <div id="jsGrid_Measures" style="min-height:500px; padding:0px;"></div>
     </div>
     <div class="col-md-2">@Html.Partial("StepResult", Model.ProjectData.Periods[0].Steps[stepIndex].Result)</div>

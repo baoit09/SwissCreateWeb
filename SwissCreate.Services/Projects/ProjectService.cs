@@ -1,7 +1,10 @@
 ﻿using SwissCreate.Core;
+using SwissCreate.Core.Caching;
 using SwissCreate.Core.Data;
 using SwissCreate.Core.Domain.Projects;
+using SwissCreate.Core.Domain.Users;
 using SwissCreate.Data;
+using SwissCreate.Services.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,24 +15,29 @@ namespace SwissCreate.Services.Projects
     {
         #region Constants
 
-        ///// <summary>
-        ///// Key for caching
-        ///// </summary>
-        ///// <remarks>
-        ///// {0} : show hidden records?
-        ///// </remarks>
-        //private const string PROJECT_ALL_KEY = "SwissCreate.Project.all-{0}";
-        ///// <summary>
-        ///// Key for caching
-        ///// </summary>
-        ///// <remarks>
-        ///// {0} : system name
-        ///// </remarks>
-        //private const string CUSTOMERROLES_BY_SYSTEMNAME_KEY = "Nop.customerrole.systemname-{0}";
-        ///// <summary>
-        ///// Key pattern to clear cache
-        ///// </summary>
-        //private const string CUSTOMERROLES_PATTERN_KEY = "Nop.customerrole.";
+        /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : show hidden records?
+        /// </remarks>
+        private const string PROJECT_ALL_KEY = "SwissCreate.Project.all";
+        /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : system name
+        /// </remarks>
+        private const string PROJECT_BY_PROJECTID_KEY = "SwissCreate.Project.ProjectId-{0}";
+
+        private const string PROJECT_BY_USERID_KEY = "SwissCreate.Project.UserId-{0}";
+
+        private const string PROJECT_BY_CATEGORYID_KEY = "SwissCreate.Project.CategoryId-{0}";
+
+        /// <summary>
+        /// Key pattern to clear cache
+        /// </summary>
+        private const string PROJECT_PATTERN_KEY = "SwissCreate.Project.";
 
         #endregion
 
@@ -37,14 +45,18 @@ namespace SwissCreate.Services.Projects
 
         private readonly IDbContext _dbContext;
         private readonly IRepository<Project> _projectRepository;
+        private readonly ICacheManager _cacheManager;
+        private readonly IEventPublisher _eventPublisher;
 
         #endregion
 
         #region Ctor
-        public ProjectService(IDbContext dbContext, IRepository<Project> projectRepository)
+        public ProjectService(IDbContext dbContext, IRepository<Project> projectRepository, ICacheManager cacheManager, IEventPublisher eventPublisher)
         {
             _dbContext = dbContext;
             _projectRepository = projectRepository;
+            _cacheManager = cacheManager;
+            _eventPublisher = eventPublisher;
         }
         #endregion
 
@@ -52,16 +64,20 @@ namespace SwissCreate.Services.Projects
 
         public IPagedList<Project> GetAllProjects(DateTime? startedDateFrom = null, DateTime? startedDateTo = null, int pageIndex = 0, int pageSize = Int32.MaxValue)
         {
-            var query = _projectRepository.Table;
+            string sKey = PROJECT_ALL_KEY;
+            return _cacheManager.Get(sKey, () =>
+            {
+                var query = _projectRepository.Table;
 
-            if (startedDateFrom.HasValue)
-                query = query.Where(p => startedDateFrom.Value <= p.StartedDate);
+                if (startedDateFrom.HasValue)
+                    query = query.Where(p => startedDateFrom.Value <= p.StartedDate);
 
-            if (startedDateTo.HasValue)
-                query = query.Where(p => p.StartedDate <= startedDateFrom.Value);
+                if (startedDateTo.HasValue)
+                    query = query.Where(p => p.StartedDate <= startedDateFrom.Value);
 
-            var projects = new PagedList<Project>(query, pageIndex, pageSize);
-            return projects;
+                var projects = new PagedList<Project>(query, pageIndex, pageSize);
+                return projects;
+            });
         }
 
         public Project GetProjectById(int projectId)
@@ -69,7 +85,11 @@ namespace SwissCreate.Services.Projects
             if (projectId == 0)
                 return null;
 
-            return _projectRepository.GetById(projectId);
+            string sKey = string.Format(PROJECT_BY_PROJECTID_KEY, projectId);
+            return _cacheManager.Get(sKey, () =>
+            {
+                return _projectRepository.GetById(projectId);
+            });
         }
 
         public IList<Project> GetProjectsByIds(int[] projectIds)
@@ -100,11 +120,15 @@ namespace SwissCreate.Services.Projects
             if (userId == 0)
                 return null;
 
-            var query = from p in _projectRepository.Table
-                        where p.UserId == userId
-                        select p;
-            var projects = query.ToList();
-            return projects;
+            string sKey = string.Format(PROJECT_BY_USERID_KEY, userId);
+            return _cacheManager.Get(sKey, () =>
+            {
+                var query = from p in _projectRepository.Table
+                            where p.UserId == userId
+                            select p;
+                var projects = query.ToList();
+                return projects;
+            });
         }
 
         public IList<Project> GetProjectsByCategory(int projectCategoryId)
@@ -112,12 +136,16 @@ namespace SwissCreate.Services.Projects
             if (projectCategoryId == 0)
                 return null;
 
-            var query = from p in _projectRepository.Table
-                        where p.ProjectCategoryId == projectCategoryId
-                        select p;
+            string sKey = string.Format(PROJECT_BY_CATEGORYID_KEY, projectCategoryId);
+            return _cacheManager.Get(sKey, () =>
+            {
+                var query = from p in _projectRepository.Table
+                            where p.ProjectCategoryId == projectCategoryId
+                            select p;
 
-            var projects = query.ToList();
-            return projects;
+                var projects = query.ToList();
+                return projects;
+            });
         }
 
         public bool AddProject(Project project)
@@ -126,6 +154,11 @@ namespace SwissCreate.Services.Projects
                 return false;
 
             _projectRepository.Insert(project);
+
+            _cacheManager.RemoveByPattern(PROJECT_PATTERN_KEY);
+
+            //event notification
+            _eventPublisher.EntityInserted(project);
 
             return true;
         }
@@ -138,6 +171,11 @@ namespace SwissCreate.Services.Projects
             var project = _projectRepository.GetById(projectId);
             if (project != null)
                 _projectRepository.Delete(project);
+
+            _cacheManager.RemoveByPattern(PROJECT_PATTERN_KEY);
+
+            //event notification
+            _eventPublisher.EntityDeleted(project);
 
             return true;
         }
@@ -167,7 +205,53 @@ namespace SwissCreate.Services.Projects
                 return false;
 
             _projectRepository.Update(project);
+
+            _cacheManager.RemoveByPattern(PROJECT_PATTERN_KEY);
+
+            //event notification
+            _eventPublisher.EntityUpdated(project);
+
             return true;
+        }
+
+        public bool LogLastViewProject(int projectId, User user)
+        {
+            var project = _projectRepository.GetById(projectId);
+            if (project != null)
+            {
+                project.LastViewedDateTime = DateTime.Now;
+                project.LastViewedByUserId = user.Id;
+                _projectRepository.Update(project);
+                return true;
+            }
+            return false;
+        }
+
+        public bool LogLastUpdateProject(int projectId, User user)
+        {
+            var project = _projectRepository.GetById(projectId);
+            if (project != null)
+            {
+                project.LastUpdatedDateTime = DateTime.Now;
+                project.LastUpdatedByUser = user;
+                _projectRepository.Update(project);
+                return true;
+            }
+            return false;
+        }
+
+        public IList<Project> GetProjectsByLastView(User user, int nTop)
+        {
+            if (user == null)
+                return null;
+
+            var query = from p in _projectRepository.TableNoTracking
+                        where p.LastViewedByUserId == user.Id
+                        orderby p.LastViewedDateTime descending
+                        select p;
+
+            var projects = query.Take(nTop).ToList();
+            return projects;
         }
 
         #endregion

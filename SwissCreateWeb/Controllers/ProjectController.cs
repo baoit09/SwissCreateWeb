@@ -9,6 +9,7 @@ using SwissCreateWeb.Extensions;
 using SwissCreateWeb.Framework.Helpers;
 using ViCode_LeVi.Data;
 using Newtonsoft.Json;
+using SwissCreateWeb.CustomAttributes;
 
 namespace SwissCreateWeb.Controllers
 {
@@ -42,6 +43,10 @@ namespace SwissCreateWeb.Controllers
         {
             ProjectEditModel model  = LocalGetProjectEditModel(ProjectId);
             ViewBag.ProjectSettings = _projectSettings;
+
+            // Log Last Viewed DateTime and by User
+            _projectService.LogLastViewProject(ProjectId, _workContext.CurrentUser);
+
             return View(model);
         }
 
@@ -60,6 +65,11 @@ namespace SwissCreateWeb.Controllers
                 string sXML = projectEditModel.ProjectData.ToXML();
                 project.ProjectData = sXML;
                 bSuccess = _projectService.UpdateProject(project);                
+            }
+            if (bSuccess)
+            {
+                // Log Last Update DateTime and by User
+                _projectService.LogLastUpdateProject(projectEditModel.Project.Id, _workContext.CurrentUser);
             }
             return Json(new { success = bSuccess });
         }
@@ -374,81 +384,6 @@ namespace SwissCreateWeb.Controllers
         #endregion
 
         #region Tab_SuccessFactors
-
-        public ActionResult Tab_SuccessFactors(int projectId)
-        {
-            ProjectEditModel model = LocalGetProjectEditModel(projectId);
-            ViewBag.StepIndex = _projectSettings.Step_SuccessFactors_Index;
-            return PartialView(model);
-        }
-
-        public ActionResult Get_Step_TaskItemStep(int projectId)
-        {
-            int stepIndex = _projectSettings.Step_SuccessFactors_Index;
-
-            var project = _projectService.GetProjectById(projectId);
-            if (project != null)
-            {
-                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
-                if (projectData != null)
-                {
-                    var taskItemStep = projectData.Periods[0].Steps[stepIndex].TaskItemStep;
-
-                    string sJson = JsonConvert.SerializeObject(taskItemStep);
-                    return Json(sJson);
-                }
-            }
-
-            return Json(string.Empty);
-        }
-
-        public ActionResult Post_Step_TaskItemStep(int projectId, Step_TaskItem[] tasks0, Step_TaskItem[] tasks1, Step_TaskItem[] tasks2)
-        {
-            int stepIndex = _projectSettings.Step_SuccessFactors_Index;
-
-            bool bSuccess = false;
-            var project = _projectService.GetProjectById(projectId);
-            if (project != null)
-            {
-                ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
-                if (projectData != null)
-                {
-                    //projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[0].Tasks_Source = tasks0;
-                    //projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[1].Tasks = tasks1;
-                    //projectData.Periods[0].Steps[stepIndex].TaskItemStep.TaskItemGroups[2].Tasks = tasks2;
-
-                    string sXML = projectData.ToXML();
-                    project.ProjectData = sXML;
-
-                    bSuccess = _projectService.UpdateProject(project);
-                }
-            }
-
-            return Json(new { success = bSuccess });
-        }
-
-        //public ActionResult Post_Step_TaskItemStep(int projectId, int stepIndex)
-        //{
-        //    Step_TaskItemStep taskItemStep = null;
-        //    bool bSuccess = false;
-        //    var project = _projectService.GetProjectById(projectId);
-        //    if (project != null)
-        //    {
-        //        ProjectData projectData = ProjectData.GetFromXML(project.ProjectData);
-        //        if (projectData != null)
-        //        {
-        //            projectData.Period.Steps[stepIndex].TaskItemStep = taskItemStep;
-
-        //            string sXML = projectData.ToXML();
-        //            project.ProjectData = sXML;
-
-        //            bSuccess = _projectService.UpdateProject(project);
-        //        }
-        //    }
-
-        //    return Json(new { success = bSuccess });
-        //}
-
 
         #endregion
 
